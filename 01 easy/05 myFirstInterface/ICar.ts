@@ -3,6 +3,7 @@
  * Use 'export' to provide the ability to import the interface in other files (see app.ts)
  */
 export interface ICar {
-  name: String;
+  // defines a readonly property
+  readonly name: String;
   start(): void;
 }

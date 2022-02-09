@@ -17,6 +17,11 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Duck = void 0;
 var Animal_1 = require("./Animal");
+/**
+ * Instances of that class represent a Duck.
+ * A duck is an animal and extends class 'Animal'
+ * The abstract function 'makeNoise' is redefined
+ */
 var Duck = /** @class */ (function (_super) {
     __extends(Duck, _super);
     function Duck() {
