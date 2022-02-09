@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 require("./BooleanExtension");
-require("./StringExtension");
+require("./stringExtension");
 var falseValue = false;
 falseValue.ifFalse(function () { return console.log("I am false"); });
 var trueValue = true;

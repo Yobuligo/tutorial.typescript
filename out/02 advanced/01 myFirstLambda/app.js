@@ -1,8 +1,9 @@
-// defines a lambda expression
-// instead of only assigning values (String, Number, etc.) and references (class instances) to a variable, functions can be assigned as well
-// the lambda expression contains of a variable part and and implementation body
-// the variables of the functions are provided via (). It can contain of importing and returning variables (x: type): type
-// the implementation body is separated from the variables via => and the implementation body, the productive code itself is provided between {}
+// defines a lambda expression (an expression that can be assigned to a variable and which is executable)
+// instead of only assigning values (string, number, etc.) and references (class instances) to a variable, functions can be assigned as well
+// the lambda expression contains of a parameter part and an implementation body
+// the parameter of the functions are provided via (). It can consist of importing and returning parameter (x: type): type
+// the implementation body is separated from the parameters via =>
+// the implementation body, the productive code itself, is provided between {}
 // declare a lambda expression
 var lambdaExpression = function () {
     console.log("lambda was executed");
