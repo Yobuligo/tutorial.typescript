@@ -1,0 +1,1 @@
+{"version":3,"file":"BooleanExtension.js","sourceRoot":"","sources":["../../../02 advanced/extensionFunction/BooleanExtension.ts"],"names":[],"mappings":";;AASA,OAAO,CAAC,SAAS,CAAC,MAAM,GAAG,UAAU,KAAiB;IACpD,IAAI,IAAI,EAAE;QACR,KAAK,EAAE,CAAC;KACT;AACH,CAAC,CAAC;AAEF,OAAO,CAAC,SAAS,CAAC,OAAO,GAAG,UAAU,KAAiB;IACrD,IAAI,CAAC,IAAI,EAAE;QACT,KAAK,EAAE,CAAC;KACT;AACH,CAAC,CAAC"}
