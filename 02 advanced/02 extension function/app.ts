@@ -13,7 +13,7 @@ trueValue.ifTrue(() => println("I am true"));
 
 // Declare string variable, initialize it by setting a text and call extension function ifNotEmpty
 const text = "Here is my Text";
-text.ifNotEmpty((value) => {
+text.ifNotEmpty(value => {
   // The following code is executed if 'text' is not empty. Value is the 'text' object itself.
   println(`Value is my text object and it is filled with ${value}`);
 });

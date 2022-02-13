@@ -19,4 +19,6 @@ var sumLambdaExpression = function (x, y) {
 };
 //print the result
 (0, GlobalFunctions_1.println)(sumLambdaExpression(1, 2));
+//declare a lambda expression in shorter for single-line returns
+var shortSumLambdaExpression = function (x, y) { return x + y; };
 //# sourceMappingURL=app.js.map

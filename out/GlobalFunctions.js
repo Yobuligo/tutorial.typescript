@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.println = void 0;
+exports.TODO = exports.println = void 0;
 function println() {
     var data = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -9,4 +9,9 @@ function println() {
     console.log.apply(console, data);
 }
 exports.println = println;
+function TODO(message) {
+    if (message === void 0) { message = "Not implemented exception"; }
+    throw new Error(message);
+}
+exports.TODO = TODO;
 //# sourceMappingURL=GlobalFunctions.js.map
