@@ -29,6 +29,6 @@ var PersonPrinter = /** @class */ (function () {
     return PersonPrinter;
 }());
 new PersonPrinter().print(new Person("Stacey", "Starfish"));
-(0, GlobalFunctions_1.println)("");
+(0, GlobalFunctions_1.newLine)();
 new PersonPrinter().print(new Person("Stacey", "Starfish", "Fishy"));
 //# sourceMappingURL=app.js.map

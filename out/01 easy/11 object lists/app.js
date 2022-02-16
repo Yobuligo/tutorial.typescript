@@ -10,7 +10,7 @@ trees1.push(new Linde_1.Linde());
 trees1[3] = new Kiefer_1.Kiefer();
 // calls 'name' polymorph and prints it
 trees1.forEach(function (tree) { return (0, GlobalFunctions_1.println)(tree.name); });
-(0, GlobalFunctions_1.println)("");
+(0, GlobalFunctions_1.newLine)();
 // declare variable 'trees2' through type inference by adding values to the list
 var trees2 = [new Kiefer_1.Kiefer(), new Linde_1.Linde()];
 trees2.forEach(function (tree) { return (0, GlobalFunctions_1.println)(tree.name); });

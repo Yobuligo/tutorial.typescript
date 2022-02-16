@@ -1,4 +1,4 @@
-import { println } from "../../GlobalFunctions";
+import { newLine, println } from "../../GlobalFunctions";
 
 /**
  * This class is responsible for keeping attributes of a person and printing them
@@ -32,5 +32,5 @@ class PersonPrinter {
 }
 
 new PersonPrinter().print(new Person("Stacey", "Starfish"));
-println("");
+newLine();
 new PersonPrinter().print(new Person("Stacey", "Starfish", "Fishy"));

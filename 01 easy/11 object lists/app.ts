@@ -1,4 +1,4 @@
-import { println } from "../../GlobalFunctions";
+import { newLine, println } from "../../GlobalFunctions";
 import { ITree } from "./ITree";
 import { Kiefer } from "./Kiefer";
 import { Linde } from "./Linde";
@@ -12,7 +12,7 @@ trees1[3] = new Kiefer();
 // calls 'name' polymorph and prints it
 trees1.forEach((tree) => println(tree.name));
 
-println("");
+newLine();
 
 // declare variable 'trees2' through type inference by adding values to the list
 const trees2 = [new Kiefer(), new Linde()];
