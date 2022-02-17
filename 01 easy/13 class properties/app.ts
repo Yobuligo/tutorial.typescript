@@ -12,7 +12,7 @@ class Plant {
     return this._name;
   }
 
-  // same for set
+  // same for set but with the new 'value' as parameter
   public set name(value: string) {
     this._countSetName++;
     this._name = value;

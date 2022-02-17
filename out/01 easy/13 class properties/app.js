@@ -14,7 +14,7 @@ var Plant = /** @class */ (function () {
             this._countGetName++;
             return this._name;
         },
-        // same for set
+        // same for set but with the new 'value' as parameter
         set: function (value) {
             this._countSetName++;
             this._name = value;
