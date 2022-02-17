@@ -7,10 +7,7 @@ import { TextPrinter } from "../../01 easy/09 inline interface implementation/Te
 import { lazy, println } from "../../GlobalFunctions";
 
 class Printer {
-  private textPrinter = lazy(() => {
-    println("create Instance of text printer.");
-    return new TextPrinter();
-  });
+  private textPrinter = lazy(() => this.createTextPrinter());
 
   print(message: string) {
     this.textPrinter.instance.print({
@@ -18,6 +15,11 @@ class Printer {
         return message;
       },
     });
+  }
+
+  private createTextPrinter(){
+    println("create Instance of text printer.");
+    return new TextPrinter()
   }
 }
 
