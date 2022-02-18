@@ -6,7 +6,7 @@ declare global {
   }
 
   interface String {
-    ifNotEmpty(block: (value: string) => void): void;
+    ifNotEmpty(block: (value: string) => void): void;    
   }
 
   interface Boolean {

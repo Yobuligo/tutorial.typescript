@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Lazy = exports.Triple = exports.Pair = void 0;
+exports.KClass = exports.Lazy = exports.Triple = exports.Pair = void 0;
 var Pair = /** @class */ (function () {
     function Pair(first, second) {
         this.first = first;
@@ -51,4 +51,11 @@ var Lazy = /** @class */ (function () {
     return Lazy;
 }());
 exports.Lazy = Lazy;
+var KClass = /** @class */ (function () {
+    function KClass(name) {
+        this.name = name;
+    }
+    return KClass;
+}());
+exports.KClass = KClass;
 //# sourceMappingURL=GlobalClasses.js.map

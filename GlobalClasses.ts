@@ -40,3 +40,7 @@ export class Lazy<T> implements ILazy<T> {
     this._initialized = true;
   }
 }
+
+export class KClass<T> {
+  constructor(public readonly name: string) {}
+}

@@ -17,7 +17,7 @@ class Printer {
     });
   }
 
-  private createTextPrinter(){
+  private createTextPrinter(): TextPrinter {
     println("create Instance of text printer.");
     return new TextPrinter()
   }
