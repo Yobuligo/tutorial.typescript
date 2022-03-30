@@ -15,3 +15,13 @@ for (let i in numbers) {
 numbers.forEach((entry) => {
   console.log(entry);
 });
+
+// creates a tuple, a list with any number of elements of specific types and only these types.
+let personList: [string, string, number][] = [];
+personList.push(["Stacey", "Starfish", 20]);
+personList.push(["Jimmy", "Jellyfish", 25]);
+personList.forEach((entry) => {
+  console.log(
+    `My name is ${entry[0]} ${entry[1]}. I am ${entry[2]} years old.`
+  );
+});

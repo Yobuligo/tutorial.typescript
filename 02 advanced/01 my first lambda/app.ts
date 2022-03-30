@@ -4,6 +4,7 @@
 // the parameter of the functions are provided via (). It can consist of importing and returning parameter (x: type): type
 // the implementation body is separated from the parameters via =>
 // the implementation body, the productive code itself, is provided between {}
+// in typescript it is called Arrow Function
 
 import { println } from "../../GlobalFunctions";
 
@@ -15,13 +16,14 @@ let lambdaExpression = () => {
 // as the variable 'lambdaExpression' is a function it can be executed
 lambdaExpression();
 
-//declare a lambda expression that returns the sum of two values
-let sumLambdaExpression = (x: number, y: number): number => {
+// declare a lambda expression that returns the sum of two values. As a function is assigned the type is 'Function'.
+// By inferring the type ': Function' can be removed.
+let sumLambdaExpression: Function = (x: number, y: number): number => {
   return x + y;
 };
 
-//print the result
+// print the result
 println(sumLambdaExpression(1, 2));
 
-//declare a lambda expression in shorter for single-line returns
+// declare a lambda expression in shorter for single-line returns
 let shortSumLambdaExpression = (x: number, y: number): number => x + y;
