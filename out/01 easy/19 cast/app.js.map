@@ -1,1 +1,1 @@
-{"version":3,"file":"app.js","sourceRoot":"","sources":["../../../01 easy/19 cast/app.ts"],"names":[],"mappings":";;AAAA,yDAAgD;AAOhD,IAAI,MAAM,GAAW;IACnB,SAAS,EAAE,QAAQ;IACnB,QAAQ,EAAE,UAAU;CACrB,CAAC;AAEF,IAAA,yBAAO,EAAC,sBAAe,MAAM,CAAC,SAAS,cAAI,MAAM,CAAC,QAAQ,CAAE,CAAC,CAAC"}
+{"version":3,"file":"app.js","sourceRoot":"","sources":["../../../01 easy/19 cast/app.ts"],"names":[],"mappings":";;AAAA,yDAAgD;AAQhD,mIAAmI;AACnI,IAAI,MAAM,GAAY;IACpB,SAAS,EAAE,QAAQ;IACnB,QAAQ,EAAE,UAAU;CACrB,CAAC;AAEF,IAAA,yBAAO,EAAC,sBAAe,MAAM,CAAC,SAAS,cAAI,MAAM,CAAC,QAAQ,CAAE,CAAC,CAAC"}

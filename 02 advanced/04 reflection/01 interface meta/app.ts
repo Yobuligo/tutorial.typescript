@@ -1,8 +1,4 @@
-/**
- * Test your code here before moving it in a concrete chapter
- */
-
-import { println } from "./GlobalFunctions";
+import { println } from "../../../GlobalFunctions";
 
 // Meta definition which should provide reflection info of [T]
 export interface IMeta<T> {
@@ -16,7 +12,7 @@ export interface IHaveId {
 }
 
 // Meta definition specific for [IHaveId].
-// Instead of a class a const is used for providing reflection info, 
+// Instead of a class a const is used for providing reflection info,
 // which could even have the same name like the interface
 // name: the name is provided by default from typescript
 // is: additional methods can be assigned by a static function implementation
