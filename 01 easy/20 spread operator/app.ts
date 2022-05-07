@@ -26,7 +26,11 @@ list.printList();
 list = new List(1, 2, 3, 4, 5);
 list.printList();
 
+// hand over an array to a spread operator which was defined before
+const elements = [11, 12, 13, 14, 15];
+list = new List(...elements);
+list.printList();
+
 // hand over an array to a spread operator
-const elements = [11,12,13,14,15]
-list = new List(...elements)
-list.printList()
+list = new List(...[11, 12, 13, 14, 15]);
+list.printList();
