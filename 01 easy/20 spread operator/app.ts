@@ -18,7 +18,15 @@ class List<T> {
   }
 }
 
+// hand over single value
 let list = new List(1);
 list.printList();
+
+// hand over several single values
 list = new List(1, 2, 3, 4, 5);
 list.printList();
+
+// hand over an array to a spread operator
+const elements = [11,12,13,14,15]
+list = new List(...elements)
+list.printList()

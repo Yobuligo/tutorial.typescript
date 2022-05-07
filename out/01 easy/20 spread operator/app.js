@@ -33,4 +33,7 @@ var list = new List(1);
 list.printList();
 list = new List(1, 2, 3, 4, 5);
 list.printList();
+var elements = [11, 12, 13, 14, 15];
+list = new (List.bind.apply(List, __spreadArray([void 0], elements, false)))();
+list.printList();
 //# sourceMappingURL=app.js.map
