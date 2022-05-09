@@ -3,3 +3,4 @@
  */
 
 class DEmo{}
+class Demo2 {}
