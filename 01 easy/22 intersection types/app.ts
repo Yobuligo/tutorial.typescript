@@ -1,4 +1,5 @@
 // An interception type is a type that contains other types
+// Works also for interfaces
 
 type Index = string | number;
 type Passed = boolean;
