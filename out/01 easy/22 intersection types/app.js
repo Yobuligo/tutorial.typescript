@@ -1,4 +1,4 @@
-// An interception type is a type that contains other types
+// An intersection type is a type that contains other types
 // Works also for interfaces
 var userAddress = {
     firstname: "Stacey",
