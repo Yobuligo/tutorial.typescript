@@ -2,8 +2,11 @@
  * Test your code here before moving it in a concrete chapter
  */
 
-class Demo {}
-class Demo2 {}
-class Demo3 {}
-class Demo4 {}
-class Demo5 {}
+function assert(condition: any) {
+  if (!condition == false) {
+    throw new Error("Condition not valid");
+  }
+}
+
+const firstname = "";
+assert(firstname == "");
