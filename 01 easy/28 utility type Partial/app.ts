@@ -1,5 +1,5 @@
 /**
- * Partial is a specific type. It can be used to define a variable that must only contain of parts of a given type.
+ * Partial is a specific "Utility Type". It can be used to define a variable that must only contain of parts of a given type.
  */
 
 interface ICourse {
