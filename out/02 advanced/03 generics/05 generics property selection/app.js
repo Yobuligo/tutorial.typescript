@@ -1,32 +1,30 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PropertySelector = void 0;
-var GlobalFunctions_1 = require("../../../GlobalFunctions");
+const GlobalFunctions_1 = require("../../../GlobalFunctions");
 /**
  * Class that is responsible for returning a type safe property of the given 'instance'
  * while 'instance' can have any type. Although each type is supported, we want to know the type. So we use the generics type T.
  */
-var PropertySelector = /** @class */ (function () {
-    function PropertySelector(instance) {
+class PropertySelector {
+    constructor(instance) {
         this.instance = instance;
     }
-    PropertySelector.prototype.selectProperty = function (selector) {
+    selectProperty(selector) {
         return selector(this.instance);
-    };
-    return PropertySelector;
-}());
+    }
+}
 exports.PropertySelector = PropertySelector;
-var Person = /** @class */ (function () {
-    function Person(firstname, lastname, age) {
+class Person {
+    constructor(firstname, lastname, age) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.age = age;
     }
-    return Person;
-}());
-var person = new Person("Stacey", "Starfish", 30);
-var propertySelector = new PropertySelector(person);
-var selectedProperty = propertySelector.selectProperty(function (instance) {
+}
+const person = new Person("Stacey", "Starfish", 30);
+const propertySelector = new PropertySelector(person);
+const selectedProperty = propertySelector.selectProperty((instance) => {
     return instance.age;
 });
 // I know the type of 'selectedProperty' by type inference, which means I can call the specific functions, which makes the code more stable

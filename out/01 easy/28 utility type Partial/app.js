@@ -8,5 +8,5 @@
 /**
  * By using Partial it would work. Or properties are considered as optional. And you only have access to the properties of [ICourse].
  */
-var myCourse = {};
+const myCourse = {};
 //# sourceMappingURL=app.js.map

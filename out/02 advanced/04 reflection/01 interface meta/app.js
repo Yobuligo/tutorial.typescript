@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.IHaveId = void 0;
-var GlobalFunctions_1 = require("../../../GlobalFunctions");
+const GlobalFunctions_1 = require("../../../GlobalFunctions");
 // Meta definition specific for [IHaveId].
 // Instead of a class a const is used for providing reflection info,
 // which could even have the same name like the interface
@@ -12,12 +12,11 @@ exports.IHaveId.is = function (object) {
     return "id" in object;
 };
 // Usage
-var Test = /** @class */ (function () {
-    function Test() {
+class Test {
+    constructor() {
         this.id = "12";
     }
-    return Test;
-}());
+}
 (0, GlobalFunctions_1.println)(exports.IHaveId.name);
 (0, GlobalFunctions_1.println)(exports.IHaveId.is(new Test()));
 //# sourceMappingURL=app.js.map

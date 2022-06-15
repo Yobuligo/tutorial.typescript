@@ -1,11 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Linde = void 0;
-var Linde = /** @class */ (function () {
-    function Linde() {
+class Linde {
+    constructor() {
         this.name = "Linde";
     }
-    return Linde;
-}());
+}
 exports.Linde = Linde;
 //# sourceMappingURL=Linde.js.map

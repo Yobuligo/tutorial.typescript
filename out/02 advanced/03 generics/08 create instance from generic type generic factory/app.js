@@ -1,29 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var GlobalFunctions_1 = require("../../../GlobalFunctions");
+const GlobalFunctions_1 = require("../../../GlobalFunctions");
 /**
  * Class that represents a person
  */
-var Person = /** @class */ (function () {
-    function Person() {
-    }
-    return Person;
-}());
+class Person {
+}
 /**
  * Class which is responsible for creating instance from a generics type
  */
-var Factory = /** @class */ (function () {
-    function Factory() {
-    }
-    Factory.prototype.create = function () {
-        var type;
+class Factory {
+    create() {
+        let type;
         return new type();
-    };
-    return Factory;
-}());
-var factory = new Factory();
-var person = factory.create();
+    }
+}
+const factory = new Factory();
+const person = factory.create();
 person.firstname = "Stacey";
 person.lastname = "Starfish";
-(0, GlobalFunctions_1.println)("".concat(person.firstname, " ").concat(person.lastname, " was created."));
+(0, GlobalFunctions_1.println)(`${person.firstname} ${person.lastname} was created.`);
 //# sourceMappingURL=app.js.map

@@ -7,20 +7,20 @@
 // the implementation body, the productive code itself, is provided between {}
 // in typescript it is called Arrow Function
 Object.defineProperty(exports, "__esModule", { value: true });
-var GlobalFunctions_1 = require("../../GlobalFunctions");
+const GlobalFunctions_1 = require("../../GlobalFunctions");
 // declare a lambda expression
-var lambdaExpression = function () {
+let lambdaExpression = () => {
     (0, GlobalFunctions_1.println)("lambda was executed");
 };
 // as the variable 'lambdaExpression' is a function it can be executed
 lambdaExpression();
 // declare a lambda expression that returns the sum of two values. As a function is assigned the type is 'Function'.
 // By inferring the type ': Function' can be removed.
-var sumLambdaExpression = function (x, y) {
+let sumLambdaExpression = (x, y) => {
     return x + y;
 };
 // print the result
 (0, GlobalFunctions_1.println)(sumLambdaExpression(1, 2));
 // declare a lambda expression in shorter for single-line returns
-var shortSumLambdaExpression = function (x, y) { return x + y; };
+let shortSumLambdaExpression = (x, y) => x + y;
 //# sourceMappingURL=app.js.map

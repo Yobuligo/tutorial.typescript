@@ -1,1 +1,1 @@
-{"version":3,"file":"app.js","sourceRoot":"","sources":["../../../01 easy/29 utility type Readonly/app.ts"],"names":[],"mappings":"AAAA;;GAEG;AAEH,IAAM,MAAM,GAAuB,CAAC,QAAQ,EAAE,QAAQ,CAAC,CAAC;AAExD;;GAEG;AACH,qBAAqB"}
+{"version":3,"file":"app.js","sourceRoot":"","sources":["../../../01 easy/29 utility type Readonly/app.ts"],"names":[],"mappings":"AAAA;;GAEG;AAEH,MAAM,MAAM,GAAuB,CAAC,QAAQ,EAAE,QAAQ,CAAC,CAAC;AAExD;;GAEG;AACH,qBAAqB;AAGrB,MAAM,cAAc;IAApB;QACI,SAAI,GAAW,EAAE,CAAA;QACjB,UAAK,GAAW,EAAE,CAAA;IACtB,CAAC;CAAA;AAED,MAAM,cAAc,GAA6B,IAAI,cAAc,EAAE,CAAA;AACrE,8BAA8B"}
