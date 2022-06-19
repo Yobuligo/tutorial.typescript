@@ -1,5 +1,6 @@
 /**
  * Readonly is a specific "Utility Type". It can be used to define that a variable or even properties of an object are readonly.
+ * At the end it takes a type T and returns another type with the same shape as T but with all fields set to readonly.
  */
 const myList = ["Stacey", "Bertha"];
 /**
@@ -13,5 +14,4 @@ class ReadOnlyObject {
     }
 }
 const readOnlyObject = new ReadOnlyObject();
-// readOnlyObject.name = "123"
 //# sourceMappingURL=app.js.map
