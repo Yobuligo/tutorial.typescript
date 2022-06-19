@@ -4,22 +4,25 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const GlobalFunctions_1 = require("./GlobalFunctions");
-class MyLogger {
-    log(tag, text) {
-        if (typeof (tag) == "object") {
-            (0, GlobalFunctions_1.println)(tag.constructor.name);
-            // const text = tag as any
-            // println(text.name)
+/**
+ * TypeScript to ABAP
+ * - Restriction of names (30 characters)
+ * - Namespace
+ */
+const Config = {
+    isLoggingActive: true,
+    needsSendingToBackend: true,
+    delayInMillis: 200
+};
+function updateConfig(json) {
+    for (const prop in json) {
+        if (Config[prop] !== undefined) {
+            Config[prop] = json[prop];
         }
-        console.log(`${tag}: ${text}`);
     }
 }
-class MyTest {
-    test() {
-        const logger = new MyLogger();
-        logger.log(this, "test");
-    }
-}
-const myTest = new MyTest();
-myTest.test();
+const json = JSON.parse('{"isLoggingActive":"false","needsSendingToBackend": "false","delayInMillis":"300"}');
+updateConfig(json);
+// println(`${Config.isLoggingActive}, ${Config.needsSendingToBackend}`);
+(0, GlobalFunctions_1.println)(Config);
 //# sourceMappingURL=greenField.js.map
