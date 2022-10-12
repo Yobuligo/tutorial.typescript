@@ -46,3 +46,6 @@ const mySecondPerson = {
   ...myFirstPerson,
   age: 28,
 };
+
+// So the spread operator can be used to clone / copy objects
+const myThirdPerson = { ...myFirstPerson };
