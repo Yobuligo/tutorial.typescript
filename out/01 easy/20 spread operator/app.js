@@ -28,4 +28,11 @@ list.printList();
 // hand over an array to a spread operator
 list = new List(...[11, 12, 13, 14, 15]);
 list.printList();
+// the spread operator can also be used for objects to take over all properties of an object
+// 'mySecondPerson takes of all properties of 'myFirstPerson' and adds the property age
+const myFirstPerson = {
+    firstname: "Peter",
+    lastname: "Hoffmann",
+};
+const mySecondPerson = Object.assign({}, myFirstPerson, { age: 28 });
 //# sourceMappingURL=app.js.map
