@@ -2,5 +2,7 @@
 // the following example shows the variable 'args' which is converted to an array
 // e.g. it is possible to call methods, which are only available on arrays
 function convertToArray(...args) {
-  args.filter(() => {});
+  return args.filter((element) => {
+    element === "Test";
+  });
 }
