@@ -4,7 +4,7 @@ const GlobalFunctions_1 = require("../../GlobalFunctions");
 // Copy all values from one array in another
 let values = ["one", "two", "three"];
 let values2 = [...values];
-(0, GlobalFunctions_1.println)(values2);
+GlobalFunctions_1.println(values2);
 // provides the possibility to hand over elements as varargs to e.g. a constructor
 class List {
     constructor(...elements) {
@@ -12,7 +12,7 @@ class List {
         this.elements = elements;
     }
     printList() {
-        (0, GlobalFunctions_1.println)(this.elements);
+        GlobalFunctions_1.println(this.elements);
     }
 }
 // hand over single value

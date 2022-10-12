@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TextProvider = void 0;
 /**
  * This text provider provides text
  */

@@ -24,5 +24,5 @@ person.firstname = "Stacey";
 person.lastname = "Starfish";
 // Clone person
 const newPerson = new Cloner().clone(person, Person);
-(0, GlobalFunctions_1.println)(`${person.firstname} ${person.lastname} was cloned.`);
+GlobalFunctions_1.println(`${person.firstname} ${person.lastname} was cloned.`);
 //# sourceMappingURL=app.js.map

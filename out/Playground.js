@@ -1,28 +1,26 @@
+"use strict";
 /**
  * Test your code here before moving it into a concrete chapter
  */
-process.stdout.write("Welcome to GeeksforGeeks! ");
-process.stdout.write("A computer science portal for geeks");
-// import { repeat } from "./core/repeat";
-// process.stdout.write("Downloading "+ " bytes\r");
-// const text = "Mein Text";
-// process.stdout.write("Das ist ein Test");
-// repeat(100, (it) => {
-// });
-// interface IGadget {}
-// class MobilePhone implements IGadget {}
-// class BeerOpener implements IGadget {}
-// abstract class Human<T extends IGadget> {
-//   abstract createDevice(): T;
-// }
-// class Human1970s extends Human<BeerOpener> {
-//   createDevice(): BeerOpener {
-//     return new BeerOpener();
-//   }
-// }
-// class Human2000s extends Human<MobilePhone> {
-//   createDevice(): MobilePhone {
-//     return new MobilePhone();
-//   }
-// }
+Object.defineProperty(exports, "__esModule", { value: true });
+const GlobalFunctions_1 = require("./GlobalFunctions");
+class EventService {
+    constructor() {
+        this.eventHandlers = [];
+    }
+    register(eventHandler) {
+        this.eventHandlers.push(eventHandler);
+    }
+    unregister(eventHandler) {
+        this.eventHandlers.indexOf(eventHandler);
+    }
+}
+const eventHandlers = [];
+const eventHandler1 = () => { };
+const eventHandler2 = () => { };
+const eventHandler3 = () => { };
+eventHandlers.push(eventHandler1);
+eventHandlers.push(eventHandler2);
+eventHandlers.push(eventHandler3);
+GlobalFunctions_1.println(eventHandlers.indexOf(eventHandler2));
 //# sourceMappingURL=Playground.js.map

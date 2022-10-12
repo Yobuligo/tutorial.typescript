@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.lazy = exports.TODO = exports.newLine = exports.println = void 0;
 const GlobalClasses_1 = require("./GlobalClasses");
 /**
  * This function is responsible for wrapping the function console.log.

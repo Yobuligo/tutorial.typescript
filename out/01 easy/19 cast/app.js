@@ -6,5 +6,5 @@ let person = {
     firstname: "Stacey",
     lastname: "Starfish",
 };
-(0, GlobalFunctions_1.println)(`Hey this is ${person.firstname} ${person.lastname}`);
+GlobalFunctions_1.println(`Hey this is ${person.firstname} ${person.lastname}`);
 //# sourceMappingURL=app.js.map

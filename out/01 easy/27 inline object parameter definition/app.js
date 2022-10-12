@@ -9,6 +9,6 @@ class Container {
     }
 }
 const container = new Container({ firstname: "Stacey", lastname: "Starfish" });
-(0, GlobalFunctions_1.println)(container.object.firstname);
-(0, GlobalFunctions_1.println)(container.object.lastname);
+GlobalFunctions_1.println(container.object.firstname);
+GlobalFunctions_1.println(container.object.lastname);
 //# sourceMappingURL=app.js.map

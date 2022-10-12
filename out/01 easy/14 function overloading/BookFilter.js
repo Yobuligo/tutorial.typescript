@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BookFilter = void 0;
 /**
  * This class represents a book filter
  */

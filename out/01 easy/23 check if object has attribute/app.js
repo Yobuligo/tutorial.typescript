@@ -18,16 +18,16 @@ class Admin {
 }
 let something = new Employee();
 if ("firstname" in something) {
-    (0, GlobalFunctions_1.println)(something.firstname);
+    GlobalFunctions_1.println(something.firstname);
 }
 else {
-    (0, GlobalFunctions_1.println)("Employee has no property firstname");
+    GlobalFunctions_1.println("Employee has no property firstname");
 }
 something = new Admin();
 if ("firstname" in something) {
-    (0, GlobalFunctions_1.println)(something.firstname);
+    GlobalFunctions_1.println(something.firstname);
 }
 else {
-    (0, GlobalFunctions_1.println)("Admin has no property firstname");
+    GlobalFunctions_1.println("Admin has no property firstname");
 }
 //# sourceMappingURL=app.js.map

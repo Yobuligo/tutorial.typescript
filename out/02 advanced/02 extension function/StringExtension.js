@@ -7,4 +7,4 @@ String.prototype.ifNotEmpty = function (block) {
         block(this);
     }
 };
-//# sourceMappingURL=StringExtension.js.map
+//# sourceMappingURL=stringExtension.js.map

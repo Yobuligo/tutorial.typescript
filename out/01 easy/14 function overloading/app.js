@@ -8,15 +8,15 @@ const BookStore_1 = require("./BookStore");
 const bookStore = new BookStore_1.BookStore();
 const bookPresenter = new BookPresenter_1.BookPresenter();
 // find all
-(0, GlobalFunctions_1.println)("find all");
+GlobalFunctions_1.println("find all");
 bookStore.find().forEach((book) => bookPresenter.present(book));
-(0, GlobalFunctions_1.newLine)();
+GlobalFunctions_1.newLine();
 // find by a given id
-(0, GlobalFunctions_1.println)("find by ISBN");
+GlobalFunctions_1.println("find by ISBN");
 bookPresenter.present(bookStore.find("148427010X"));
-(0, GlobalFunctions_1.newLine)();
+GlobalFunctions_1.newLine();
 // find via 'IBookFilter'
-(0, GlobalFunctions_1.println)("find by filter");
+GlobalFunctions_1.println("find by filter");
 bookStore
     .findByBookFilter(new BookFilter_1.BookFilter(null, `Improve`))
     .forEach((book) => bookPresenter.present(book));

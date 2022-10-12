@@ -19,7 +19,7 @@ class ValueContainer {
 }
 class Printable {
     print() {
-        (0, GlobalFunctions_1.println)("I am printable");
+        GlobalFunctions_1.println("I am printable");
     }
 }
 var Color;
@@ -34,7 +34,7 @@ const valueContainerColor = new ValueContainer(Color.GREEN);
 // Thanks to generics we exactly know 'value' is here a number so I can build a sum
 // 'valueContainerString + 123' wouldn't work
 const result = valueContainerNumber.value + 10;
-(0, GlobalFunctions_1.println)(result);
+GlobalFunctions_1.println(result);
 // Thanks to generics we know 'value' is here a printable. So I can call function 'print'.
 valueContainerReference.value.print();
 //# sourceMappingURL=app.js.map
