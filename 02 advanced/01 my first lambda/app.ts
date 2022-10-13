@@ -27,3 +27,8 @@ println(sumLambdaExpression(1, 2));
 
 // declare a lambda expression in shorter for single-line returns
 let shortSumLambdaExpression = (x: number, y: number): number => x + y;
+
+
+
+
+
