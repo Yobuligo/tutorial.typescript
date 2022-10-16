@@ -21,6 +21,15 @@ class Cloner {
   }
 }
 
+/**
+ * An even more easy approach is to use the simple object creation in TypeScript / JavaScript
+ */
+class ObjectCloner {
+  clone<T>(source: T): T {
+    return { ...source };
+  }
+}
+
 // Create person and initialize properties
 const person = new Person();
 person.firstname = "Stacey";
@@ -28,4 +37,7 @@ person.lastname = "Starfish";
 
 // Clone person
 const newPerson = new Cloner().clone(person, Person);
+println(`${person.firstname} ${person.lastname} was cloned.`);
+
+const newPerson2 = new ObjectCloner().clone(person);
 println(`${person.firstname} ${person.lastname} was cloned.`);
