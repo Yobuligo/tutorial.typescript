@@ -35,7 +35,7 @@ enum Medium {
   TV,
 }
 
-// except of one type, which can be declared as interface, each type must be declared at the discriminated union itself
+// The types can be either declared as interface or directly at the discriminated union type
 interface IBook {
   type: Medium.BOOK;
   pages: number;
