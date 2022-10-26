@@ -12,6 +12,8 @@ const { isLeaf } = myLeaf;
 // Destructured properties of objects can be aliased, e.g. when two properties have the same name
 const myOakTree = { isLeaf: true, name: "Oak" };
 const myPineTree = { isLeaf: false, name: "Pine" };
-// aliases for names
+// declare aliases for names
 const { name: oakName } = myOakTree;
 const { name: pineName } = myPineTree;
+
+console.log(`Now I can access ${oakName} and ${pineName}`);
