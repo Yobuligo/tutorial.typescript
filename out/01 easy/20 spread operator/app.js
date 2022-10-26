@@ -35,4 +35,6 @@ const myFirstPerson = {
     lastname: "Hoffmann",
 };
 const mySecondPerson = Object.assign({}, myFirstPerson, { age: 28 });
+// So the spread operator can be used to clone / copy objects
+const myThirdPerson = Object.assign({}, myFirstPerson);
 //# sourceMappingURL=app.js.map

@@ -27,3 +27,38 @@ function getSpeed(object: MyAnimal): number {
       return 0;
   }
 }
+
+// Discriminated Union Object with enumeration
+enum Medium {
+  BOOK,
+  PC,
+  TV,
+}
+
+// The types can be either declared as interface or directly at the discriminated union type
+interface IBook {
+  type: Medium.BOOK;
+  pages: number;
+}
+
+type IMedium =
+  | IBook
+  | { type: Medium.PC; url: string }
+  | { type: Medium.TV; channel: string };
+
+const evaluateMedium = (medium: IMedium) => {
+  switch (medium.type) {
+    case Medium.BOOK: {
+      console.log(`Access type safe ${medium.pages}`);
+      break;
+    }
+    case Medium.PC: {
+      console.log(`Access type safe ${medium.url}`);
+      break;
+    }
+    case Medium.TV: {
+      console.log(`Access type safe ${medium.channel}`);
+      break;
+    }
+  }
+};

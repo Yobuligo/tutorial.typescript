@@ -13,3 +13,7 @@ let person = <IPerson>{
 };
 
 println(`Hey this is ${person.firstname} ${person.lastname}`);
+
+// Cast a string to a number
+const myNumber = Number("123");
+println(myNumber);
