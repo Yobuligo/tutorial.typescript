@@ -1,4 +1,4 @@
-import { IPerson } from "./../../../01 easy/19 cast/app";
+import { IPerson } from "../../../01 easy/19 cast/app";
 /**
  * In TypeScript it is possible to declare objects which have a dynamic number of properties.
  * This provides the possibility to e.g. add various properties or even methods to an object
