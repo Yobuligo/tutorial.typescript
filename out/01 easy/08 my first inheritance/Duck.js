@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Duck = void 0;
 const GlobalFunctions_1 = require("../../GlobalFunctions");
 const Animal_1 = require("./Animal");
 /**
@@ -12,7 +13,7 @@ class Duck extends Animal_1.Animal {
         super("Duck");
     }
     makeNoise() {
-        GlobalFunctions_1.println("croak");
+        (0, GlobalFunctions_1.println)("croak");
     }
 }
 exports.Duck = Duck;

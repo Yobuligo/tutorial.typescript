@@ -4,7 +4,7 @@ const GlobalFunctions_1 = require("../../GlobalFunctions");
 // Copy all values from one array in another
 let values = ["one", "two", "three"];
 let values2 = [...values];
-GlobalFunctions_1.println(values2);
+(0, GlobalFunctions_1.println)(values2);
 // provides the possibility to hand over elements as varargs to e.g. a constructor
 class List {
     constructor(...elements) {
@@ -12,7 +12,7 @@ class List {
         this.elements = elements;
     }
     printList() {
-        GlobalFunctions_1.println(this.elements);
+        (0, GlobalFunctions_1.println)(this.elements);
     }
 }
 // hand over single value
@@ -34,7 +34,7 @@ const myFirstPerson = {
     firstname: "Peter",
     lastname: "Hoffmann",
 };
-const mySecondPerson = Object.assign({}, myFirstPerson, { age: 28 });
+const mySecondPerson = Object.assign(Object.assign({}, myFirstPerson), { age: 28 });
 // So the spread operator can be used to clone / copy objects
 const myThirdPerson = Object.assign({}, myFirstPerson);
 //# sourceMappingURL=app.js.map

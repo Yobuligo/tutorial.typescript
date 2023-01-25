@@ -27,6 +27,6 @@ class OctopusAfter {
 }
 const octopus = new OctopusAfter("Otto", 8);
 octopus.arms = 7; // property arm is mutable
-GlobalFunctions_1.println(octopus.getName());
-GlobalFunctions_1.println(octopus.arms);
+(0, GlobalFunctions_1.println)(octopus.getName());
+(0, GlobalFunctions_1.println)(octopus.arms);
 //# sourceMappingURL=app.js.map

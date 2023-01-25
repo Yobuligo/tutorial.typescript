@@ -29,6 +29,6 @@ const plant = new Plant();
 plant.name = "Areca Palm";
 plant.name = "Aloe Vera";
 plant.name = "English Ivy";
-GlobalFunctions_1.println(plant.countGetName);
-GlobalFunctions_1.println(plant.countSetName);
+(0, GlobalFunctions_1.println)(plant.countGetName);
+(0, GlobalFunctions_1.println)(plant.countSetName);
 //# sourceMappingURL=app.js.map

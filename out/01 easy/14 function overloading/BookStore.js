@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BookStore = void 0;
 require("../../ExtensionFunctions");
 const BookStoreInitializer_1 = require("./BookStoreInitializer");
 /**

@@ -17,14 +17,14 @@ class Person {
  */
 class PersonPrinter {
     print(person) {
-        GlobalFunctions_1.println(`Hello my name is ${person.firstname} ${person.lastname}.`);
+        (0, GlobalFunctions_1.println)(`Hello my name is ${person.firstname} ${person.lastname}.`);
         // Check if the optional property 'nickname' was set
         if (person.nickname != null) {
-            GlobalFunctions_1.println(`My nickname is ${person.nickname}`);
+            (0, GlobalFunctions_1.println)(`My nickname is ${person.nickname}`);
         }
     }
 }
 new PersonPrinter().print(new Person("Stacey", "Starfish"));
-GlobalFunctions_1.newLine();
+(0, GlobalFunctions_1.newLine)();
 new PersonPrinter().print(new Person("Stacey", "Starfish", "Fishy"));
 //# sourceMappingURL=app.js.map

@@ -5,6 +5,6 @@ function printHelloWorld() {
     console.log("Hello World");
 }
 printHelloWorld();
-Function_1.printMessage("Hello World");
+(0, Function_1.printMessage)("Hello World");
 // global function 'println' added which replaced 'console.log'!!
 //# sourceMappingURL=app.js.map

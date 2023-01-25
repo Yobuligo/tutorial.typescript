@@ -7,7 +7,7 @@ const person = {
     firstname: "Stacey",
     age: 20,
     print() {
-        GlobalFunctions_1.println(`My name is ${this.firstname}. I am ${this.age} years old.`);
+        (0, GlobalFunctions_1.println)(`My name is ${this.firstname}. I am ${this.age} years old.`);
     },
 };
 // calls function 'print' on the variable

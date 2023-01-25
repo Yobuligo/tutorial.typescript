@@ -21,7 +21,7 @@ class Node {
         this.name = name;
     }
     print() {
-        GlobalFunctions_1.println(`Name of the node is '${this.name}'`);
+        (0, GlobalFunctions_1.println)(`Name of the node is '${this.name}'`);
     }
 }
 // the node container only takes objects of type 'INode'

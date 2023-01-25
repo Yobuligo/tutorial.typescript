@@ -10,5 +10,5 @@ class User {
 }
 let user = new User("Stacey", "Starfish", 30);
 let copy = Object.assign({}, user);
-GlobalFunctions_1.println(copy);
+(0, GlobalFunctions_1.println)(copy);
 //# sourceMappingURL=app.js.map

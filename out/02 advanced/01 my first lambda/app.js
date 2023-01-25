@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const GlobalFunctions_1 = require("../../GlobalFunctions");
 // declare a lambda expression
 let lambdaExpression = () => {
-    GlobalFunctions_1.println("lambda was executed");
+    (0, GlobalFunctions_1.println)("lambda was executed");
 };
 // as the variable 'lambdaExpression' is a function it can be executed
 lambdaExpression();
@@ -20,7 +20,7 @@ let sumLambdaExpression = (x, y) => {
     return x + y;
 };
 // print the result
-GlobalFunctions_1.println(sumLambdaExpression(1, 2));
+(0, GlobalFunctions_1.println)(sumLambdaExpression(1, 2));
 // declare a lambda expression in shorter for single-line returns
 let shortSumLambdaExpression = (x, y) => x + y;
 //# sourceMappingURL=app.js.map

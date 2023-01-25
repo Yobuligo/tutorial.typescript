@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TextPrinter = void 0;
 const GlobalFunctions_1 = require("../../GlobalFunctions");
 /**
  * The text printer is responsible for printing text.
@@ -7,7 +8,7 @@ const GlobalFunctions_1 = require("../../GlobalFunctions");
  */
 class TextPrinter {
     print(textProvider) {
-        GlobalFunctions_1.println(textProvider.getText());
+        (0, GlobalFunctions_1.println)(textProvider.getText());
     }
 }
 exports.TextPrinter = TextPrinter;

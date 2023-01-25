@@ -6,5 +6,8 @@ let person = {
     firstname: "Stacey",
     lastname: "Starfish",
 };
-GlobalFunctions_1.println(`Hey this is ${person.firstname} ${person.lastname}`);
+(0, GlobalFunctions_1.println)(`Hey this is ${person.firstname} ${person.lastname}`);
+// Cast a string to a number
+const myNumber = Number("123");
+(0, GlobalFunctions_1.println)(myNumber);
 //# sourceMappingURL=app.js.map

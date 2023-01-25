@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BookStoreInitializer = void 0;
 const Book_1 = require("./Book");
 /**
  * This class represents a book store initializer.
