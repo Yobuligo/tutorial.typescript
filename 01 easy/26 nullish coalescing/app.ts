@@ -16,6 +16,7 @@ const person: {
   firstname: string;
   lastname: string;
   identityCard?: IIdentityCard;
+  onEvent?: () => void;
 } = {
   firstname: "Stacey",
   lastname: "Starfish",
@@ -23,3 +24,6 @@ const person: {
 
 // only access the identity card, if it was set
 println(person?.identityCard.birthday);
+
+// only call method if it is not undefined
+person.onEvent();

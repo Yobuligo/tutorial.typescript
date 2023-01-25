@@ -6,3 +6,15 @@ function convertToArray(...args) {
     element === "Test";
   });
 }
+
+// With the rest operator it is possible to create a copy of an object and exclude specific properties
+const cat = {
+  name: "Chase",
+  type: "cat",
+  color: "black",
+};
+
+// will create a new object 'newCat' from 'cat' as template without copying the prop 'type'
+const { type, ...newCat } = cat;
+// Property type isn't available on 'newCat'
+// newCat.type
