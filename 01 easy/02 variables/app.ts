@@ -17,6 +17,9 @@ const first: number = 5;
 // declares a boolean
 const checkCode: boolean = true;
 
+// declares a bigint (stores integers greater than 2^53) onyl available since ES2020
+// const salery: bigint = 123123123n
+
 // declares a union type (a type that can have various types). Here the types string and number are possible
 let value: string | number = "String Value";
 value = 123;
