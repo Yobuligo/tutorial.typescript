@@ -12,6 +12,10 @@
 type Constructor<T> = { new (): T };
 
 abstract class SuperClass {
+  // it is required to have a separate parameter "this" which must be of type "type" (new (): T).
+  // This causes the framework to pass in the class type of the calling class.
+  // Like each instance method "this" will be actually injected in each instance method but is not required.
+  // But here this is injected. But instead of being the object instance it is the class instance which keeps the information of the calling class.
   static findById<T>(this: Constructor<T>, id: number): T {
     return;
   }
