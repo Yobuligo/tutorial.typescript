@@ -11,4 +11,6 @@ const person = {
 };
 // only access the identity card, if it was set
 (0, GlobalFunctions_1.println)(person === null || person === void 0 ? void 0 : person.identityCard.birthday);
+// only call method if it is not undefined
+person.onEvent();
 //# sourceMappingURL=app.js.map
