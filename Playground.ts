@@ -1,18 +1,30 @@
-type Constructor2<T> = new () => T;
-
-abstract class DataObject {
-  static first<T>(this: Constructor2<T>): T {
-    return;
+class PropertySelector<T> {
+  constructor(private instance: T) {}
+  select<K extends keyof T>(key: K): T[K] {
+    return this.instance[key];
   }
+}
 
-  static save<T>(this: Constructor2<T>): T {
+enum Habitat {
+  AIR,
+  LAND,
+  WATER,
+}
+
+abstract class Super {
+  static findAll<T>(this: new () => T): T[] {
     return;
   }
 }
 
-class Animal extends DataObject {
-  name: string = "";
-  age: number = 123;
+class Animal extends Super {
+  name: string;
+  age: number;
+  habitat: Habitat;
 }
 
-const animal = Animal.first();
+const animal = new Animal();
+const propertySelector = new PropertySelector(animal);
+propertySelector.select("name");
+
+Animal.findAll()

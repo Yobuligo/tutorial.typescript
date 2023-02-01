@@ -26,6 +26,11 @@ abstract class SuperClass {
   static findAll<T>(this: Constructor<T>): T[] {
     return;
   }
+
+  // Alternative
+  static save<T>(this: new () => T, instance: T): T {
+    return;
+  }
 }
 
 class SubClass extends SuperClass {
