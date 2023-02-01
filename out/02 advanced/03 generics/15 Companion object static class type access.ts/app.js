@@ -19,6 +19,10 @@ class SuperClass {
     static findAll() {
         return;
     }
+    // Alternative
+    static save(instance) {
+        return;
+    }
 }
 class SubClass extends SuperClass {
     constructor() {

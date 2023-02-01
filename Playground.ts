@@ -1,30 +1,21 @@
-class PropertySelector<T> {
-  constructor(private instance: T) {}
-  select<K extends keyof T>(key: K): T[K] {
-    return this.instance[key];
-  }
-}
+let startTimer: Date;
+let endTimer: Date;
 
-enum Habitat {
-  AIR,
-  LAND,
-  WATER,
-}
+const evaluateTimer = (): Promise<[startTimer: Date, endTimer: Date]> => {
+  return new Promise((resolve) => {
+    startTimer = new Date();
+    setTimeout(() => {
+      endTimer = new Date();
+      resolve([startTimer, endTimer]);
+    }, 1000);
+    for (let i = 0; i < 10000000000; i++) {
+      const z = i * 2;
+    }
+  });
+};
 
-abstract class Super {
-  static findAll<T>(this: new () => T): T[] {
-    return;
-  }
-}
-
-class Animal extends Super {
-  name: string;
-  age: number;
-  habitat: Habitat;
-}
-
-const animal = new Animal();
-const propertySelector = new PropertySelector(animal);
-propertySelector.select("name");
-
-Animal.findAll()
+evaluateTimer().then(([startTimer, endTimer]) => {
+  console.log(`Starttime was ${startTimer.getTime()}`);
+  console.log(`Endtime was ${endTimer.getTime()}`);
+  console.log(`Difference ${endTimer.getTime() - startTimer.getTime()}`);
+});

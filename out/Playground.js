@@ -1,34 +1,20 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const repeat_1 = require("./core/repeat");
-const history = new Map();
-const buildHistory = () => {
-    (0, repeat_1.repeat)(27, (index) => {
-        if (index > 0) {
-            history.set(index, 0);
+let startTimer;
+let endTimer;
+const evaluateTimer = () => {
+    return new Promise((resolve) => {
+        startTimer = new Date();
+        setTimeout(() => {
+            endTimer = new Date();
+            resolve([startTimer, endTimer]);
+        }, 1000);
+        for (let i = 0; i < 10000000000; i++) {
+            const z = i * 2;
         }
     });
 };
-const logHistory = (index) => {
-    let entry = history.get(index);
-    if (entry === undefined) {
-        history.set(index, 1);
-    }
-    else {
-        entry++;
-        history.set(index, entry);
-    }
-};
-const printHistory = () => {
-    history.forEach((number, index) => {
-        console.log(`${index} was calculated ${number} times.`);
-    });
-};
-buildHistory();
-(0, repeat_1.repeat)(1000, () => {
-    const percent = Math.random();
-    const index = Math.ceil(percent * 26);
-    logHistory(index);
+evaluateTimer().then(([startTimer, endTimer]) => {
+    console.log(`Starttime was ${startTimer.getTime()}`);
+    console.log(`Endtime was ${endTimer.getTime()}`);
+    console.log(`Difference ${endTimer.getTime() - startTimer.getTime()}`);
 });
-printHistory();
 //# sourceMappingURL=Playground.js.map
