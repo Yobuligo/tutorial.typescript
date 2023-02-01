@@ -11,6 +11,9 @@
 
 type Constructor<T> = { new (): T };
 
+// Alternative
+type ConstructorAlternative<T> = new () => T;
+
 abstract class SuperClass {
   // it is required to have a separate parameter "this" which must be of type "type" (new (): T).
   // This causes the framework to pass in the class type of the calling class.
