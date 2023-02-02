@@ -23,6 +23,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 //      1. then( () => { // this callback function is called in case of a successful execution } )
 //      2. catch( () => { // this callback function is called in case of a failed execution  })
 //
+// Chaining promises:
+// When returning a value within the then statement, it means that is returns another Promise which can be retrieved.
+//
 // the function "fetch" for sending REST-Calls is a asynchronous function. The function then is called when the fetch succeeds and the catch function when it fails
 fetch("")
     .then((response) => {
@@ -103,4 +106,16 @@ function awaitPromiseAll() {
         const result = yield Promise.all([findById(), findAll(), deleteAll()]);
     });
 }
+// Chaining promises
+const stackedPromises = (value) => __awaiter(this, void 0, void 0, function* () {
+    return value;
+});
+// by returning a value within a "then" statement another Promise is returned which has the type of the return value. So it is possible to chain promises.
+stackedPromises(123)
+    .then((value) => {
+    return value;
+})
+    .then((value) => {
+    console.log(`The 'value' is still 123 ${value}.`);
+});
 //# sourceMappingURL=app.js.map
