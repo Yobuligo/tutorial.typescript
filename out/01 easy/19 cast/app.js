@@ -6,6 +6,7 @@ let person = {
     firstname: "Stacey",
     lastname: "Starfish",
 };
+// An alternative is to use the keyword for assertion "as"
 let person2 = { firstname: "Bertha", lastname: "Bear" };
 (0, GlobalFunctions_1.println)(`Hey this is ${person.firstname} ${person.lastname}`);
 (0, GlobalFunctions_1.println)(`Hey this is ${person2.firstname} ${person2.lastname}`);

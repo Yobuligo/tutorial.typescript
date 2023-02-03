@@ -1,10 +1,40 @@
 /**
- * fetch is a JavaScript function to send REST Calls
- * The following shows a generic approach which can be used for certain purposes.
- * A own implemented ORM library.
+ * A simple ORM to access data especially from firebase.
+ *
+ * How to create an instance?
+ *    const orm = new ORM("<firebase_database_url>")
+ *
+ * To use the ORM the data class has to extend DataObject.
+ *    class Animal extends DataObject {
+ *        name: string = "Elephant";
+ *        age: number = 12;
+ *    }
+ *
+ * CRUD operations can be made via a DataObject class.
+ *    Persist or update an instance
+ *        const animal = new Animal();
+ *        Animal.save(animal);
+ *
+ *    Load instances
+ *        const animals = Animal.findAll();
+ *
+ *    Delete instances
+ *        Animal.delete(animal);
+ *
+ * Each DataObject class has additional help methods
+ *
+ * Endpoints
+ *    The endpoints are derived from the DataObject-Class. E.g. for the DataObject class Animal the endpoint would be /animal
+ *
+ * To give an alternative endpoint the static property "path" can be provided by the new path
+ *    class Animal extends DataObject {
+ *        static path: string = "/myAnimals";
+ *        name: string = "Elephant";
+ *        age: number = 12;
+ *    }
  */
 
-type Constructor<T> = { new (): T };
+type Constructor<T> = new () => T;
 
 export interface IDataObject {
   id: number;
@@ -231,8 +261,9 @@ export abstract class DataObject implements IDataObject {
 }
 
 class DataAccessObject<T extends IDataObject> implements IDataAccessObject<T> {
+  private needsInitPath = true;
+  private path: string = "";
   private dataObjects: T[] = [];
-  private persisted: T[] = [];
 
   constructor(public type: new () => T, private orm: IORM) {}
 
@@ -264,7 +295,7 @@ class DataAccessObject<T extends IDataObject> implements IDataAccessObject<T> {
   }
 
   async deleteAll(): Promise<void> {
-    await fetch(this.getPath(), {
+    await fetch(this.getJSONPath(), {
       method: "DELETE",
     });
     this.dataObjects = [];
@@ -272,7 +303,7 @@ class DataAccessObject<T extends IDataObject> implements IDataAccessObject<T> {
   }
 
   async findAll(): Promise<T[]> {
-    const path = `${this.getPath()}`;
+    const path = `${this.getJSONPath()}`;
     const response: Response = await fetch(path);
     const json = await response.json();
 
@@ -333,7 +364,7 @@ class DataAccessObject<T extends IDataObject> implements IDataAccessObject<T> {
   }
 
   private async sync() {
-    fetch(this.getPath(), {
+    fetch(this.getJSONPath(), {
       method: "PUT",
       headers: { "content-type": "application/JSON" },
       body: JSON.stringify(this.dataObjects),
@@ -341,26 +372,32 @@ class DataAccessObject<T extends IDataObject> implements IDataAccessObject<T> {
   }
 
   private getPath(): string {
-    return `${this.orm.URL}/${this.type.name.toLowerCase()}.json`;
+    if (this.needsInitPath) {
+      this.initPath();
+      this.needsInitPath = false;
+    }
+
+    return this.path;
+  }
+
+  private initPath() {
+    const type: any = this.type as any;
+    const path: string = type["path"];
+    if (path !== undefined) {
+      this.path = path;
+      if (this.path.startsWith("/")) {
+        this.path.substring(1, this.path.length);
+      }
+    } else {
+      this.path = this.type.name.toLowerCase();
+    }
+  }
+
+  private getJSONPath(): string {
+    return `${this.orm.URL}/${this.getPath()}.json`;
   }
 
   private convertJSONtoEntity<T>(data: any): T {
     return { ...data } as T;
   }
 }
-
-const orm = new ORM(
-  "https://fir-b80e3-default-rtdb.europe-west1.firebasedatabase.app"
-);
-
-class Animal extends DataObject {
-  name: string;
-  age: number;
-}
-
-const animal = new Animal()
-animal.name = "Elephant"
-animal.age = 12
-Animal.save(animal)
-
-const animals = Animal.findAll();

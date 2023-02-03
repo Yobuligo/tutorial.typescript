@@ -1,13 +1,16 @@
-interface IDataObject {
-  id: number;
+abstract class Super {
+  static writePath<T>(this: new () => T) {
+    const constructor = this as any;
+    if (constructor.path !== undefined) {
+      console.log(`the path is ${constructor.path}`);
+    } else {
+      console.log(`the class has no path, use the default one`);
+    }
+  }
 }
 
-interface IPerson extends IDataObject {}
-
-interface IAnimal extends IDataObject {
-  name: string;
-  age: number;
+class Sub extends Super {
+  static path: string = "/person"
 }
 
-const dataObject: IDataObject = { id: 123 };
-const animal: IAnimal = <IAnimal>dataObject;
+Sub.writePath()
