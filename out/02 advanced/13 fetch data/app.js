@@ -1,8 +1,38 @@
 "use strict";
 /**
- * fetch is a JavaScript function to send REST Calls
- * The following shows a generic approach which can be used for certain purposes.
- * A own implemented ORM library.
+ * A simple ORM to access data especially from firebase.
+ *
+ * How to create an instance?
+ *    const orm = new ORM("<firebase_database_url>")
+ *
+ * To use the ORM the data class has to extend DataObject.
+ *    class Animal extends DataObject {
+ *        name: string = "Elephant";
+ *        age: number = 12;
+ *    }
+ *
+ * CRUD operations can be made via a DataObject class.
+ *    Persist or update an instance
+ *        const animal = new Animal();
+ *        Animal.save(animal);
+ *
+ *    Load instances
+ *        const animals = Animal.findAll();
+ *
+ *    Delete instances
+ *        Animal.delete(animal);
+ *
+ * Each DataObject class has additional help methods
+ *
+ * Endpoints
+ *    The endpoints are derived from the DataObject-Class. E.g. for the DataObject class Animal the endpoint would be /animal
+ *
+ * To give an alternative endpoint the static property "path" can be provided by the new path
+ *    class Animal extends DataObject {
+ *        static path: string = "/myAnimals";
+ *        name: string = "Elephant";
+ *        age: number = 12;
+ *    }
  */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -187,8 +217,9 @@ class DataAccessObject {
     constructor(type, orm) {
         this.type = type;
         this.orm = orm;
+        this.needsInitPath = true;
+        this.path = "";
         this.dataObjects = [];
-        this.persisted = [];
     }
     contains(dataObject) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -222,7 +253,7 @@ class DataAccessObject {
     }
     deleteAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            yield fetch(this.getPath(), {
+            yield fetch(this.getJSONPath(), {
                 method: "DELETE",
             });
             this.dataObjects = [];
@@ -231,7 +262,7 @@ class DataAccessObject {
     }
     findAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            const path = `${this.getPath()}`;
+            const path = `${this.getJSONPath()}`;
             const response = yield fetch(path);
             const json = yield response.json();
             this.dataObjects = [];
@@ -300,7 +331,7 @@ class DataAccessObject {
     }
     sync() {
         return __awaiter(this, void 0, void 0, function* () {
-            fetch(this.getPath(), {
+            fetch(this.getJSONPath(), {
                 method: "PUT",
                 headers: { "content-type": "application/JSON" },
                 body: JSON.stringify(this.dataObjects),
@@ -308,18 +339,30 @@ class DataAccessObject {
         });
     }
     getPath() {
-        return `${this.orm.URL}/${this.type.name.toLowerCase()}.json`;
+        if (this.needsInitPath) {
+            this.initPath();
+            this.needsInitPath = false;
+        }
+        return this.path;
+    }
+    initPath() {
+        const type = this.type;
+        const path = type["path"];
+        if (path !== undefined) {
+            this.path = path;
+            if (this.path.startsWith("/")) {
+                this.path.substring(1, this.path.length);
+            }
+        }
+        else {
+            this.path = this.type.name.toLowerCase();
+        }
+    }
+    getJSONPath() {
+        return `${this.orm.URL}/${this.getPath()}.json`;
     }
     convertJSONtoEntity(data) {
         return Object.assign({}, data);
     }
 }
-const orm = new ORM("https://fir-b80e3-default-rtdb.europe-west1.firebasedatabase.app");
-class Animal extends DataObject {
-}
-const animal = new Animal();
-animal.name = "Elephant";
-animal.age = 12;
-Animal.save(animal);
-const animals = Animal.findAll();
 //# sourceMappingURL=app.js.map

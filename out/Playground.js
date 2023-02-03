@@ -1,16 +1,12 @@
-class Super {
-    static writePath() {
-        const constructor = this;
-        if (constructor.path !== undefined) {
-            console.log(`the path is ${constructor.path}`);
-        }
-        else {
-            console.log(`the class has no path, use the default one`);
-        }
+const selectEnumProp = (type) => {
+    for (let propName in type) {
+        console.log(`Property ${propName}`);
     }
-}
-class Sub extends Super {
-}
-Sub.path = "/person";
-Sub.writePath();
+};
+selectEnumProp(State);
+// selectEnumProp(State)
+// for (let prop in State) {
+//   const propName = State[prop];
+//   console.log(`PropertyName is ${propName}`);
+// }
 //# sourceMappingURL=Playground.js.map
