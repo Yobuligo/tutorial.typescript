@@ -6,7 +6,9 @@ let person = {
     firstname: "Stacey",
     lastname: "Starfish",
 };
+let person2 = { firstname: "Bertha", lastname: "Bear" };
 (0, GlobalFunctions_1.println)(`Hey this is ${person.firstname} ${person.lastname}`);
+(0, GlobalFunctions_1.println)(`Hey this is ${person2.firstname} ${person2.lastname}`);
 // Cast a string to a number
 const myNumber = Number("123");
 (0, GlobalFunctions_1.println)(myNumber);

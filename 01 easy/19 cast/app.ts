@@ -12,7 +12,11 @@ let person = <IPerson>{
   lastname: "Starfish",
 };
 
+// An alternative is to use the keyword for assertion "as"
+let person2 = { firstname: "Bertha", lastname: "Bear" } as IPerson;
+
 println(`Hey this is ${person.firstname} ${person.lastname}`);
+println(`Hey this is ${person2.firstname} ${person2.lastname}`);
 
 // Cast a string to a number
 const myNumber = Number("123");
