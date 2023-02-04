@@ -6,6 +6,25 @@ import { println } from "../../GlobalFunctions";
 const objectInstance = null;
 const objectInstance2 = objectInstance ?? "234324";
 
+// Provide a function getResult that returns a IResult.
+// Build a sum which takes the result and adds 123.
+// As it is not ensured that data.row.result is defined the coalescing operator can be used to only sum data.row.result and 123 if data.row.result is defined.
+// Otherwise the result is 123
+interface IResult {
+  data: {
+    row?: {
+      result: number;
+    };
+  };
+}
+
+function getResult(): IResult {
+  return { data: {} };
+}
+
+const sum = getResult().data.row?.result ?? +123;
+
+
 // or only return a property if it is not null
 interface IIdentityCard {
   id: number;

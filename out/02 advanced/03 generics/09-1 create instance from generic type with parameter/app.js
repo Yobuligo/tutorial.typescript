@@ -28,6 +28,9 @@ class GenericObjectFactory {
     }
 }
 const genericObjectFactory = new GenericObjectFactory();
-const specialPerson2 = genericObjectFactory.create(SpecialPerson, [{ firstname: "Stacey", lastname: "Starfish" }]);
+const specialPerson2 = genericObjectFactory.create(SpecialPerson, [
+    "Stacey",
+    "Starfish",
+]);
 console.log(`created person was ${specialPerson.firstname} ${specialPerson.lastname}`);
 //# sourceMappingURL=app.js.map

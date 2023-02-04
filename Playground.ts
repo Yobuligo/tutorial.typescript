@@ -1,7 +1,13 @@
-interface ILogger {
-  [k: string]: (message: string, metaData: Record<string, unknown>) => void;
+type Test<T> = {
+  row: {
+    origin?: T;
+  };
+};
+
+function getData(): Test<{ systemId: number }> {
+  return { row: {} };
 }
 
-class Test {
-  myFunction = () => {};
-}
+const data = getData();
+
+const result = data.row.origin.systemId + 123;
