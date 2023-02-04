@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * In TypeScript it is possible to declare objects which have a dynamic number of properties.
  * This provides the possibility to e.g. add various properties or even methods to an object
  *
- * Belongs to "Index Properties" (see easy -> basics)
+ * Belongs to "Index Properties / index property / index properties" (see easy -> basics)
  */
 // Here an object is declared with 2 methods.
 // the property name is given followed by colon (':') and the method or the property value.
