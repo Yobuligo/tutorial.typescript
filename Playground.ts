@@ -1,13 +1,17 @@
-type Test<T> = {
-  row: {
-    origin?: T;
-  };
+export const getResult = <T>(value?: T): T | undefined => {
+  return value;
 };
 
-function getData(): Test<{ systemId: number }> {
-  return { row: {} };
+class ResultUser {
+  calc() {
+    const result = getResult() ?? this.raiseException();
+    console.log(`${result}`)
+  }
+
+  private raiseException() {
+    throw new Error("Value initial");
+  }
 }
 
-const data = getData();
-
-const result = data.row.origin.systemId + 123;
+const resultUser = new ResultUser()
+resultUser.calc()
