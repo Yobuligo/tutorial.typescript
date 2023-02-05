@@ -1,18 +1,17 @@
 "use strict";
-// it is something like ?.let in Koltin or the ?: Elvis Operator?
-// If an object is null or undefined than take an alternative
+/**
+ * It is something like ?.let in Kotlin or the ?: Elvis Operator?
+ * With the Elvis Operator ?? it is possible to execute code in case a condition / a method returns a null or undefined
+ */
 var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Caller = void 0;
-const GlobalFunctions_1 = require("../../GlobalFunctions");
 class Caller {
     callMe() {
         console.log(`The Caller was called`);
     }
 }
 exports.Caller = Caller;
-const objectInstance = null;
-const objectInstance2 = objectInstance !== null && objectInstance !== void 0 ? objectInstance : "234324";
 const getValue = (value) => {
     return value;
 };
@@ -39,14 +38,10 @@ catch (e) {
 // Use ?. to only call a method if the calling reference is neither null not undefined
 let value = getValue();
 value === null || value === void 0 ? void 0 : value.callMe();
+// In that case method callMe is called as an instance for Caller is provided
 value = getValue(new Caller());
 value === null || value === void 0 ? void 0 : value.callMe();
-const person = {
-    firstname: "Stacey",
-    lastname: "Starfish",
-};
-// only access the identity card, if it was set
-(0, GlobalFunctions_1.println)(person === null || person === void 0 ? void 0 : person.identityCard.birthday);
-// only call method if it is not undefined
-person.onEvent();
+// Use !. to force the call if you know that the reference is not null or undefined. Shouldn't be used, as conditions can change
+value = getValue();
+value.callMe();
 //# sourceMappingURL=app.js.map
