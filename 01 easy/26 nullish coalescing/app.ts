@@ -1,4 +1,7 @@
 /**
+ * The nullish coalescing (??) operator is a logical operator that 
+ * returns its right-hand side operand when its left-hand side operand is null or undefined, and otherwise returns its left-hand side operand.
+ * 
  * It is something like ?.let in Kotlin or the ?: Elvis Operator?
  * With the Elvis Operator ?? it is possible to execute code in case a condition / a method returns a null or undefined
  */
@@ -34,6 +37,7 @@ try {
   console.log(e);
 }
 
+// Optional Chaining
 // Use ?. to only call a method if the calling reference is neither null not undefined
 let value = getValue<Caller>();
 value?.callMe();
