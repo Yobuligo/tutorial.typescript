@@ -5,7 +5,7 @@ const GlobalFunctions_1 = require("../../GlobalFunctions");
 // Copy all values from one array in another
 let values = ["one", "two", "three"];
 let values2 = [...values];
-(0, GlobalFunctions_1.println)(values2);
+GlobalFunctions_1.println(values2);
 // provides the possibility to hand over elements as varargs to e.g. a constructor
 class List {
     constructor(...elements) {
@@ -13,7 +13,7 @@ class List {
         this.elements = elements;
     }
     printList() {
-        (0, GlobalFunctions_1.println)(this.elements);
+        GlobalFunctions_1.println(this.elements);
     }
 }
 // hand over single value
@@ -35,7 +35,7 @@ const myFirstPerson = {
     firstname: "Peter",
     lastname: "Hoffmann",
 };
-const mySecondPerson = Object.assign(Object.assign({}, myFirstPerson), { age: 28 });
+const mySecondPerson = Object.assign({}, myFirstPerson, { age: 28 });
 // So the spread operator can be used to clone / copy objects
 const myThirdPerson = Object.assign({}, myFirstPerson);
 // It is even possible to copy several objects into one.
@@ -45,10 +45,10 @@ const cat = {
     name: "Kitty",
     age: 3,
 };
-const myFourthPerson = Object.assign(Object.assign({}, myFirstPerson), cat);
+const myFourthPerson = Object.assign({}, myFirstPerson, cat);
 // Resetting properties while copying. Here a copy of 'myFirstPerson' is created but the firstname is directly reset to 'Changed Firstname'
-const myFifthPerson = Object.assign(Object.assign({}, myFirstPerson), { firstname: "Changed Firstname" });
+const myFifthPerson = Object.assign({}, myFirstPerson, { firstname: "Changed Firstname" });
 // Adding new properties. Here a copy of 'myFirstPerson' is created which gets a new property 'age'
-const mySixthPerson = Object.assign(Object.assign({}, myFirstPerson), { age: 28 });
+const mySixthPerson = Object.assign({}, myFirstPerson, { age: 28 });
 console.log(mySixthPerson.age);
 //# sourceMappingURL=app.js.map

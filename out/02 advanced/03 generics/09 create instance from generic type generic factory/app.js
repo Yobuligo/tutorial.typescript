@@ -27,9 +27,9 @@ const factory = new Factory();
 const person = factory.create();
 person.firstname = "Stacey";
 person.lastname = "Starfish";
-(0, GlobalFunctions_1.println)(`${person.firstname} ${person.lastname} was created.`);
+GlobalFunctions_1.println(`${person.firstname} ${person.lastname} was created.`);
 const person2 = new ObjectFactory().create();
 person.firstname = "Stacey";
 person.lastname = "Starfish";
-(0, GlobalFunctions_1.println)(`${person.firstname} ${person.lastname} was created.`);
+GlobalFunctions_1.println(`${person.firstname} ${person.lastname} was created.`);
 //# sourceMappingURL=app.js.map

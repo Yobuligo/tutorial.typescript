@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Animal = void 0;
 const GlobalFunctions_1 = require("../../GlobalFunctions");
 /**
  * Abstract class animal, with constructor, abstract function makeNoise
@@ -11,7 +10,7 @@ class Animal {
         this.name = name;
     }
     sayYourName() {
-        (0, GlobalFunctions_1.println)(`My name is ${this.name}`);
+        GlobalFunctions_1.println(`My name is ${this.name}`);
     }
     introduce() {
         this.makeNoise();

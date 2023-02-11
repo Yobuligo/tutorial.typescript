@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PropertySelector = void 0;
 const GlobalFunctions_1 = require("../../../GlobalFunctions");
 /**
  * Class that is responsible for returning a type safe property of the given 'instance'
@@ -29,6 +28,6 @@ const selectedProperty = propertySelector.selectProperty((instance) => {
 });
 // I know the type of 'selectedProperty' by type inference, which means I can call the specific functions, which makes the code more stable
 if (typeof selectedProperty == "number") {
-    (0, GlobalFunctions_1.println)("the selected property is a number");
+    GlobalFunctions_1.println("the selected property is a number");
 }
 //# sourceMappingURL=app.js.map

@@ -1,1 +1,1 @@
-{"version":3,"file":"app.js","sourceRoot":"","sources":["../../../../02 advanced/03 generics/15 generics default type/app.ts"],"names":[],"mappings":"AAAA;;GAEG;AAEH,MAAM,OAAO;CAEZ;AAED,SAAS,SAAS;IAChB,OAAO;AACT,CAAC;AAED,kJAAkJ;AAClJ,MAAM,QAAQ,GAAG,SAAS,EAAE,CAAC;AAC7B,QAAQ,CAAC,KAAK,CAAC"}
+{"version":3,"file":"app.js","sourceRoot":"","sources":["../../../../02 advanced/03 generics/15 generics default type/app.ts"],"names":[],"mappings":"AAAA;;GAEG;AAEH;CAEC;AAED;IACE,MAAM,CAAC;AACT,CAAC;AAED,kJAAkJ;AAClJ,MAAM,QAAQ,GAAG,SAAS,EAAE,CAAC;AAC7B,QAAQ,CAAC,KAAK,CAAC"}

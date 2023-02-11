@@ -10,7 +10,7 @@ const printValueType = (value) => {
 };
 // "That must be a string"
 printValueType("");
-// and that a number 
+// and that a number
 printValueType(123);
 // and here an object
 const personInstance = new Person_1.Person();

@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const GlobalFunctions_1 = require("../../GlobalFunctions");
 const myArray = [1, 2, 3];
 const [one, , three] = myArray;
-(0, GlobalFunctions_1.println)(one, three);
+GlobalFunctions_1.println(one, three);
 const myLeaf = { isLeaf: true, name: "My leaf name" };
 const { isLeaf } = myLeaf;
 // Destructured properties of objects can be aliased, e.g. when two properties have the same name

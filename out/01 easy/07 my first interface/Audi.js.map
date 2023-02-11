@@ -1,1 +1,1 @@
-{"version":3,"file":"Audi.js","sourceRoot":"","sources":["../../../01 easy/07 my first interface/Audi.ts"],"names":[],"mappings":";;;AAAA,2DAAgD;AAGhD;;GAEG;AACH,MAAa,IAAI;IAAjB;QACE,SAAI,GAAW,MAAM,CAAC;IAIxB,CAAC;IAHC,KAAK;QACH,IAAA,yBAAO,EAAC,qBAAqB,CAAC,CAAC;IACjC,CAAC;CACF;AALD,oBAKC"}
+{"version":3,"file":"Audi.js","sourceRoot":"","sources":["../../../01 easy/07 my first interface/Audi.ts"],"names":[],"mappings":";;AAAA,2DAAgD;AAGhD;;GAEG;AACH;IAAA;QACE,SAAI,GAAW,MAAM,CAAC;IAIxB,CAAC;IAHC,KAAK;QACH,yBAAO,CAAC,qBAAqB,CAAC,CAAC;IACjC,CAAC;CACF;AALD,oBAKC"}

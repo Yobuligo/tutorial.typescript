@@ -5,10 +5,10 @@ const Audi_1 = require("./Audi");
 const BMW_1 = require("./BMW");
 function checkSpoiler(car) {
     if (car.spoilerSize == null) {
-        (0, GlobalFunctions_1.println)(`${car.name} has no spoiler`);
+        GlobalFunctions_1.println(`${car.name} has no spoiler`);
     }
     else {
-        (0, GlobalFunctions_1.println)(`${car.name} has a spoiler with size ${car.spoilerSize}`);
+        GlobalFunctions_1.println(`${car.name} has a spoiler with size ${car.spoilerSize}`);
     }
 }
 // creates a variable of type 'ICar' and call function start polymorph for BMW and Audi

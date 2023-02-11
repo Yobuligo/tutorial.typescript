@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.printMessage = void 0;
 /**
  * Print given message in the console.
  * Use 'export' to have the ability to import the function in other files (see app.ts)

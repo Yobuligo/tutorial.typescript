@@ -1,0 +1,4 @@
+Interface 
+
+typeOf
+is type
