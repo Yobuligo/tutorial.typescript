@@ -1,5 +1,6 @@
 /**
- * In TypeScript there is a shorthand if condition.
+ * In TypeScript there is a short notation for the if condition.
+ * It is realized via the ternary operator () ? : -> condition then else
  * In some cases it make the code shorter without to lose readability.
  */
 
