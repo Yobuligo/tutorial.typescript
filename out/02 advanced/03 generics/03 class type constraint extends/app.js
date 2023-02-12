@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const GlobalFunctions_1 = require("../../../GlobalFunctions");
+var GlobalFunctions_1 = require("../../../GlobalFunctions");
 /**
  * This class is responsible for containing a node
  * The node must be of type 'INode'.
@@ -8,24 +8,26 @@ const GlobalFunctions_1 = require("../../../GlobalFunctions");
  * Therefore the generic type 'T' is introduced.
  * By using 'extends INode' it is defined that the type must be of type INode
  */
-class NodeContainer {
-    constructor(node) {
+var NodeContainer = /** @class */ (function () {
+    function NodeContainer(node) {
         this.node = node;
     }
-}
+    return NodeContainer;
+}());
 /**
  * This class represents a node and it is printable
  */
-class Node {
-    constructor(name) {
+var Node = /** @class */ (function () {
+    function Node(name) {
         this.name = name;
     }
-    print() {
-        GlobalFunctions_1.println(`Name of the node is '${this.name}'`);
-    }
-}
+    Node.prototype.print = function () {
+        (0, GlobalFunctions_1.println)("Name of the node is '".concat(this.name, "'"));
+    };
+    return Node;
+}());
 // the node container only takes objects of type 'INode'
-const nodeContainer = new NodeContainer(new Node("Root"));
+var nodeContainer = new NodeContainer(new Node("Root"));
 // the contained node is a node but also printable, thanks to generics we can call 'print' type safe
 nodeContainer.node.print();
 //# sourceMappingURL=app.js.map

@@ -3,31 +3,33 @@
 // it is possible to use instead the possibility to check, if an object has a specific attribute
 // and you can do it like that
 Object.defineProperty(exports, "__esModule", { value: true });
-const GlobalFunctions_1 = require("../../GlobalFunctions");
-class Employee {
-    constructor() {
+var GlobalFunctions_1 = require("../../GlobalFunctions");
+var Employee = /** @class */ (function () {
+    function Employee() {
         this.privileges = ["add", "delete"];
         this.firstname = "Stacey";
         this.lastname = "Starfish";
     }
-}
-class Admin {
-    constructor() {
+    return Employee;
+}());
+var Admin = /** @class */ (function () {
+    function Admin() {
         this.privileges = ["add", "delete"];
     }
-}
-let something = new Employee();
+    return Admin;
+}());
+var something = new Employee();
 if ("firstname" in something) {
-    GlobalFunctions_1.println(something.firstname);
+    (0, GlobalFunctions_1.println)(something.firstname);
 }
 else {
-    GlobalFunctions_1.println("Employee has no property firstname");
+    (0, GlobalFunctions_1.println)("Employee has no property firstname");
 }
 something = new Admin();
 if ("firstname" in something) {
-    GlobalFunctions_1.println(something.firstname);
+    (0, GlobalFunctions_1.println)(something.firstname);
 }
 else {
-    GlobalFunctions_1.println("Admin has no property firstname");
+    (0, GlobalFunctions_1.println)("Admin has no property firstname");
 }
 //# sourceMappingURL=app.js.map

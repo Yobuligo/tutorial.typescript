@@ -11,12 +11,12 @@ var State;
 /**
  * Provides a function to iterate over enum types. Therefore the corresponding enumType must be of type object.
  */
-const enumIterator = (enumType) => {
-    for (let enumProp in enumType) {
-        console.log(`Enum Property ${enumProp}`);
+var enumIterator = function (enumType) {
+    for (var enumProp in enumType) {
+        console.log("Enum Property ".concat(enumProp));
     }
     return enumType;
 };
-const enumType = enumIterator(State);
+var enumType = enumIterator(State);
 enumType.CHANGED;
 //# sourceMappingURL=app.js.map

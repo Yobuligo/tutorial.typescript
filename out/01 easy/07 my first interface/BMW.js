@@ -1,17 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const GlobalFunctions_1 = require("../../GlobalFunctions");
+exports.BMW = void 0;
+var GlobalFunctions_1 = require("../../GlobalFunctions");
 /**
  * Class that represents a BWM and implements interface 'ICar'
  */
-class BMW {
-    constructor() {
+var BMW = /** @class */ (function () {
+    function BMW() {
         this.name = "BMW";
         this.spoilerSize = 123;
     }
-    start() {
-        GlobalFunctions_1.println(`Sounds like a BMW`);
-    }
-}
+    BMW.prototype.start = function () {
+        (0, GlobalFunctions_1.println)("Sounds like a BMW");
+    };
+    return BMW;
+}());
 exports.BMW = BMW;
 //# sourceMappingURL=BMW.js.map

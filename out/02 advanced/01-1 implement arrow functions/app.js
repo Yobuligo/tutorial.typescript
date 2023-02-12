@@ -5,18 +5,18 @@
 //
 // The following examples shows the three different ways taking a button click as example
 // Here a button click is simulated. Just a function which takes another function as parameter which is executed when the click event occurs.
-const buttonClick = (block) => {
+var buttonClick = function (block) {
     block();
 };
 // 1. implement the event where it occurs
-buttonClick(() => {
+buttonClick(function () {
     console.log("Button was clicked");
 });
 // 2. call another arrow function where the event occurs
-const eventHandler = () => {
+var eventHandler = function () {
     console.log("Button was clicked");
 };
-buttonClick(() => {
+buttonClick(function () {
     eventHandler();
 });
 // 3. The better way to 2. seems to be to just reference the function

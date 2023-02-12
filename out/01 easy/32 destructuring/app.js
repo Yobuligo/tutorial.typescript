@@ -1,17 +1,17 @@
 "use strict";
 // Destructuring means actually to extract elements from arrays or objects
 Object.defineProperty(exports, "__esModule", { value: true });
-const GlobalFunctions_1 = require("../../GlobalFunctions");
-const myArray = [1, 2, 3];
-const [one, , three] = myArray;
-GlobalFunctions_1.println(one, three);
-const myLeaf = { isLeaf: true, name: "My leaf name" };
-const { isLeaf } = myLeaf;
+var GlobalFunctions_1 = require("../../GlobalFunctions");
+var myArray = [1, 2, 3];
+var one = myArray[0], three = myArray[2];
+(0, GlobalFunctions_1.println)(one, three);
+var myLeaf = { isLeaf: true, name: "My leaf name" };
+var isLeaf = myLeaf.isLeaf;
 // Destructured properties of objects can be aliased, e.g. when two properties have the same name
-const myOakTree = { isLeaf: true, name: "Oak" };
-const myPineTree = { isLeaf: false, name: "Pine" };
+var myOakTree = { isLeaf: true, name: "Oak" };
+var myPineTree = { isLeaf: false, name: "Pine" };
 // declare aliases for names
-const { name: oakName } = myOakTree;
-const { name: pineName } = myPineTree;
-console.log(`Now I can access ${oakName} and ${pineName}`);
+var oakName = myOakTree.name;
+var pineName = myPineTree.name;
+console.log("Now I can access ".concat(oakName, " and ").concat(pineName));
 //# sourceMappingURL=app.js.map

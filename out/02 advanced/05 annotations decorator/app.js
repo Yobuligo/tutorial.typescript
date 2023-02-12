@@ -11,21 +11,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 // Adds the property path to a class a sets the value of parameter {path}
-const Path = (path) => {
-    return (target) => {
+var Path = function (path) {
+    return function (target) {
         target.path = path;
     };
 };
 // Declares the class DecoratorClass and adds the Decorator @Path
-let DecoratorClass = class DecoratorClass {
-};
-DecoratorClass = __decorate([
-    Path("/test")
-], DecoratorClass);
+var DecoratorClass = /** @class */ (function () {
+    function DecoratorClass() {
+    }
+    DecoratorClass = __decorate([
+        Path("/test")
+    ], DecoratorClass);
+    return DecoratorClass;
+}());
 // Declares a function to print a property path of a type if exists
-const printPath = (type) => {
+var printPath = function (type) {
     if (type.path !== undefined) {
-        console.log(`Path of ${type.name} is ${type.path}`);
+        console.log("Path of ".concat(type.name, " is ").concat(type.path));
     }
 };
 // call function to print the path

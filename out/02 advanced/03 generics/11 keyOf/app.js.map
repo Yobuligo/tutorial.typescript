@@ -1,1 +1,1 @@
-{"version":3,"file":"app.js","sourceRoot":"","sources":["../../../../02 advanced/03 generics/11 keyOf/app.ts"],"names":[],"mappings":"AAAA;;GAEG;AAEH;;;;;;GAMG;AACH,qBAA0D,MAAS,EAAE,GAAM;IACzE,MAAM,CAAC,MAAM,CAAC,GAAG,CAAC,CAAC;AACrB,CAAC"}
+{"version":3,"file":"app.js","sourceRoot":"","sources":["../../../../02 advanced/03 generics/11 keyOf/app.ts"],"names":[],"mappings":"AAAA;;GAEG;AAEH;;;;;;GAMG;AACH,SAAS,WAAW,CAAsC,MAAS,EAAE,GAAM;IACzE,OAAO,MAAM,CAAC,GAAG,CAAC,CAAC;AACrB,CAAC"}

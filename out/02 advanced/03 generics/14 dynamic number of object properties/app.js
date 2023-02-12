@@ -9,27 +9,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Here an object is declared with 2 methods.
 // the property name is given followed by colon (':') and the method or the property value.
 // it is even possible to omit the ':' like for method 'method2'. So it looks like a function is directly declared. Anyway the corresponding property would have the name of the function, like in that example 'method2'.
-const variousNumbers = {
-    method: () => { },
-    methods2() { },
+var variousNumbers = {
+    method: function () { },
+    methods2: function () { },
     prop: "Stacey",
 };
 variousNumbers.method();
 variousNumbers.methods2();
-const dynamicMethods = {
-    first: (parameter) => {
-        console.log(`I can access type safe the property firstname of the parameter object by ${parameter.firstname}`);
+var dynamicMethods = {
+    first: function (parameter) {
+        console.log("I can access type safe the property firstname of the parameter object by ".concat(parameter.firstname));
     },
-    second(parameter) {
-        console.log(`I can add as many methods as desired`);
+    second: function (parameter) {
+        console.log("I can add as many methods as desired");
     },
 };
 // And what is it good for? E.g. I can use that dynamically added methods and call them directly instead of having e.g. an enumeration which needs to be analyzed in a switch statement. So it could be used to trigger an event
 dynamicMethods.first({ firstname: "Stacey", lastname: "Starfish" });
 // Within a framework it would be possible to call the methods dynamically. Here each method would be called automatically and I can hand over type safe an object 'person' which is required for each method.
-for (let propName in dynamicMethods) {
-    const person = { firstname: "Stacey", lastname: "Starfish" };
-    const prop = dynamicMethods[propName];
-    prop(person);
+for (var propName in dynamicMethods) {
+    var person_1 = { firstname: "Stacey", lastname: "Starfish" };
+    var prop = dynamicMethods[propName];
+    prop(person_1);
 }
 //# sourceMappingURL=app.js.map

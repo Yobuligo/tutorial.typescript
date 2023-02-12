@@ -9,7 +9,7 @@ var Gender;
     Gender[Gender["FEMALE"] = 1] = "FEMALE";
 })(Gender || (Gender = {}));
 // Initializes a variable with name 'gender' of enum type 'Gender'. 'Gender.FEMALE' set the initial value
-let gender = Gender.FEMALE;
+var gender = Gender.FEMALE;
 // assigns another value to variable 'gender'
 gender = Gender.MALE;
 // Declares another enumeration.
@@ -22,6 +22,6 @@ var DeviceType;
     DeviceType[DeviceType["PC"] = 1345] = "PC";
 })(DeviceType || (DeviceType = {}));
 // The usage is equal to enumerations where numbers are assigned automatically.
-let deviceType = DeviceType.MOBILE_PHONE;
+var deviceType = DeviceType.MOBILE_PHONE;
 deviceType = DeviceType.PC;
 //# sourceMappingURL=apps.js.map

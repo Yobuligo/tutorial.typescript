@@ -3,27 +3,37 @@
  * Let's assume there is a parameter which is optional but when it is provided it is not clear of which type it is.
  * Here the optional generic type can be useful.
  */
-class ProductPerson {
-}
+var ProductPerson = /** @class */ (function () {
+    function ProductPerson() {
+    }
+    return ProductPerson;
+}());
 /**
  * Here an instance of a 'ProductPerson' is created. But here is not need to provide any settings. So even the settings generic type can be omit.
  */
-class ProductPersonFactory {
-    create(settings) {
-        return new ProductPerson();
+var ProductPersonFactory = /** @class */ (function () {
+    function ProductPersonFactory() {
     }
-}
-class ProductCar {
-    constructor(name, constructionYear) {
+    ProductPersonFactory.prototype.create = function (settings) {
+        return new ProductPerson();
+    };
+    return ProductPersonFactory;
+}());
+var ProductCar = /** @class */ (function () {
+    function ProductCar(name, constructionYear) {
         this.name = name;
     }
-}
+    return ProductCar;
+}());
 /**
  * Here an instance of 'ProductCar' is created. The required settings a type safe provided.
  */
-class ProductCarFactory {
-    create(settings) {
-        return new ProductCar(settings.name, settings.constructionYear);
+var ProductCarFactory = /** @class */ (function () {
+    function ProductCarFactory() {
     }
-}
+    ProductCarFactory.prototype.create = function (settings) {
+        return new ProductCar(settings.name, settings.constructionYear);
+    };
+    return ProductCarFactory;
+}());
 //# sourceMappingURL=app.js.map

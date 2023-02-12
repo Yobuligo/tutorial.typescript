@@ -1,16 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const GlobalFunctions_1 = require("../../GlobalFunctions");
+exports.Audi = void 0;
+var GlobalFunctions_1 = require("../../GlobalFunctions");
 /**
  * Class that represents an Audi  BWM and implements interface 'ICar'
  */
-class Audi {
-    constructor() {
+var Audi = /** @class */ (function () {
+    function Audi() {
         this.name = "Audi";
     }
-    start() {
-        GlobalFunctions_1.println("Sounds like an Audi");
-    }
-}
+    Audi.prototype.start = function () {
+        (0, GlobalFunctions_1.println)("Sounds like an Audi");
+    };
+    return Audi;
+}());
 exports.Audi = Audi;
 //# sourceMappingURL=Audi.js.map

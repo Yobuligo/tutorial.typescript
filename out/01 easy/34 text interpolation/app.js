@@ -1,7 +1,7 @@
 // Text interpolation can be used to embed variables into text.
 // This works as follows
-const var1 = "This is a variable";
-const var2 = 123;
-const var3 = {};
-console.log(`Here is the text for ${var1} and ${var2} and ${var3}`);
+var var1 = "This is a variable";
+var var2 = 123;
+var var3 = {};
+console.log("Here is the text for ".concat(var1, " and ").concat(var2, " and ").concat(var3));
 //# sourceMappingURL=app.js.map

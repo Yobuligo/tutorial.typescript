@@ -1,11 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const GlobalClasses_1 = require("./GlobalClasses");
+exports.lazy = exports.TODO = exports.newLine = exports.println = void 0;
+var GlobalClasses_1 = require("./GlobalClasses");
 /**
  * This function is responsible for wrapping the function console.log.
  */
-function println(...data) {
-    console.log(...data);
+function println() {
+    var data = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        data[_i] = arguments[_i];
+    }
+    console.log.apply(console, data);
 }
 exports.println = println;
 /**
@@ -18,7 +23,8 @@ exports.newLine = newLine;
 /**
  * This function is responsible for raising a TODO exception
  */
-function TODO(message = "Not implemented exception") {
+function TODO(message) {
+    if (message === void 0) { message = "Not implemented exception"; }
     throw new Error(message);
 }
 exports.TODO = TODO;

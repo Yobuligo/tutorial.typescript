@@ -1,28 +1,34 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const GlobalFunctions_1 = require("../../../GlobalFunctions");
+var GlobalFunctions_1 = require("../../../GlobalFunctions");
 /**
  * Class that represents a person
  */
-class Person {
-}
+var Person = /** @class */ (function () {
+    function Person() {
+    }
+    return Person;
+}());
 /**
  * Class that is responsible for cloning source objects of a generic type
  */
-class Cloner {
-    clone(source, type) {
-        let target = new type();
-        for (const property in source) {
+var Cloner = /** @class */ (function () {
+    function Cloner() {
+    }
+    Cloner.prototype.clone = function (source, type) {
+        var target = new type();
+        for (var property in source) {
             target[property] = source[property];
         }
         return target;
-    }
-}
+    };
+    return Cloner;
+}());
 // Create person and initialize properties
-const person = new Person();
+var person = new Person();
 person.firstname = "Stacey";
 person.lastname = "Starfish";
 // Clone person
-const newPerson = new Cloner().clone(person, Person);
-GlobalFunctions_1.println(`${person.firstname} ${person.lastname} was cloned.`);
+var newPerson = new Cloner().clone(person, Person);
+(0, GlobalFunctions_1.println)("".concat(person.firstname, " ").concat(person.lastname, " was cloned."));
 //# sourceMappingURL=app.js.map

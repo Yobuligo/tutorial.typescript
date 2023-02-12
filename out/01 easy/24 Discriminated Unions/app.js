@@ -21,18 +21,18 @@ var Medium;
     Medium[Medium["PC"] = 1] = "PC";
     Medium[Medium["TV"] = 2] = "TV";
 })(Medium || (Medium = {}));
-const evaluateMedium = (medium) => {
+var evaluateMedium = function (medium) {
     switch (medium.type) {
         case Medium.BOOK: {
-            console.log(`Access type safe ${medium.pages}`);
+            console.log("Access type safe ".concat(medium.pages));
             break;
         }
         case Medium.PC: {
-            console.log(`Access type safe ${medium.url}`);
+            console.log("Access type safe ".concat(medium.url));
             break;
         }
         case Medium.TV: {
-            console.log(`Access type safe ${medium.channel}`);
+            console.log("Access type safe ".concat(medium.channel));
             break;
         }
     }

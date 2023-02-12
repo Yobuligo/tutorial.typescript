@@ -1,12 +1,15 @@
 /**
  * In TypeScript it is possible to set a default Generic Type
  */
-class RowData {
-}
+var RowData = /** @class */ (function () {
+    function RowData() {
+    }
+    return RowData;
+}());
 function fetchData() {
     return;
 }
 // even so no type information is provided, although it is needed in fetchData, I can access the prop value as [RowData] is a default Generic Type
-const anything = fetchData();
+var anything = fetchData();
 anything.value;
 //# sourceMappingURL=app.js.map
