@@ -1,3 +1,4 @@
+"use strict";
 /**
  * In Kotlin it is possible to have Companion Objects.
  * Instead of having only static methods on a class the companion object provides access to methods of an instance based objects

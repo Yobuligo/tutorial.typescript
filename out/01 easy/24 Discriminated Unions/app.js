@@ -1,3 +1,4 @@
+"use strict";
 // An approach some kind of workaround for the reason that interface are no real types in javascript.
 // Instead any interface gets a property e.g. type or whatever.
 // Later we use an intersection type to combine multiple interfaces.

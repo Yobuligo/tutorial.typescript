@@ -1,3 +1,4 @@
+"use strict";
 // creates a list of string elements and sets values
 var numbers = ["one", "two", "three"];
 // list entries "one", "two", "three" (keyword OF)

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Partial is a specific "Utility Type". It can be used to define a variable that must only contain of parts of a given type.
  * At the end it takes a type T and returns another type with the same shape as T but with all fields set to optional.

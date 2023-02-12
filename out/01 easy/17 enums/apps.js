@@ -1,3 +1,4 @@
+"use strict";
 // Declares an enumeration with name 'Gender'
 // An enum contains all possible assignable values of a type.
 // The values are some kind of constants which can be used in the code.

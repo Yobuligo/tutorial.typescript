@@ -1,3 +1,4 @@
+"use strict";
 // Initialize a variable of the  declared type.
 // only values of type string and number can be assigned
 var myVariable = "MyString";

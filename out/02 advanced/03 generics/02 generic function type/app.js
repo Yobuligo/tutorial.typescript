@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Class that contains a value of any type
  */

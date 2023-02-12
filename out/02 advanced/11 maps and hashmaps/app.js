@@ -1,3 +1,4 @@
+"use strict";
 // there a certain ways to create a maps and hashmaps.
 // A map can be implemented by using the Map class
 var map = new Map();

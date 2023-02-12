@@ -1,3 +1,4 @@
+"use strict";
 /**
  * In TypeScript it is possible to set a default Generic Type
  */

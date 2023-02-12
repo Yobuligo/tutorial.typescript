@@ -1,3 +1,4 @@
+"use strict";
 // Text interpolation can be used to embed variables into text.
 // This works as follows
 var var1 = "This is a variable";

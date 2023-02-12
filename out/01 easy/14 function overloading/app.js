@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Function Overloading in TypeScript is different to other languages.
  * Instead of having a separate method or function for each variant, in TypeScript there is only one implemented function which handles all cases.

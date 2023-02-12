@@ -1,3 +1,4 @@
+"use strict";
 /**
  * The following code shows how to ensure that an object has a specific property
  */

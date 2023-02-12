@@ -1,3 +1,4 @@
+"use strict";
 // Promises provides a asynchronous execution of actions
 // E.g. in web application there is a need to wait for REST-results or database operations.
 // To not stop the whole application these actions (REST-Calls and DB-Operations) are executed asynchronous.
@@ -41,7 +42,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
 // Subscription (registration of a promise result):
 // A Promise execution can have two results. The execution could be:
 //      1. successful
@@ -155,7 +155,7 @@ function awaitPromiseAll() {
     });
 }
 // Chaining promises
-var stackedPromises = function (value) { return __awaiter(_this, void 0, void 0, function () {
+var stackedPromises = function (value) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         return [2 /*return*/, value];
     });

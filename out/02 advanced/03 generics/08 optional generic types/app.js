@@ -1,3 +1,4 @@
+"use strict";
 /**
  * in TypeScript it is not even necessary to provide a generic type if not required.
  * Let's assume there is a parameter which is optional but when it is provided it is not clear of which type it is.

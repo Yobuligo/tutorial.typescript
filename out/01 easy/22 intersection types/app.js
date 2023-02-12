@@ -1,3 +1,4 @@
+"use strict";
 // An intersection type is a type that contains other types
 // Works also for interfaces
 var userAddress = {

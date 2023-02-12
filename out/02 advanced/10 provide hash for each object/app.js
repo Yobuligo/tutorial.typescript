@@ -1,3 +1,4 @@
+"use strict";
 // Actually it is not possible to provide a hash to an object.
 // But there is a workaround to add one dynamically
 // Creates unique hash values

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * The following code shows an example of how to implement a ServiceProvider in TypeScript
  */

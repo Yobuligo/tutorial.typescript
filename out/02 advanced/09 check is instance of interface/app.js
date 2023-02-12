@@ -1,3 +1,4 @@
+"use strict";
 // define a constants with the same name as the interface. Which is possible.
 // and declare it has a IMeta for IHaveCaption
 // Implement the function is. Which must check the attributes of the object. This is the only way in TypeScript.

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * A decorator can be considered like annotations in Kotlin but less powerful.
  * A decorator is a function that is called and which can have parameters.

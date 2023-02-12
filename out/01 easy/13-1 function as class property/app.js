@@ -1,3 +1,4 @@
+"use strict";
 /**
  * In TypeScript classes must not only have properties and methods but they can also have functions.
  * That helps to transfer the reference of that class function to call it later.

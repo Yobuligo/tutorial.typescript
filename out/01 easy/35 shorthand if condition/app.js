@@ -1,3 +1,4 @@
+"use strict";
 /**
  * In TypeScript there is a shorthand if condition.
  * In some cases it make the code shorter without to lose readability.

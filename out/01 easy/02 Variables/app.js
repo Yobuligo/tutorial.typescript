@@ -1,3 +1,4 @@
+"use strict";
 // declare an unchangeable constants
 var constantValue = "Thanks to const, I am a constant";
 // constantValue = 341243 -> not possible

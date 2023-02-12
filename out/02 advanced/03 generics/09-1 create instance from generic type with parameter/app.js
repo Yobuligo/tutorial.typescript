@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Next to creating instances by an empty constructor it is also possible to create instances by generic with parameters.
  */

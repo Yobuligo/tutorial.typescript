@@ -1,3 +1,4 @@
+"use strict";
 /**
  * The following code shows how to use keyOf to set a property of an object generic and type safe
  */

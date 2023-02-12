@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Represents a specific car, a BMW
  */

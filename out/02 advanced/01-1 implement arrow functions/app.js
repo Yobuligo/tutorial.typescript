@@ -1,3 +1,4 @@
+"use strict";
 // The implementation of an arrow function can be done on three ways:
 // 1. implement the function directly
 // 2. implement the function by calling another function e.g. another arrow function
