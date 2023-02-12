@@ -4,8 +4,8 @@ import { println } from "../../../GlobalFunctions";
  * Class that represents a person
  */
 class Person {
-  firstname: string;
-  lastname: string;
+  firstname: string = "";
+  lastname: string = "";
 }
 
 /**

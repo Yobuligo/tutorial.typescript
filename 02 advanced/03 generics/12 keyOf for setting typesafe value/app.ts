@@ -3,9 +3,9 @@
  */
 
 class Book {
-  isbn: string;
-  publishedAt: Date;
-  numberSoldBooks: number;
+  isbn: string = "";
+  publishedAt: Date = new Date();
+  numberSoldBooks: number = 0;
 }
 
 class PropertyUpdater<T> {

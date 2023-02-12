@@ -10,8 +10,8 @@ declare global {
   }
 
   interface Boolean {
-    ifTrue(block: () => void);
-    ifFalse(block: () => void);
+    ifTrue(block: () => void): void;
+    ifFalse(block: () => void): void;
   }
 }
 
@@ -22,7 +22,7 @@ Array.prototype.apply = function (block) {
 
 String.prototype.ifNotEmpty = function (block: (value: string) => void): void {
   if (this != "") {
-    block(this);
+    block(this.toString());
   }
 };
 

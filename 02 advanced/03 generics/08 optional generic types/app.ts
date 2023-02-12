@@ -13,8 +13,8 @@ interface IFactory<TProduct, TSettings = {}> {
 }
 
 class ProductPerson {
-  firstname: string;
-  lastname: string;
+  firstname: string = "";
+  lastname: string = "";
 }
 
 /**
@@ -40,6 +40,13 @@ interface IProductCarSettings {
  */
 class ProductCarFactory implements IFactory<ProductCar, IProductCarSettings> {
   create(settings?: IProductCarSettings): ProductCar {
-    return new ProductCar(settings.name, settings.constructionYear);
+    const productCarSettings = settings ?? {
+      name: "My name",
+      constructionYear: 1950,
+    };
+    return new ProductCar(
+      productCarSettings.name,
+      productCarSettings.constructionYear
+    );
   }
 }

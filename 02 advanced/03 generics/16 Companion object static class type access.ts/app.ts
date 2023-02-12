@@ -20,16 +20,16 @@ abstract class SuperClass {
   // Like each instance method "this" will be actually injected in each instance method but is not required.
   // But here this is injected. But instead of being the object instance it is the class instance which keeps the information of the calling class.
   static findById<T>(this: Constructor<T>, id: number): T {
-    return;
+    return new this();
   }
 
   static findAll<T>(this: Constructor<T>): T[] {
-    return;
+    return [];
   }
 
   // Alternative
   static save<T>(this: new () => T, instance: T): T {
-    return;
+    return instance;
   }
 }
 

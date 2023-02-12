@@ -11,7 +11,7 @@ interface INode {
  * An implementation of this interface is responsible for being printable
  */
 interface IPrintable {
-  print();
+  print(): void;
 }
 
 /**

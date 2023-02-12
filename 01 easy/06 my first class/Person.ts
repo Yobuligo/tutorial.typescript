@@ -5,8 +5,8 @@ import { println } from "../../GlobalFunctions";
  * Use 'export' to have the ability to import the class in other files (see app.ts)
  */
 export class Person {
-  firstname: string;
-  lastname: string;
+  firstname: string = "";
+  lastname: string = "";
 
   // use ${attribute/function} to add the result to a string
   printName() {

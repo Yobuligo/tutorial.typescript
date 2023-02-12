@@ -4,16 +4,15 @@ import { println } from "../../../GlobalFunctions";
  * Class that represents a person
  */
 class Person {
-  firstname: string;
-  lastname: string;
+  firstname: string = "";
+  lastname: string = "";
 }
 
 /**
  * Class which is responsible for creating instance from a generics type
  */
 class Factory {
-  create<T>(): T {
-    let type: new () => T;
+  create<T>(type: new () => T): T {
     return new type();
   }
 }
@@ -28,7 +27,7 @@ class ObjectFactory {
 }
 
 const factory = new Factory();
-const person = factory.create<Person>();
+const person = factory.create(Person);
 person.firstname = "Stacey";
 person.lastname = "Starfish";
 println(`${person.firstname} ${person.lastname} was created.`);

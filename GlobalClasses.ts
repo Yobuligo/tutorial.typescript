@@ -18,26 +18,23 @@ export interface ILazy<T> {
  * This class is responsible for initializing and administer an object lazily
  */
 export class Lazy<T> implements ILazy<T> {
-  private _initialized: Boolean = false;
-  private _instance: T;
+  private _instance?: T = undefined;
 
   constructor(private instanceInitializer: () => T) {}
 
   public get initialized(): Boolean {
-    return this._initialized;
+    return this._instance === undefined;
   }
 
   public get instance(): T {
-    if (!this._initialized) {
+    if (this._instance === undefined) {
       this._instance = this.instanceInitializer();
-      this._initialized = true;
     }
     return this._instance;
   }
 
   public set instance(value: T) {
     this._instance = value;
-    this._initialized = true;
   }
 }
 

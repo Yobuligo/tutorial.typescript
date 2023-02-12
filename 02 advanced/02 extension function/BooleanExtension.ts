@@ -5,8 +5,8 @@ export {};
 // By using 'declare global' the extension is provided globally
 declare global {
   interface Boolean {
-    ifTrue(block: () => void);
-    ifFalse(block: () => void);
+    ifTrue(block: () => void): void;
+    ifFalse(block: () => void): void;
   }
 }
 

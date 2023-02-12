@@ -2,8 +2,8 @@ import { IPerson } from "../../../01 easy/19 cast/app";
 /**
  * In TypeScript it is possible to declare objects which have a dynamic number of properties.
  * This provides the possibility to e.g. add various properties or even methods to an object
- * 
- * Belongs to "Index Properties / index property / index properties" (see easy -> basics)
+ *
+ * Belongs to "Index Properties / index property / index properties / Indexable type" (see easy -> basics)
  */
 
 // Here an object is declared with 2 methods.

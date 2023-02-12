@@ -13,6 +13,6 @@ declare global {
 // To provide an extension function, it has to be assigned to the declaration which is accessible via string.prototype.*
 String.prototype.ifNotEmpty = function (block: (value: string) => void): void {
   if (this != "") {
-    block(this);
+    block(this.toString());
   }
 };

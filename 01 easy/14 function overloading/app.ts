@@ -55,9 +55,11 @@ class PersonFinder implements IPersonFinder {
     if (undefinedOrLastname === undefined) {
       // find(id: string)
       if (typeof undefinedIdFirstnameOrAge === "string") {
-        return persons.find((person) => {
-          return person.id === undefinedIdFirstnameOrAge;
-        });
+        const person =
+          persons.find((person) => {
+            return person.id === undefinedIdFirstnameOrAge;
+          }) ?? this.raiseException();
+        return person;
         // find(age: number)
       } else if (typeof undefinedIdFirstnameOrAge === "number") {
         return persons.filter((person) => {
@@ -82,6 +84,12 @@ class PersonFinder implements IPersonFinder {
     }
 
     throw new Error("Not supported operation");
+  }
+
+  private raiseException(): never {
+    throw new Error(
+      `Couldn't find a person which meets the search parameters.`
+    );
   }
 }
 
