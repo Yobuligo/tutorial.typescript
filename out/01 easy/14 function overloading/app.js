@@ -17,6 +17,7 @@ var PersonFinder = /** @class */ (function () {
         this.persons = persons;
     }
     PersonFinder.prototype.find = function (undefinedIdFirstnameOrAge, undefinedOrLastname) {
+        var _a;
         // find()
         if (undefinedIdFirstnameOrAge === undefined &&
             undefinedOrLastname === undefined) {
@@ -25,9 +26,10 @@ var PersonFinder = /** @class */ (function () {
         if (undefinedOrLastname === undefined) {
             // find(id: string)
             if (typeof undefinedIdFirstnameOrAge === "string") {
-                return persons.find(function (person) {
+                var person_1 = (_a = persons.find(function (person) {
                     return person.id === undefinedIdFirstnameOrAge;
-                });
+                })) !== null && _a !== void 0 ? _a : this.raiseException();
+                return person_1;
                 // find(age: number)
             }
             else if (typeof undefinedIdFirstnameOrAge === "number") {
@@ -48,6 +50,9 @@ var PersonFinder = /** @class */ (function () {
             });
         }
         throw new Error("Not supported operation");
+    };
+    PersonFinder.prototype.raiseException = function () {
+        throw new Error("Couldn't find a person which meets the search parameters.");
     };
     return PersonFinder;
 }());

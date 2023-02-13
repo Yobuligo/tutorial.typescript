@@ -6,6 +6,8 @@
  */
 var ProductPerson = /** @class */ (function () {
     function ProductPerson() {
+        this.firstname = "";
+        this.lastname = "";
     }
     return ProductPerson;
 }());
@@ -33,7 +35,11 @@ var ProductCarFactory = /** @class */ (function () {
     function ProductCarFactory() {
     }
     ProductCarFactory.prototype.create = function (settings) {
-        return new ProductCar(settings.name, settings.constructionYear);
+        var productCarSettings = settings !== null && settings !== void 0 ? settings : {
+            name: "My name",
+            constructionYear: 1950,
+        };
+        return new ProductCar(productCarSettings.name, productCarSettings.constructionYear);
     };
     return ProductCarFactory;
 }());

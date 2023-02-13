@@ -6,7 +6,7 @@ Array.prototype.apply = function (block) {
 };
 String.prototype.ifNotEmpty = function (block) {
     if (this != "") {
-        block(this);
+        block(this.toString());
     }
 };
 Boolean.prototype.ifTrue = function (block) {

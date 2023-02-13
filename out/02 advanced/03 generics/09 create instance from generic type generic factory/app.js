@@ -6,6 +6,8 @@ var GlobalFunctions_1 = require("../../../GlobalFunctions");
  */
 var Person = /** @class */ (function () {
     function Person() {
+        this.firstname = "";
+        this.lastname = "";
     }
     return Person;
 }());
@@ -15,8 +17,7 @@ var Person = /** @class */ (function () {
 var Factory = /** @class */ (function () {
     function Factory() {
     }
-    Factory.prototype.create = function () {
-        var type;
+    Factory.prototype.create = function (type) {
         return new type();
     };
     return Factory;
@@ -33,7 +34,7 @@ var ObjectFactory = /** @class */ (function () {
     return ObjectFactory;
 }());
 var factory = new Factory();
-var person = factory.create();
+var person = factory.create(Person);
 person.firstname = "Stacey";
 person.lastname = "Starfish";
 (0, GlobalFunctions_1.println)("".concat(person.firstname, " ").concat(person.lastname, " was created."));

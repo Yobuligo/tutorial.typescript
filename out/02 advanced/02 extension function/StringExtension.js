@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // To provide an extension function, it has to be assigned to the declaration which is accessible via string.prototype.*
 String.prototype.ifNotEmpty = function (block) {
     if (this != "") {
-        block(this);
+        block(this.toString());
     }
 };
 //# sourceMappingURL=StringExtension.js.map

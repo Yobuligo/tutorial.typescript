@@ -4,6 +4,9 @@
  */
 var Book = /** @class */ (function () {
     function Book() {
+        this.isbn = "";
+        this.publishedAt = new Date();
+        this.numberSoldBooks = 0;
     }
     return Book;
 }());

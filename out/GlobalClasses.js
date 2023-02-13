@@ -24,26 +24,24 @@ exports.Triple = Triple;
 var Lazy = /** @class */ (function () {
     function Lazy(instanceInitializer) {
         this.instanceInitializer = instanceInitializer;
-        this._initialized = false;
+        this._instance = undefined;
     }
     Object.defineProperty(Lazy.prototype, "initialized", {
         get: function () {
-            return this._initialized;
+            return this._instance === undefined;
         },
         enumerable: false,
         configurable: true
     });
     Object.defineProperty(Lazy.prototype, "instance", {
         get: function () {
-            if (!this._initialized) {
+            if (this._instance === undefined) {
                 this._instance = this.instanceInitializer();
-                this._initialized = true;
             }
             return this._instance;
         },
         set: function (value) {
             this._instance = value;
-            this._initialized = true;
         },
         enumerable: false,
         configurable: true

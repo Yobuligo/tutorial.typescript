@@ -8,6 +8,8 @@ var GlobalFunctions_1 = require("../../GlobalFunctions");
  */
 var Person = /** @class */ (function () {
     function Person() {
+        this.firstname = "";
+        this.lastname = "";
     }
     // use ${attribute/function} to add the result to a string
     Person.prototype.printName = function () {
