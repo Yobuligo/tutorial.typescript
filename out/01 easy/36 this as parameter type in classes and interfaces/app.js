@@ -13,12 +13,6 @@ var Animal = /** @class */ (function () {
     return Animal;
 }());
 var animal = new Animal();
-var device = {
-    name: "Mobile Phone",
-    compare: function (instance) {
-        return 0;
-    },
-};
-// Here the method compare
-animal.compare(device);
+// The method compare expects an object of type IAnimal
+animal.compare(animal);
 //# sourceMappingURL=app.js.map
