@@ -29,3 +29,20 @@ person.lastname = "Starfish";
 // Clone person
 const newPerson = new Cloner().clone(person, Person);
 println(`${person.firstname} ${person.lastname} was cloned.`);
+
+/**
+ * A newer implementation in comparison to *Cloner*.
+ * There is no need to inject the constructor. Instead the constructor is read from the source.
+ */
+class Cloner2 {
+  clone<T>(source: T): T {
+    const target = new (source as any).constructor();
+    for (const prop in source) {
+      target[prop] = source[prop];
+    }
+    return target;
+  }
+}
+
+const personClone = new Cloner2().clone(person);
+println(`${person.firstname} ${person.lastname} was cloned.`);

@@ -24,6 +24,9 @@ var GlobalFunctions_1 = require("../../../GlobalFunctions");
  */
 var GenericCloneable;
 (function (GenericCloneable) {
+    /**
+     * The Cloner is responsible for creating a new object by handing over its constructor
+     */
     var Cloner = /** @class */ (function () {
         function Cloner() {
         }
@@ -32,6 +35,11 @@ var GenericCloneable;
         };
         return Cloner;
     }());
+    /**
+     * Person implements ICloneable.
+     * To provide a generic implementation which really creates a clone of the current class and not only Person but also of the extended classes,
+     * the class Cloner is used. In that class the constructor of the current instance type (Person or each extended class, like Teacher) has to be handed over to *Cloner*.
+     */
     var Person = /** @class */ (function () {
         function Person() {
             this.firstname = "Stacey";
