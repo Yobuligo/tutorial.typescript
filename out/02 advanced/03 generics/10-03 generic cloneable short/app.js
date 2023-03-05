@@ -29,9 +29,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var GlobalFunctions_1 = require("../../../GlobalFunctions");
 /**
  * Even so having a ICloneable interface etc. is nice and type safe.
- * The easiest way is to use the internal clone function of TypeScript.
+ * The easiest way is to use the internal clone function of TypeScript {... new Teacher() }
  * The greatest disadvantage probably is that I have no control over what must be cloned.
- * Is a deep copy created?
  */
 var GenericCloneableShort;
 (function (GenericCloneableShort) {

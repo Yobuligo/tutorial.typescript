@@ -7,6 +7,8 @@
  * Decorators can be used for classes, methods, functions or properties
  */
 
+import { println } from "../../GlobalFunctions";
+
 // Adds the property path to a class a sets the value of parameter {path}
 const Path = <T>(path: string) => {
   return (target: T) => {
@@ -14,9 +16,33 @@ const Path = <T>(path: string) => {
   };
 };
 
+/**
+ * Property Decorator
+ */
+const Prop = (target: any, name: string) => {
+  console.log(target);
+  console.log(name);
+};
+
+/**
+ * Method Decorator
+ */
+const Method = (target: any, name: string) => {
+  console.log(target);
+  console.log(name);
+};
+
 // Declares the class DecoratorClass and adds the Decorator @Path
 @Path("/test")
-class DecoratorClass {}
+class DecoratorClass {
+  @Prop
+  myProperty = "Test";
+
+  @Method
+  test(): void {
+    println("Test");
+  }
+}
 
 // Declares a function to print a property path of a type if exists
 const printPath = <T>(type: new () => T) => {
