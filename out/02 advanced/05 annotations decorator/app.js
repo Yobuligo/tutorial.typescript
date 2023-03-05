@@ -28,11 +28,32 @@ var Path = function (path) {
     };
 };
 /**
- * Property Decorator
+ * Property Decorator - simple
  */
 var Prop = function (target, name) {
     console.log(target);
     console.log(name);
+};
+/**
+ * Use Property Decorator for validation
+ */
+var Min = function (minValue) {
+    return function (target, propertyKey) {
+        var value = target[propertyKey];
+        var setter = function (newValue) {
+            if (newValue < minValue) {
+                throw new Error("Property value must be not smaller than ".concat(minValue));
+            }
+            value = newValue;
+        };
+        var getter = function () {
+            return value;
+        };
+        Object.defineProperty(target, propertyKey, {
+            get: getter,
+            set: setter,
+        });
+    };
 };
 /**
  * Method Decorator
@@ -48,7 +69,8 @@ var Param = function (target, name, parameterIndex) { };
 // Declares the class DecoratorClass and adds the Decorator @Path
 var DecoratorClass = /** @class */ (function () {
     function DecoratorClass() {
-        this.myProperty = "Test";
+        this.simple = "Test";
+        this.myProperty = 100;
     }
     DecoratorClass.prototype.test = function () {
         (0, GlobalFunctions_1.println)("Test");
@@ -59,6 +81,10 @@ var DecoratorClass = /** @class */ (function () {
     __decorate([
         Prop,
         __metadata("design:type", Object)
+    ], DecoratorClass.prototype, "simple", void 0);
+    __decorate([
+        Min(10),
+        __metadata("design:type", Number)
     ], DecoratorClass.prototype, "myProperty", void 0);
     __decorate([
         Method,
@@ -85,4 +111,7 @@ var printPath = function (type) {
 };
 // call function to print the path
 printPath(DecoratorClass);
+var test = new DecoratorClass();
+test.myProperty = 20;
+test.myProperty = 9;
 //# sourceMappingURL=app.js.map

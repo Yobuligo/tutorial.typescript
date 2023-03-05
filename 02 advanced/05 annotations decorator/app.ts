@@ -17,11 +17,36 @@ const Path = <T>(path: string) => {
 };
 
 /**
- * Property Decorator
+ * Property Decorator - simple
  */
 const Prop = (target: any, name: string) => {
   console.log(target);
   console.log(name);
+};
+
+/**
+ * Use Property Decorator for validation
+ */
+const Min = (minValue: 10) => {
+  return (target: any, propertyKey: string)=>{
+    let value = target[propertyKey];
+
+    const setter = function (newValue: any) {
+      if (newValue < minValue) {
+        throw new Error(`Property value must be not smaller than ${minValue}`);
+      }
+      value = newValue;
+    };
+  
+    const getter = function () {
+      return value;
+    };
+  
+    Object.defineProperty(target, propertyKey, {
+      get: getter,
+      set: setter,
+    });
+  }
 };
 
 /**
@@ -41,7 +66,9 @@ const Param = (target: any, name: string, parameterIndex: number) => {};
 @Path("/test")
 class DecoratorClass {
   @Prop
-  myProperty = "Test";
+  simple = "Test";
+  @Min(10)
+  myProperty: number = 100;
 
   @Method
   test(): void {
@@ -62,3 +89,8 @@ const printPath = <T>(type: new () => T) => {
 
 // call function to print the path
 printPath(DecoratorClass);
+
+const test = new DecoratorClass();
+test.myProperty = 20;
+test.myProperty = 9;
+
