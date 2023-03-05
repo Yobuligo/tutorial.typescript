@@ -5,7 +5,7 @@
  * The decorator function can return a target (the class type) and it is even possible to change the props of the class type
  * The decorator function has to be enabled.
  *
- * Decorators can be used for classes, methods, functions or properties
+ * Decorators can be used for classes, methods, functions, properties or parameters
  */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -15,6 +15,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var GlobalFunctions_1 = require("../../GlobalFunctions");
@@ -38,6 +41,10 @@ var Method = function (target, name) {
     console.log(target);
     console.log(name);
 };
+/**
+ * Parameter Decorator
+ */
+var Param = function (target, name, parameterIndex) { };
 // Declares the class DecoratorClass and adds the Decorator @Path
 var DecoratorClass = /** @class */ (function () {
     function DecoratorClass() {
@@ -45,6 +52,9 @@ var DecoratorClass = /** @class */ (function () {
     }
     DecoratorClass.prototype.test = function () {
         (0, GlobalFunctions_1.println)("Test");
+    };
+    DecoratorClass.prototype.test2 = function (param) {
+        (0, GlobalFunctions_1.println)("".concat(param));
     };
     __decorate([
         Prop,
@@ -56,6 +66,12 @@ var DecoratorClass = /** @class */ (function () {
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DecoratorClass.prototype, "test", null);
+    __decorate([
+        __param(0, Param),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [String]),
+        __metadata("design:returntype", void 0)
+    ], DecoratorClass.prototype, "test2", null);
     DecoratorClass = __decorate([
         Path("/test")
     ], DecoratorClass);

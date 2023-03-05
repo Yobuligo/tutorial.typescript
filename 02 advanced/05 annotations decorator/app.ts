@@ -4,7 +4,7 @@
  * The decorator function can return a target (the class type) and it is even possible to change the props of the class type
  * The decorator function has to be enabled.
  *
- * Decorators can be used for classes, methods, functions or properties
+ * Decorators can be used for classes, methods, functions, properties or parameters
  */
 
 import { println } from "../../GlobalFunctions";
@@ -32,6 +32,11 @@ const Method = (target: any, name: string) => {
   console.log(name);
 };
 
+/**
+ * Parameter Decorator
+ */
+const Param = (target: any, name: string, parameterIndex: number) => {};
+
 // Declares the class DecoratorClass and adds the Decorator @Path
 @Path("/test")
 class DecoratorClass {
@@ -41,6 +46,10 @@ class DecoratorClass {
   @Method
   test(): void {
     println("Test");
+  }
+
+  test2(@Param param: string): void {
+    println(`${param}`);
   }
 }
 
