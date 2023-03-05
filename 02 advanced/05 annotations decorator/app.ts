@@ -3,8 +3,9 @@
  * A decorator is a function that is called and which can have parameters.
  * The decorator function can return a target (the class type) and it is even possible to change the props of the class type
  * The decorator function has to be enabled.
+ *
+ * Decorators can be used for classes, methods, functions or properties
  */
-
 
 // Adds the property path to a class a sets the value of parameter {path}
 const Path = <T>(path: string) => {
@@ -25,4 +26,4 @@ const printPath = <T>(type: new () => T) => {
 };
 
 // call function to print the path
-printPath(DecoratorClass)
+printPath(DecoratorClass);
