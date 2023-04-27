@@ -19,8 +19,11 @@ namespace AnyVsUnknown {
   // I can call a method on a, even so I don't know if a has that method, as it is of type any
   a.anyMethod();
 
-  // But I have to check the type of b, to call a method, as it is of type unknown
+  // But I have to check the type of b, to call a method, as it is of type unknown (here smart case)
   if (isAnyMethod(b)) {
     b.anyMethod();
   }
+
+  // as an alternative you can cast the variable to the required type
+  (b as IHaveAnyMethod).anyMethod();
 }
