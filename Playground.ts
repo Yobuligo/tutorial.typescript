@@ -1,1 +1,2 @@
-console.log(`Test`)
+// const uuid = crypto.randomUUID();
+// console.log(uuid);
