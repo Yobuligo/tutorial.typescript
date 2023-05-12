@@ -24,4 +24,8 @@ namespace LogicalAndAssignment {
   let emptyString = "";
   let undefinedValue = undefined;
   let nullValue = null;
+
+  // Example: Here we want to initialize a value if it is falsy
+  let name = undefined;
+  name ||= "Stacey";
 }
