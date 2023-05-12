@@ -1,5 +1,5 @@
 /**
- * The logical and assignment operator checks if the value on the left is truthy (which means when checking in an if condition, it would return true (e.g. if(1) would return true)),
+ * The logical AND assignment operator checks if the value on the left is truthy (which means when checking in an if condition, it would return true (e.g. if(1) would return true)),
  * in that case the right side value will be assigned to the variable of the left side.
  */
 
@@ -14,12 +14,13 @@ namespace LogicalAndAssignment {
     x = 123;
   }
 
-  // As y is not truthy, the value 1234 wouldn't be assigned, so y stays 123
+  // As y is not truthy, the value 1234 wouldn't be assigned, so y stays 0
   let y = 0;
   y &&= 1234;
   console.log(y);
 
-  // Other falsy values would be
+  // Falsy values are
+  let zeroNumber = 0;
   let emptyString = "";
   let undefinedValue = undefined;
   let nullValue = null;
