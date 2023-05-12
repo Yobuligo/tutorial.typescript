@@ -24,4 +24,8 @@ namespace LogicalAndAssignment {
   let emptyString = "";
   let undefinedValue = undefined;
   let nullValue = null;
+
+  // Example: here we have a name. In case the name is truthy we want to trim the name to remove blanks
+  let name = "    Stacey    ";
+  name &&= name.trim();
 }
