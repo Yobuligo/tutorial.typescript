@@ -6,7 +6,9 @@
  * Therefore the function import can be used followed by the name of the file which should be imported. Consider that it is an async function
  */
 
-document.addEventListener("click", async () => {
-  const loadedFile = await import("./MyFunction");
-  const myNumber: number = loadedFile.ReturnNumber();
-});
+namespace DynamicImport {
+  document.addEventListener("click", async () => {
+    const loadedFile = await import("./MyFunction");
+    const myNumber: number = loadedFile.ReturnNumber();
+  });
+}
