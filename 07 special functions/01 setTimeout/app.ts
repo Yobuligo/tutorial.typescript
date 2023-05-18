@@ -5,6 +5,6 @@
 
 namespace SetTimeout {
   setTimeout(() => {
-    console.log("This code runs after 1000 ms");
+    console.log("This code runs once after 1000 ms");
   }, 1000);
 }
