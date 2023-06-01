@@ -1,11 +1,16 @@
-// The implementation of an arrow function can be done on three ways:
-// 1. implement the function directly
-// 2. implement the function by calling another function e.g. another arrow function
-// 3. just reference an arrow function.
-//
-// The following examples shows the three different ways taking a button click as example
-
-// Here a button click is simulated. Just a function which takes another function as parameter which is executed when the click event occurs.
+/**
+ * The implementation of an arrow function can be done on three ways:
+ * 1. implement the function directly
+ * 2. implement the function by calling another function e.g. another arrow function
+ * 3. just reference an arrow function.
+ *
+ * The following examples shows the three different ways taking a button click as example
+ *
+ * Here a button click is simulated. Just a function which takes another function as parameter which is executed when the click event occurs.
+ * 
+ * Implementing an arrow function is also called anonymous function, as it has no name or lambda in other languages.
+ */
+  
 const buttonClick = (block: () => void) => {
   block();
 };
