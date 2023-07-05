@@ -52,7 +52,7 @@ namespace ServiceProvider {
   }
 
   class ServiceProvider implements IServiceProvider {
-    private serviceDefinitions: IServiceDefinition<any>[] = [];
+    private serviceDefinitions: IServiceDefinition<unknown>[] = [];
 
     contains<T>(abstractServiceType: new () => Service<T>): boolean {
       return this.findServiceDefinition(abstractServiceType) !== undefined;
@@ -130,7 +130,7 @@ namespace ServiceProvider {
     ): IServiceDefinition<T> | undefined {
       return this.serviceDefinitions.find((serviceDefinition) => {
         return serviceDefinition.abstractServiceType === abstractServiceType;
-      });
+      }) as IServiceDefinition<T>;
     }
 
     private addServiceDefinition<T>(
