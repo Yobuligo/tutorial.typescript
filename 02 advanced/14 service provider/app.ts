@@ -28,51 +28,40 @@ namespace ServiceProvider {
    * The @property {serviceInstanceType} defines if it is a single or a multiple instantiable service.
    * The @property {service} represents a single instance which is either created by the @property {concreteServiceType} or was set via method put at the @interface {IServiceProvider}
    */
-  interface IServiceDefinition<T extends Service<any>, K extends keyof T> {
-    abstractServiceType: new () => T;
-    concreteServiceType?: new () => T[K];
+  interface IServiceDefinition<T> {
+    abstractServiceType: new () => Service<T>;
+    concreteServiceType?: new () => T;
     serviceInstanceType: ServiceInstanceType;
-    service?: T[K];
+    service?: T;
   }
 
   /**
    * An implementation of this interface represents a service provider.
    */
   interface IServiceProvider {
-    contains<T extends Service<any>>(abstractServiceType: new () => T): boolean;
-    fetch<T extends Service<any>, K extends keyof T>(
-      abstractServiceType: new () => T
-    ): T[K];
-    fetchOrNull<T extends Service<any>, K extends keyof T>(
-      abstractServiceType: new () => T
-    ): T[K] | undefined;
-    put<T extends Service<any>, K extends keyof T>(
-      abstractServiceType: new () => T,
-      service: T[K]
-    ): void;
-    remove<T extends Service<any>>(abstractServiceType: new () => T): void;
-    register<T extends Service<any>, K extends keyof T>(
-      abstractServiceType: new () => T,
-      concreteServiceType: new () => T[K],
+    contains<T>(abstractServiceType: new () => Service<T>): boolean;
+    fetch<T>(abstractServiceType: new () => Service<T>): T;
+    fetchOrNull<T>(abstractServiceType: new () => Service<T>): T | undefined;
+    put<T>(abstractServiceType: new () => Service<T>, service: T): void;
+    remove<T>(abstractServiceType: new () => Service<T>): void;
+    register<T>(
+      abstractServiceType: new () => Service<T>,
+      concreteServiceType: new () => T,
       serviceInstanceType: ServiceInstanceType
     ): void;
   }
 
   class ServiceProvider implements IServiceProvider {
-    private serviceDefinitions: IServiceDefinition<any, any>[] = [];
+    private serviceDefinitions: IServiceDefinition<any>[] = [];
 
-    contains<T extends Service<any>>(
-      abstractServiceType: new () => T
-    ): boolean {
+    contains<T>(abstractServiceType: new () => Service<T>): boolean {
       return this.findServiceDefinition(abstractServiceType) !== undefined;
     }
 
-    fetch<T extends Service<any>, K extends keyof T>(
-      abstractServiceType: new () => T
-    ): T[K] {
+    fetch<T>(abstractServiceType: new () => Service<T>): T {
       const service = this.fetchOrNull(abstractServiceType);
       if (service !== undefined) {
-        return service as T[K];
+        return service as T;
       }
 
       throw new Error(
@@ -80,9 +69,7 @@ namespace ServiceProvider {
       );
     }
 
-    fetchOrNull<T extends Service<any>, K extends keyof T>(
-      abstractServiceType: new () => T
-    ): T[K] | undefined {
+    fetchOrNull<T>(abstractServiceType: new () => Service<T>): T | undefined {
       const serviceDefinition = this.findServiceDefinition(abstractServiceType);
       if (serviceDefinition === undefined) {
         return;
@@ -90,10 +77,10 @@ namespace ServiceProvider {
 
       switch (serviceDefinition.serviceInstanceType) {
         case ServiceInstanceType.SINGLE_INSTANTIABLE: {
-          return this.fetchSingleInstantiableService<T, K>(serviceDefinition);
+          return this.fetchSingleInstantiableService<T>(serviceDefinition);
         }
         case ServiceInstanceType.MULTI_INSTANTIABLE: {
-          return this.createService(serviceDefinition) as T[K];
+          return this.createService(serviceDefinition) as T;
         }
         default: {
           throw new Error(
@@ -103,12 +90,9 @@ namespace ServiceProvider {
       }
     }
 
-    put<T extends Service<any>, K extends keyof T>(
-      abstractServiceType: new () => T,
-      service: T[K]
-    ): void {
+    put<T>(abstractServiceType: new () => Service<T>, service: T): void {
       this.findServiceDefinition(abstractServiceType);
-      const serviceDefinition: IServiceDefinition<T, K> = {
+      const serviceDefinition: IServiceDefinition<T> = {
         abstractServiceType: abstractServiceType,
         serviceInstanceType: ServiceInstanceType.SINGLE_INSTANTIABLE,
         service: service,
@@ -116,7 +100,7 @@ namespace ServiceProvider {
       this.addServiceDefinition(serviceDefinition);
     }
 
-    remove<T extends Service<any>>(abstractServiceType: new () => T): void {
+    remove<T>(abstractServiceType: new () => Service<T>): void {
       const index = this.serviceDefinitions.findIndex((serviceDefinition) => {
         return serviceDefinition.abstractServiceType === abstractServiceType;
       });
@@ -128,12 +112,12 @@ namespace ServiceProvider {
       this.serviceDefinitions.splice(index, 1);
     }
 
-    register<T extends Service<any>, K extends keyof T>(
-      abstractServiceType: new () => T,
-      concreteServiceType: new () => T[K],
+    register<T>(
+      abstractServiceType: new () => Service<T>,
+      concreteServiceType: new () => T,
       serviceInstanceType: ServiceInstanceType
     ): void {
-      const serviceDefinition: IServiceDefinition<T, K> = {
+      const serviceDefinition: IServiceDefinition<T> = {
         abstractServiceType: abstractServiceType,
         concreteServiceType: concreteServiceType,
         serviceInstanceType: serviceInstanceType,
@@ -141,16 +125,16 @@ namespace ServiceProvider {
       this.addServiceDefinition(serviceDefinition);
     }
 
-    private findServiceDefinition<T extends Service<any>, K extends keyof T>(
-      abstractServiceType: new () => T
-    ): IServiceDefinition<T, K> | undefined {
+    private findServiceDefinition<T>(
+      abstractServiceType: new () => Service<T>
+    ): IServiceDefinition<T> | undefined {
       return this.serviceDefinitions.find((serviceDefinition) => {
         return serviceDefinition.abstractServiceType === abstractServiceType;
       });
     }
 
-    private addServiceDefinition<T extends Service<any>, K extends keyof T>(
-      serviceDefinition: IServiceDefinition<T, K>
+    private addServiceDefinition<T>(
+      serviceDefinition: IServiceDefinition<T>
     ): void {
       if (this.contains(serviceDefinition.abstractServiceType)) {
         this.remove(serviceDefinition.abstractServiceType);
@@ -159,19 +143,18 @@ namespace ServiceProvider {
       this.serviceDefinitions.push(serviceDefinition);
     }
 
-    private fetchSingleInstantiableService<
-      T extends Service<any>,
-      K extends keyof T
-    >(serviceDefinition: IServiceDefinition<T, keyof T>): T[K] | undefined {
+    private fetchSingleInstantiableService<T>(
+      serviceDefinition: IServiceDefinition<T>
+    ): T | undefined {
       if (serviceDefinition.service === undefined) {
         serviceDefinition.service = this.createService(serviceDefinition);
       }
-      return serviceDefinition.service as T[K] | undefined;
+      return serviceDefinition.service as T | undefined;
     }
 
-    private createService<T extends Service<any>, K extends keyof T>(
-      serviceDefinition: IServiceDefinition<T, K>
-    ): T[K] | undefined {
+    private createService<T>(
+      serviceDefinition: IServiceDefinition<T>
+    ): T | undefined {
       if (serviceDefinition.concreteServiceType === undefined) {
         return undefined;
       }
