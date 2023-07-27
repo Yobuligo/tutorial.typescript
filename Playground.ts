@@ -7,10 +7,11 @@ namespace Playground {
    * 4. Columns must be hidable
    * 5. Columns must be addable
    * 6. Columns must be orderable (the call order defines the order while displaying the columns)
+   *
+   * 7. RowCellRenderer should have row instead of value as parameter
+   * 8. RowCellRenderer should be mandatory
+   * 9. CellRenderer implementation must not change the injected column object. It must be readonly
    */
-
-  // RowCellRenderer should have row instead of value as parameter
-  // RowCellRenderer should be mandatory
 
   interface IPerson {
     firstname: string;
@@ -28,11 +29,12 @@ namespace Playground {
 
   export type ICellRenderer<TValue, TRow> = (
     value: TValue,
+    row: IRow<TRow>,
     column: IColumn<TValue, TRow>
   ) => ReactNode;
 
   export type IRowCellRenderer<TRow> = (
-    row: TRow,
+    row: IRow<TRow>,
     column: IColumn<unknown, TRow>
   ) => ReactNode;
 
@@ -53,10 +55,6 @@ namespace Playground {
     cellRenderer?: ICellRenderer<TValue, TRow>;
   }
 
-  //   export interface IVirtualColumn<TRow> extends IColumnBase<unknown, TRow> {
-  //     rowCellRenderer: IRowCellRenderer<TRow>;
-  //   }
-
   export type IVirtualColumn<TRow> = Partial<IColumnBase<unknown, TRow>> &
     IHaveRowCellRenderer<TRow>;
 
@@ -69,7 +67,7 @@ namespace Playground {
    */
   export type IColumnConfig<TRow> =
     | { [P in keyof TRow]?: Partial<Omit<IColumn<TRow[P], TRow>, "name">> }
-    | { [field: string]: Omit<IVirtualColumn<IRow<TRow>>, "name"> };
+    | { [field: string]: Omit<IVirtualColumn<TRow>, "name"> };
 
   /**
    * An implementation of this interface is responsible for providing all relevant objects which are required to provide Columns for a specific underlying framework
@@ -112,12 +110,15 @@ namespace Playground {
    * virtual columns must have a renderer
    */
   const columns = buildColumns<IPerson>({
+    test: { rowCellRenderer: () => "" },
     age: {
-      cellRenderer: (value) => ``,
+      cellRenderer: (value, row, column) => ``,
     },
-    test: {
-      rowCellRenderer: (row) => ``,
+    firstname: {
+        cellRenderer: (value, row, column)=>``
     },
+    test2: { rowCellRenderer: (row) => `${row.data}` },
+    test3: { rowCellRenderer: () => "" },
   });
 
   debugger;
