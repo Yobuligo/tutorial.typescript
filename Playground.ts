@@ -1,16 +1,17 @@
 namespace Playground {
   /**
    * Requirements:
-   * 1. Renderer, which return own components, which are responsible to render a cell
-   * 2. Renderer, which are part of the framework and can be reused (like Date formatter)
-   * 3. Renderer, which are part of the framework and can be customized
-   * 4. Columns must be hidable
-   * 5. Columns must be addable
-   * 6. Columns must be orderable (the call order defines the order while displaying the columns)
+   * 01. Renderer, which return own components, which are responsible to render a cell
+   * 02. Renderer, which are part of the framework and can be reused (like Date formatter)
+   * 03. Renderer, which are part of the framework and can be customized
+   * 04. Columns must be hidable
+   * 05. Columns must be addable
+   * 06. Columns must be orderable (the call order defines the order while displaying the columns)
    *
-   * 7. RowCellRenderer should have row instead of value as parameter
-   * 8. RowCellRenderer should be mandatory
-   * 9. CellRenderer implementation must not change the injected column object. It must be readonly
+   * 07. RowCellRenderer should have row instead of value as parameter
+   * 08. RowCellRenderer should be mandatory
+   * 09. CellRenderer implementation must not change the injected column object. It must be readonly
+   * 10. CellRenderer implementation must not change the injected row object. It must be readonly
    */
 
   interface IPerson {
@@ -27,15 +28,15 @@ namespace Playground {
 
   export type ReactNode = string;
 
-  export type ICellRenderer<TValue, TRow> = (
-    value: TValue,
-    row: IRow<TRow>,
-    column: IColumn<TValue, TRow>
+  export type IRowCellRenderer<TRow> = (
+    row: Readonly<IRow<TRow>>,
+    column: Readonly<IColumn<unknown, TRow>>
   ) => ReactNode;
 
-  export type IRowCellRenderer<TRow> = (
-    row: IRow<TRow>,
-    column: IColumn<unknown, TRow>
+  export type ICellRenderer<TValue, TRow> = (
+    value: TValue,
+    row: Readonly<IRow<TRow>>,
+    column: Readonly<IColumn<TValue, TRow>>
   ) => ReactNode;
 
   export interface IHaveRowCellRenderer<TRow> {
@@ -115,10 +116,14 @@ namespace Playground {
       cellRenderer: (value, row, column) => ``,
     },
     firstname: {
-        cellRenderer: (value, row, column)=>``
+      cellRenderer: (value, row, column) => ``,
     },
     test2: { rowCellRenderer: (row) => `${row.data}` },
-    test3: { rowCellRenderer: () => "" },
+    test3: {
+      rowCellRenderer: (row, column) => {
+        return "";
+      },
+    },
   });
 
   debugger;
