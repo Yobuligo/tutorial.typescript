@@ -26,11 +26,17 @@ namespace Playground {
 
   export type ReactNode = string;
 
-  export type ICellRenderer<TValue> = (value: TValue, column: IColumn<TValue>) => ReactNode;
+  export type ICellRenderer<TValue, TRow> = (
+    value: TValue,
+    column: IColumn<TValue, TRow>
+  ) => ReactNode;
 
-  export type IRowCellRenderer<TRow> = (value: TRow, column: IColumn<TRow>) => ReactNode;
+  export type IRowCellRenderer<TRow> = (
+    row: TRow,
+    column: IColumn<unknown, TRow>
+  ) => ReactNode;
 
-  export interface IColumnBase<TValue> {
+  export interface IColumnBase<TValue, TRow> {
     caption?: string;
     minWidth?: number;
     isSortable?: boolean;
@@ -39,12 +45,12 @@ namespace Playground {
     width?: number;
   }
 
-  export interface IColumn<TValue> extends IColumnBase<TValue> {
-    cellRenderer?: ICellRenderer<TValue>;
+  export interface IColumn<TValue, TRow> extends IColumnBase<TValue, TRow> {
+    cellRenderer?: ICellRenderer<TValue, TRow>;
   }
 
-  export interface IVirtualColumn<TRow> extends IColumnBase<TRow> {
-    rowCellRenderer: ICellRenderer<TRow>;
+  export interface IVirtualColumn<TRow> extends IColumnBase<unknown, TRow> {
+    rowCellRenderer: ICellRenderer<unknown, TRow>;
   }
 
   export interface IRow<TRow> {
@@ -55,22 +61,22 @@ namespace Playground {
    * Make the properties optional. So the user can control which columns should be displayed and which should be hidden.
    */
   export type IColumnConfig<TRow> =
-    | { [P in keyof TRow]?: Partial<Omit<IColumn<TRow[P]>, "name">> }
+    | { [P in keyof TRow]?: Partial<Omit<IColumn<TRow[P], TRow>, "name">> }
     | { [field: string]: Partial<Omit<IVirtualColumn<IRow<TRow>>, "name">> };
 
   /**
    * An implementation of this interface is responsible for providing all relevant objects which are required to provide Columns for a specific underlying framework
    */
   interface IColumnFacade {
-    createDefaultCellRenderer<T>(): ICellRenderer<T>;
-    map(column: IColumn<unknown>): unknown;
+    createDefaultCellRenderer<TValue, TRow>(): ICellRenderer<TValue, TRow>;
+    map<TValue, TRow>(column: IColumn<TValue, TRow>): unknown;
   }
 
   const ColumnFacade: IColumnFacade = {} as IColumnFacade;
 
-  class Column<TValue> implements IColumn<TValue> {
+  class Column<TValue, TRow> implements IColumn<TValue, TRow> {
     caption?: string | undefined;
-    cellRenderer?: ICellRenderer<TValue> | undefined;
+    cellRenderer?: ICellRenderer<TValue, TRow> | undefined;
     minWidth?: number | undefined = 0;
     isSortable?: boolean | undefined = false;
     tooltip?: string | undefined;
@@ -81,8 +87,10 @@ namespace Playground {
     }
   }
 
-  function buildColumns<TRow>(config: IColumnConfig<TRow>): IColumn<any>[] {
-    const columns: IColumn<any>[] = [];
+  function buildColumns<TRow>(
+    config: IColumnConfig<TRow>
+  ): IColumn<unknown, unknown>[] {
+    const columns: IColumn<any, any>[] = [];
 
     for (const propName in config) {
       const column = new Column(propName);
@@ -97,13 +105,12 @@ namespace Playground {
    * virtual columns must have a renderer
    */
   const columns = buildColumns<IPerson>({
-    firstname: {},
-    age: {
-      cellRenderer: (value) => ``,
+    age:{
+        cellRenderer: (value)=>``
     },
     test: {
-      rowCellRenderer: (value) => ``,
-    },
+        rowCellRenderer: ()=>``
+    }
   });
 
   debugger;
