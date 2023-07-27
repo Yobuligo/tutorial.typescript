@@ -9,6 +9,9 @@ namespace Playground {
    * 6. Columns must be orderable (the call order defines the order while displaying the columns)
    */
 
+  // RowCellRenderer should have row instead of value as parameter
+  // RowCellRenderer should be mandatory
+
   interface IPerson {
     firstname: string;
     lastname: string;
@@ -23,9 +26,9 @@ namespace Playground {
 
   export type ReactNode = string;
 
-  export type ICellRenderer<T> = (value: T, column: IColumn<T>) => ReactNode;
+  export type ICellRenderer<TValue> = (value: TValue, column: IColumn<TValue>) => ReactNode;
 
-  export type IRowCellRenderer<T> = (value: T, column: IColumn<T>) => ReactNode;
+  export type IRowCellRenderer<TRow> = (value: TRow, column: IColumn<TRow>) => ReactNode;
 
   export interface IColumnBase<TValue> {
     caption?: string;
@@ -98,7 +101,9 @@ namespace Playground {
     age: {
       cellRenderer: (value) => ``,
     },
-    test: {},
+    test: {
+      rowCellRenderer: (value) => ``,
+    },
   });
 
   debugger;
