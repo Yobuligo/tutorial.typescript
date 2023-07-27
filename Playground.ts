@@ -65,9 +65,9 @@ namespace Playground {
 
   const ColumnFacade: IColumnFacade = {} as IColumnFacade;
 
-  class Column<TRow> implements IColumn<TRow> {
+  class Column<TValue> implements IColumn<TValue> {
     caption?: string | undefined;
-    cellRenderer?: ICellRenderer<TRow> | undefined;
+    cellRenderer?: ICellRenderer<TValue> | undefined;
     minWidth?: number | undefined = 0;
     isSortable?: boolean | undefined = false;
     tooltip?: string | undefined;
