@@ -25,7 +25,9 @@ namespace Playground {
 
   export type ICellRenderer<T> = (value: T, column: IColumn<T>) => ReactNode;
 
-  export interface IColumnBase<T> {
+  export type IRowCellRenderer<T> = (value: T, column: IColumn<T>) => ReactNode;
+
+  export interface IColumnBase<TValue> {
     caption?: string;
     minWidth?: number;
     isSortable?: boolean;
@@ -34,31 +36,24 @@ namespace Playground {
     width?: number;
   }
 
-  export interface IColumn<T> extends IColumnBase<T> {
-    valueCellRenderer?: ICellRenderer<T>;
+  export interface IColumn<TValue> extends IColumnBase<TValue> {
+    cellRenderer?: ICellRenderer<TValue>;
   }
 
-  export interface IHaveRowCellRenderer<T> {
-    rowCellRenderer: ICellRenderer<T>;
+  export interface IVirtualColumn<TRow> extends IColumnBase<TRow> {
+    rowCellRenderer: ICellRenderer<TRow>;
   }
 
-  //   export interface IVirtualColumn<T> extends IColumnBase<T> {
-  //     rowCellRenderer: ICellRenderer<T>;
-  //   }
-
-  export type IVirtualColumn<T> = Partial<IColumnBase<T>> &
-    IHaveRowCellRenderer<T>;
-
-  export interface IRow<T> {
-    data: T;
+  export interface IRow<TRow> {
+    data: TRow;
   }
 
   /**
    * Make the properties optional. So the user can control which columns should be displayed and which should be hidden.
    */
-  export type IColumnConfig<T> =
-    | { [P in keyof T]?: Partial<Omit<IColumn<T[P]>, "name">> }
-    | { [field: string]: Omit<IVirtualColumn<IRow<T>>, "name"> };
+  export type IColumnConfig<TRow> =
+    | { [P in keyof TRow]?: Partial<Omit<IColumn<TRow[P]>, "name">> }
+    | { [field: string]: Partial<Omit<IVirtualColumn<IRow<TRow>>, "name">> };
 
   /**
    * An implementation of this interface is responsible for providing all relevant objects which are required to provide Columns for a specific underlying framework
@@ -70,13 +65,9 @@ namespace Playground {
 
   const ColumnFacade: IColumnFacade = {} as IColumnFacade;
 
-  interface IColumnFactory {
-    createFromData<T extends object>(data: T[]): IColumn<any>[];
-  }
-
-  class Column<T> implements IColumn<T> {
+  class Column<TRow> implements IColumn<TRow> {
     caption?: string | undefined;
-    valueCellRenderer?: ICellRenderer<T> | undefined;
+    cellRenderer?: ICellRenderer<TRow> | undefined;
     minWidth?: number | undefined = 0;
     isSortable?: boolean | undefined = false;
     tooltip?: string | undefined;
@@ -87,13 +78,7 @@ namespace Playground {
     }
   }
 
-  class ColumnFactory implements IColumnFactory {
-    createFromData<T extends object>(data: T[]): IColumn<any>[] {
-      throw new Error();
-    }
-  }
-
-  function buildColumns<T>(config: IColumnConfig<T>): IColumn<any>[] {
+  function buildColumns<TRow>(config: IColumnConfig<TRow>): IColumn<any>[] {
     const columns: IColumn<any>[] = [];
 
     for (const propName in config) {
@@ -111,11 +96,9 @@ namespace Playground {
   const columns = buildColumns<IPerson>({
     firstname: {},
     age: {
-      valueCellRenderer: (value) => ``,
+      cellRenderer: (value) => ``,
     },
-    test: {
-      rowCellRenderer: (value) => `${value.data.firstname}`,
-    },
+    test: {},
   });
 
   debugger;
