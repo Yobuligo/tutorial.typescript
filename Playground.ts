@@ -50,7 +50,7 @@ namespace Playground {
   }
 
   export interface IVirtualColumn<TRow> extends IColumnBase<unknown, TRow> {
-    rowCellRenderer: ICellRenderer<unknown, TRow>;
+    rowCellRenderer: IRowCellRenderer<TRow>;
   }
 
   export interface IRow<TRow> {
@@ -109,7 +109,7 @@ namespace Playground {
         cellRenderer: (value)=>``
     },
     test: {
-        rowCellRenderer: ()=>``
+        rowCellRenderer: (row)=>``
     }
   });
 
