@@ -36,6 +36,10 @@ namespace Playground {
     column: IColumn<unknown, TRow>
   ) => ReactNode;
 
+  export interface IHaveRowCellRenderer<TRow> {
+    rowCellRenderer: IRowCellRenderer<TRow>;
+  }
+
   export interface IColumnBase<TValue, TRow> {
     caption?: string;
     minWidth?: number;
@@ -49,9 +53,12 @@ namespace Playground {
     cellRenderer?: ICellRenderer<TValue, TRow>;
   }
 
-  export interface IVirtualColumn<TRow> extends IColumnBase<unknown, TRow> {
-    rowCellRenderer: IRowCellRenderer<TRow>;
-  }
+  //   export interface IVirtualColumn<TRow> extends IColumnBase<unknown, TRow> {
+  //     rowCellRenderer: IRowCellRenderer<TRow>;
+  //   }
+
+  export type IVirtualColumn<TRow> = Partial<IColumnBase<unknown, TRow>> &
+    IHaveRowCellRenderer<TRow>;
 
   export interface IRow<TRow> {
     data: TRow;
@@ -62,7 +69,7 @@ namespace Playground {
    */
   export type IColumnConfig<TRow> =
     | { [P in keyof TRow]?: Partial<Omit<IColumn<TRow[P], TRow>, "name">> }
-    | { [field: string]: Partial<Omit<IVirtualColumn<IRow<TRow>>, "name">> };
+    | { [field: string]: Omit<IVirtualColumn<IRow<TRow>>, "name"> };
 
   /**
    * An implementation of this interface is responsible for providing all relevant objects which are required to provide Columns for a specific underlying framework
@@ -105,12 +112,12 @@ namespace Playground {
    * virtual columns must have a renderer
    */
   const columns = buildColumns<IPerson>({
-    age:{
-        cellRenderer: (value)=>``
+    age: {
+      cellRenderer: (value) => ``,
     },
     test: {
-        rowCellRenderer: (row)=>``
-    }
+      rowCellRenderer: (row) => ``,
+    },
   });
 
   debugger;
