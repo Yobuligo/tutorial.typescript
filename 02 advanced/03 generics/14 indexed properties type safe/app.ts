@@ -40,7 +40,7 @@ namespace TypeSafeIndexProperties {
 
   // New approach
   // Provide a index property type and each row of that type knows it exact type
-  // The config is more readable. I don't need an additional object. 
+  // The config is more readable. I don't need an additional object.
   type IColumnConfig<T> = { [K in keyof T]?: IColumn<T[K]> };
   const buildColumns = <T>(data: T[], config: IColumnConfig<T>) => {};
 
