@@ -26,11 +26,15 @@ namespace IndexedPropertiesComplexExample {
     text: string;
   }
 
+  export interface ITable {
+    columns: IColumn<any, any>;
+  }
+
   export type ReactNode = string;
 
   export type IRowCellRenderer<TRow> = (
-    row: Readonly<IRow<TRow>>,
-    column: Readonly<IColumn<unknown, TRow>>
+    row: IRow<TRow>,
+    column: IColumn<unknown, TRow>
   ) => ReactNode;
 
   export type ICellRenderer<TValue, TRow> = (
@@ -111,19 +115,17 @@ namespace IndexedPropertiesComplexExample {
    * virtual columns must have a renderer
    */
   const columns = buildColumns<IPerson>({
+    lastname: {},
     test: { rowCellRenderer: () => "" },
-    age: {
-      cellRenderer: (value, row, column) => ``,
-    },
-    firstname: {
-      cellRenderer: (value, row, column) => ``,
-    },
+    age: {},
+    firstname: {},
     test2: { rowCellRenderer: (row) => `${row.data}` },
-    test3: {
-      rowCellRenderer: (row, column) => {
-        return "";
-      },
-    },
+    test3: { rowCellRenderer: () => "" },
+    test4: { rowCellRenderer: () => "" },
+    test5: { rowCellRenderer: () => "" },
+    test6: { rowCellRenderer: () => "" },
+    test7: { rowCellRenderer: () => "" },
+    test8: { rowCellRenderer: () => "" },
   });
 
   debugger;
