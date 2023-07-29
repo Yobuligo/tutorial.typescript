@@ -21,13 +21,12 @@ namespace IndexedPropertiesComplexExample {
     birthday: Date;
   }
 
-  interface INote {
-    id: number;
-    text: string;
+  export interface ITable<T> {
+    columns: IColumn<any, T>[];
   }
 
-  export interface ITable {
-    columns: IColumn<any, any>;
+  class Table<T> implements ITable<T> {
+    columns: IColumn<any, T>[] = [];
   }
 
   export type ReactNode = string;
