@@ -93,6 +93,10 @@ namespace Playground {
     }
   }
 
+  interface ITable<TRow>{
+    columns: IColumnConfig<TRow>
+  }
+
   function buildColumns<TRow>(
     config: IColumnConfig<TRow>
   ): IColumn<unknown, unknown>[] {
