@@ -59,6 +59,18 @@ namespace Playground {
   export type IVirtualColumn<TRow> = Partial<IColumnBase<unknown, TRow>> &
     IHaveRowCellRenderer<TRow>;
 
+  export const is = <T>(object: any): object is T => {
+    for (const propName in object){
+      if (propName )
+    }
+    return true;
+  };
+
+  const object = {}
+  if (is<IPerson>(object)){
+    object.
+  }
+
   export interface IRow<TRow> {
     data: TRow;
   }
@@ -93,8 +105,8 @@ namespace Playground {
     }
   }
 
-  interface ITable<TRow>{
-    columns: IColumnConfig<TRow>
+  interface ITable<TRow> {
+    columns: IColumnConfig<TRow>;
   }
 
   function buildColumns<TRow>(
