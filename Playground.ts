@@ -59,17 +59,17 @@ namespace Playground {
   export type IVirtualColumn<TRow> = Partial<IColumnBase<unknown, TRow>> &
     IHaveRowCellRenderer<TRow>;
 
-  export const is = <T>(object: any): object is T => {
-    for (const propName in object){
-      if (propName )
-    }
-    return true;
-  };
+  // export const is = <T>(object: any): object is T => {
+  //   for (const propName in object){
+  //     if (propName )
+  //   }
+  //   return true;
+  // };
 
-  const object = {}
-  if (is<IPerson>(object)){
-    object.
-  }
+  // const object = {}
+  // if (is<IPerson>(object)){
+  //   object.
+  // }
 
   export interface IRow<TRow> {
     data: TRow;
@@ -109,36 +109,28 @@ namespace Playground {
     columns: IColumnConfig<TRow>;
   }
 
-  function buildColumns<TRow>(
-    config: IColumnConfig<TRow>
-  ): IColumn<unknown, unknown>[] {
-    const columns: IColumn<any, any>[] = [];
-
-    for (const propName in config) {
-      const column = new Column(propName);
-      columns.push(column);
-    }
-
-    return columns;
+  interface IColumnFactory<TRow> {
+    create(config: IColumnConfig<TRow>): IColumnBase<unknown, TRow>[];
   }
 
-  /**
-   * Provide virtual columns
-   * virtual columns must have a renderer
-   */
-  const columns = buildColumns<IPerson>({
-    test: { rowCellRenderer: () => "" },
+  class ColumnFactory<TRow> implements IColumnFactory<TRow> {
+    create(config: IColumnConfig<TRow>): IColumnBase<unknown, TRow>[] {
+      const columns: IColumn<unknown, TRow>[] = [];
+      for (const columnName in config) {
+        const column = {
+          ...new Column(columnName),
+          ...(config as any)[columnName],
+        };
+        columns.push(column);
+      }
+      return columns;
+    }
+  }
+
+  const newColumns = new ColumnFactory<IPerson>().create({
     age: {
       cellRenderer: (value, row, column) => ``,
-    },
-    firstname: {
-      cellRenderer: (value, row, column) => ``,
-    },
-    test2: { rowCellRenderer: (row) => `${row.data}` },
-    test3: {
-      rowCellRenderer: (row, column) => {
-        return "";
-      },
+      // width: 82,
     },
   });
 
