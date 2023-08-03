@@ -27,27 +27,16 @@ namespace Playground {
       throw new Error();
     }
 
-    sortBy(columns: (keyof T)[]){
-      throw new Error()
+    sortBy(columns: (keyof T)[]) {
+      throw new Error();
     }
   }
 
-  const deriver = new Deriver<IPerson>();
-  const result = deriver.columns({
-    age: {
-      caption: "new Column"
-    }
-  });
-  deriver.sortBy({
-      uploadDate: "ASC",
-    })
+  type IGroupByConfig<T> = {
+    [P in keyof T]?: ;
+  };
 
-  const table = new Table(persons, {
-    age: {},
-    firstname: { caption: "New caption" },
-    test: { caption: "virtual Column" },
-    test2: {},
-  });
+
 
   debugger;
 }
