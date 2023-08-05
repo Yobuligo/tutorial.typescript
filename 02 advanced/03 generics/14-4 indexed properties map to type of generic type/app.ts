@@ -1,7 +1,7 @@
 /**
  * Indexed properties can be used to map types. Take all properties of T and provide another type {[P in keyof T]: <new-type>}.
  *
- * Now I want to have type of types. Image the following scenario:
+ * Now I want to have type of generic types. Image the following scenario:
  * We have class instances of Action to do something. Each action is connected to a type, e.g. an IActionConfig that contains props for the action Action<IActionConfig>.
  * Now I want to provide instances of actions in an ActionPool AND I want to have a config (IActionPoolConfig) where the user can provide the ActionConfig for various Actions.
  * That ActionPoolConfig should only provide the ActionsConfigs for registered Actions in the ActionPool. So it should stay in sync.
