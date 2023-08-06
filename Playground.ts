@@ -1,42 +1,81 @@
 namespace Playground {
-  interface IColumn<TValue> {
-    caption?: string;
-    name?: string;
-    render?: (value: TValue) => string;
+  /**
+   * Interface wird implementiert, das ein CompanionObject sein muss. Alle Methoden des Interfaces erweitern diese Klasse, die es implementiert.
+   *    Da Interfacemethoden immer instanzbasiert sind, funktioniert das schon einmal nicht
+   * und die hinzugefügten Methoden müssen statische Methoden sein
+   *    Wie kann ich einer Klasse statische Methoden hinzufügen, ohne das ich erbe?
+   * Ich möchte meine Vererbung dafür nicht aufgeben
+   * Aber statt das die Klasse sie selbst implementiert, stammen die Methoden von einem CompanionObject
+   */
+
+  // Mixin-Funktion, um statische Methode hinzuzufügen
+
+  class Creature {
+    kind = "";
+    constructor(public color: string) {}
   }
 
-  type IColumnConfig<T> = { [K in keyof T]?: IColumn<T[K]> } & {
-    [field: string]: IColumn<any>;
-  };
+  type Constructor = new (...args: any[]) => {};
 
-  type ColumnList<K, V = {}> = {
-    [P in keyof K]: V;
-  };
+  function Companion<T extends Constructor>(Base: T) {
+    return class Entity extends Base {
+      static data: any[] = [];
 
-  class Table<T> {
-    constructor(private data: T[], columns: IColumnConfig<T>) {}
+      constructor(...args: any[]) {
+        super(args);
+      }
+
+      static add<T>(this: new (...args: any[]) => T, entity: T): T {
+        Entity.data.push(entity);
+        return entity;
+      }
+
+      static findAll<T>(this: new (...args: any[]) => T): T[] {
+        return Entity.data;
+      }
+    };
   }
 
-  interface IPerson {
-    age: number;
-    firstname: string;
+  class Lion extends Companion(Creature) {
+    name: string = "Stacey";
+    age: number = 123;
   }
 
-  class Deriver<T> {
-    columns<R extends IColumnConfig<T>>(config: R): R {
-      throw new Error();
-    }
-
-    sortBy(columns: (keyof T)[]) {
-      throw new Error();
-    }
+  class Cat extends Companion(Creature) {
+    name: string = "Stacey";
+    age: number = 123;
+    house = "Eppelheim";
   }
 
-  type IGroupByConfig<T> = {
-    [P in keyof T]?: ;
-  };
+  const animal = new Lion("");
+  Lion.add(new Lion(""));
+  // Lion.add(new Lion());
+  // Cat.add(new Cat());
+  // Cat.add(new Cat());
+  // Cat.add(new Cat());
 
+  const lions = Lion.findAll();
 
+  // class MyClass extends Companion(Animal) {}
 
+  // const result = new MyClass();
+  // MyClass.findAll();
+  // MyClass.add(result);
+
+  class Tablet {
+    name: string = "Tablet";
+  }
+
+  class MPhone {
+    number: number = 123;
+  }
+
+  export class Device {
+    RAM: number = 8;
+  }
+
+  export interface Device extends Tablet, MPhone {}
+
+  const device = new Device();
   debugger;
 }
