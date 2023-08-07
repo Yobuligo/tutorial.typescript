@@ -1,81 +1,110 @@
 namespace Playground {
-  /**
-   * Interface wird implementiert, das ein CompanionObject sein muss. Alle Methoden des Interfaces erweitern diese Klasse, die es implementiert.
-   *    Da Interfacemethoden immer instanzbasiert sind, funktioniert das schon einmal nicht
-   * und die hinzugefügten Methoden müssen statische Methoden sein
-   *    Wie kann ich einer Klasse statische Methoden hinzufügen, ohne das ich erbe?
-   * Ich möchte meine Vererbung dafür nicht aufgeben
-   * Aber statt das die Klasse sie selbst implementiert, stammen die Methoden von einem CompanionObject
-   */
+  interface IEntity {}
 
-  // Mixin-Funktion, um statische Methode hinzuzufügen
+  type IFilter<T extends IEntity> = (entity: T) => boolean;
 
-  class Creature {
-    kind = "";
-    constructor(public color: string) {}
+  interface IDataAccessObject<T extends IEntity> {
+    add(dataObject: T): void;
+    delete(dataObject: T): void;
+    filter(predicate: IFilter<T>): T[];
+    findAll(): T[];
   }
 
-  type Constructor = new (...args: any[]) => {};
+  class DataAccessObject<T extends IEntity> implements IDataAccessObject<T> {
+    private readonly data: T[] = [];
 
-  function Companion<T extends Constructor>(Base: T) {
-    return class Entity extends Base {
-      static data: any[] = [];
+    add(dataObject: T): void {
+      this.data.push(dataObject);
+    }
 
-      constructor(...args: any[]) {
-        super(args);
+    delete(dataObject: T): void {
+      const index = this.data.findIndex((element) => element === dataObject);
+      if (index !== -1) {
+        this.data.splice(index, 1);
       }
+    }
 
-      static add<T>(this: new (...args: any[]) => T, entity: T): T {
-        Entity.data.push(entity);
-        return entity;
-      }
+    filter(predicate: IFilter<T>): T[] {
+      const entities: T[] = [];
+      this.data.forEach((entity) => {
+        if (predicate(entity)) {
+          entities.push(entity);
+        }
+      });
+      return entities;
+    }
 
-      static findAll<T>(this: new (...args: any[]) => T): T[] {
-        return Entity.data;
-      }
-    };
+    findAll(): T[] {
+      return this.data;
+    }
   }
 
-  class Lion extends Companion(Creature) {
-    name: string = "Stacey";
-    age: number = 123;
+  interface IDataAccessObjectRepo {
+    fetch<T extends IEntity>(type: new () => T): IDataAccessObject<T>;
   }
 
-  class Cat extends Companion(Creature) {
-    name: string = "Stacey";
-    age: number = 123;
-    house = "Eppelheim";
+  class DataAccessObjectRepoDefault implements IDataAccessObjectRepo {
+    private dataAccessObjects: Map<new () => IEntity, IDataAccessObject<any>> =
+      new Map();
+
+    fetch<T extends IEntity>(type: new () => T): IDataAccessObject<T> {
+      return this.dataAccessObjects.get(type) ?? this.create(type);
+    }
+
+    private create<T extends Entity>(type: new () => T): IDataAccessObject<T> {
+      const dataAccessObject = new DataAccessObject<T>();
+      this.dataAccessObjects.set(type, dataAccessObject);
+      return dataAccessObject;
+    }
   }
 
-  const animal = new Lion("");
-  Lion.add(new Lion(""));
-  // Lion.add(new Lion());
-  // Cat.add(new Cat());
-  // Cat.add(new Cat());
-  // Cat.add(new Cat());
+  const DataAccessObjectRepo = new DataAccessObjectRepoDefault();
 
-  const lions = Lion.findAll();
+  type Constructor<T> = new (...args: any[]) => T;
 
-  // class MyClass extends Companion(Animal) {}
+  abstract class Entity {
+    static add<T extends IEntity>(this: Constructor<T>, dataObject: T) {
+      DataAccessObjectRepo.fetch(this).add(dataObject);
+    }
 
-  // const result = new MyClass();
-  // MyClass.findAll();
-  // MyClass.add(result);
+    static delete<T extends IEntity>(this: Constructor<T>, dataObject: T) {
+      DataAccessObjectRepo.fetch(this).delete(dataObject);
+    }
 
-  class Tablet {
-    name: string = "Tablet";
+    static filter<T extends IEntity>(
+      this: Constructor<T>,
+      predicate: IFilter<T>
+    ): T[] {
+      return DataAccessObjectRepo.fetch(this).filter(predicate);
+    }
+
+    static findAll<T extends IEntity>(this: Constructor<T>): T[] {
+      return DataAccessObjectRepo.fetch(this).findAll();
+    }
   }
 
-  class MPhone {
-    number: number = 123;
+  abstract class Animal extends Entity {
+    abstract kind: string;
   }
 
-  export class Device {
-    RAM: number = 8;
+  class Lion extends Animal {
+    kind: string = "Lion";
+
+    constructor(readonly name: string) {
+      super();
+    }
   }
 
-  export interface Device extends Tablet, MPhone {}
+  const lion = new Lion("Bodo");
+  Lion.add(lion);
+  Lion.add(new Lion("Kimba"));
+  Lion.add(new Lion("Simba"));
+  Lion.add(new Lion("Mufasa"));
+  let lions = Lion.findAll();
 
-  const device = new Device();
+  Lion.delete(lion);
+  lions = Lion.findAll();
+  lions = Lion.filter((lion) => lion.name === "Kimba");
+
   debugger;
 }
