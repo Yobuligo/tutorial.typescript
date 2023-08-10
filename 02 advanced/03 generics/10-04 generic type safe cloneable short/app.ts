@@ -5,8 +5,13 @@ namespace GenericCloneableTypeSafeShort {
   class Human implements ICloneable {
     name: string = "Stacey";
     age: number = 28;
+    // clone(): this {
+    //   return new (this as any).constructor();
+    // }
+
+    // even better, as directly the properties are cloned
     clone(): this {
-      return new (this as any).constructor();
+      return { ...this };
     }
   }
   class Teacher extends Human {

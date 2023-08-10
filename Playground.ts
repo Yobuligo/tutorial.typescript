@@ -1,40 +1,24 @@
-// Subscribe / Unsubscribe
+namespace Playground {
+  interface ICloneable {
+    clone(): this;
+  }
 
-type Handler = () => void;
-
-namespace Subscribe {
-  
-  class Button {
-    private handlers: Handler[] = [];
-
-    onClick(handler: Handler): Handler {
-      this.registerHandler(handler);
-      return () => {
-        this.unregisterHandler(handler);
-      };
-    }
-
-    click() {
-      this.handlers.forEach((handler) => handler());
-    }
-
-    private unregisterHandler(handler: Handler) {
-      this.handlers.splice(
-        this.handlers.findIndex((observer) => observer === handler),
-        1
-      );
-    }
-
-    private registerHandler(handler: Handler) {
-      this.handlers.push(handler);
+  abstract class Entity implements ICloneable {
+    clone(): this {
+      return { ...this };
     }
   }
 
-  const button = new Button();
-  const unsubscribe = button.onClick(() => console.log("Button was clicked "));
-  button.click();
-  button.click();
+  class Person extends Entity {
+    firstname: string = "Stacey";
+    age = 28;
+    lastname = "";
+  }
 
-  unsubscribe();
-  button.click();
+  const person = new Person();
+  person.lastname = "Starfish";
+  const newPerson = person.clone();
+  newPerson.lastname = "Ant";
+
+  debugger;
 }
