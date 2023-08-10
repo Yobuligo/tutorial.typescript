@@ -6,6 +6,16 @@
  * Generator Functions also have a * after the keyword function
  *
  * The concept can be used e.g. for generator functions, which provide ids
+ * 
+ * I checked it out. To generate an Id with the generation function seems to need 3x more time than using an IdGenerator class
+ * class IdGenerator{
+ *    private cursor = 0
+ * 
+ *    next(){
+ *      cursor++
+ *      return cursor
+ *    }
+ * }
  */
 
 namespace GeneratorFunctions {

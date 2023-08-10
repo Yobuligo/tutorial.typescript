@@ -1,10 +1,12 @@
-// defines a lambda expression (an expression that can be assigned to a variable and which is executable)
-// instead of only assigning values (string, number, etc.) and references (class instances) to a variable, functions can be assigned as well
-// the lambda expression contains of a parameter part and an implementation body
-// the parameter of the functions are provided via (). It can consist of importing and returning parameter (x: type): type
-// the implementation body is separated from the parameters via =>
-// the implementation body, the productive code itself, is provided between {}
-// in typescript it is called Arrow Function
+/**
+ * defines a lambda expression (an expression that can be assigned to a variable and which is executable) and has no name (thats why it is also called anonymous function)
+ * instead of only assigning values (string, number, etc.) and references (class instances) to a variable, functions can be assigned as well
+ * the lambda expression contains of a parameter part and an implementation body
+ * the parameter of the functions are provided via (). It can consist of importing and returning parameter (x: type): type
+ * the implementation body is separated from the parameters via =>
+ * the implementation body, the productive code itself, is provided between {}
+ * in typescript it is called Arrow Function
+ */
 
 import { println } from "../../GlobalFunctions";
 
@@ -27,8 +29,3 @@ println(sumLambdaExpression(1, 2));
 
 // declare a lambda expression in shorter for single-line returns
 let shortSumLambdaExpression = (x: number, y: number): number => x + y;
-
-
-
-
-
