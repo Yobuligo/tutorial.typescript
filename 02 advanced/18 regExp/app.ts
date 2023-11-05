@@ -1,3 +1,7 @@
+/**
+ * An example of regular expression for a like function
+ */
+
 export type IPredicate<T> = (value: T) => boolean;
 
 function regExpEscape(value: string) {
@@ -70,5 +74,3 @@ console.log(like("*a")("hello"));
 console.log(like("pe*o")("hello"));
 console.log(like("he*p*lo")("hello"));
 console.log(like("hello2")("hello"));
-
-debugger;
