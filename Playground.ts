@@ -1,45 +1,84 @@
-interface IEntity {
-  id: number;
+export type IPredicate<T> = (value: T) => boolean;
+
+function regExpEscape(value: string) {
+  return value.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
 }
 
-type IEntityDetails<T extends IEntity> = Omit<T, "id">;
+export function like<T>(value: T): IPredicate<T> {
+  const valueString = String(value);
 
-type 
+  let regExpString = "";
 
-interface IBaseRepository<
-  TEntity extends IEntity,
-> {
-  deleteById(id: number): boolean;
-  findById(id: number): TEntity | undefined;
+  // *ello -> matches hello -> replace first by ^
+  const test1 = `* ello`.split("*");
+
+  // hel* -> matches hello -> replace last by $
+  const test2 = `hel*`.split("*");
+
+  // hello -> matches hello -> contains to * -> direct .*
+  const test3 = `hello`.split("*");
+
+  // he*o -> matches hello -> replace inner * by .*
+  const test4 = `he*o`.split("*");
+
+  const valueStringList = valueString.split("*");
+
+  if (valueStringList.length === 1) {
+    regExpString = regExpEscape(valueString);
+  } else {
+    valueStringList.forEach((value, index) => {
+      let handled = false;
+
+      // starts with *?
+      if (index === 0 && value === " ") {
+        regExpString += `^`;
+        handled = true;
+      }
+
+      // if it is not first and not last element
+      if (!handled && index < valueStringList.length - 1) {
+        regExpString += `${regExpEscape(value)}.*`;
+        handled = true;
+      }
+
+      // ends with *?
+      if (!handled && index === valueStringList.length - 1 && value === " ") {
+        regExpString += `$`;
+        handled = true;
+      }
+    });
+  }
+
+  const regex = new RegExp(regExpString);
+  return (operand: T) => {
+    if (String(operand).match(regex)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 }
 
-interface IRepository<TEntity extends IEntity> extends IBaseRepository<TEntity>{
-  add(entity: IEntityDetails<TEntity>): TEntity;
-  findAll(): TEntity[];  
+const predicate = like("hel*");
+if (predicate("hello")) {
+  console.log("fits");
+} else {
+  console.log("doesn't fit");
 }
 
-interface ISubRepository<TEntity extends IEntity, TParent extends IEntity> extends IBaseRepository<TEntity>{
-  add(entity: IEntityDetails<TEntity>, parentId: number): TEntity;
-  findAll(parentId: number): TEntity[];
-}
+console.log("matches");
+console.log(like("hel*")("hello"));
+console.log(like("*lo")("hello"));
+console.log(like("he*o")("hello"));
+console.log(like("he*l*lo")("hello"));
+console.log(like("hello")("hello"));
 
-interface IBoard extends IEntity {
-  title: string;
-}
+console.log();
+console.log("doesn't match");
+console.log(like("pel*")("hello"));
+console.log(like("*a")("hello"));
+console.log(like("pe*o")("hello"));
+console.log(like("he*p*lo")("hello"));
+console.log(like("hello2")("hello"));
 
-interface IBoardRepository extends IRepository<IBoard> {}
-
-interface INote extends IEntity {
-  text: string;
-}
-
-interface INoteRepository extends ISubRepository<INote, IBoard> {}
-
-interface IVote extends IEntity {
-  type: number;
-}
-
-interface IVoteRepository extends ISubRepository<IVote, INote> {}
-
-const repo: IVoteRepository = {}
-repo.
+debugger;
