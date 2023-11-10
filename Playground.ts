@@ -1,74 +1,41 @@
-export type IPredicate<T> = (value: T) => boolean;
-
-function regExpEscape(value: string) {
-  return value.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+interface ILoader {
+  load(): void;
 }
 
-export function like<T>(value: T): IPredicate<T> {
-  const valueString = String(value);
-  let regExpString = "";
+const Path = <T>(path: string) => {
+  return (target: T) => {
+    (target as any).path = path;
+  };
+};
 
-  const valueStringList = valueString.split("*");
-  if (valueStringList.length === 1) {
-    regExpString = regExpEscape(valueString);
-  } else {
-    valueStringList.forEach((value, index) => {
-      let handled = false;
+@Path("/contracts")
+class FirstLoader implements ILoader {
+  load(): void {
+    throw new Error("Method not implemented.");
+  }
+}
 
-      // starts with *? e.g. *ello
-      if (index === 0 && value === "") {
-        regExpString += `^`;
-        handled = true;
-      }
+@Path("/products")
+class SecondLoader implements ILoader {
+  load(): void {
+    throw new Error("Method not implemented.");
+  }
+}
 
-      // if it is not first and not last element e.g. l in h*l*o
-      if (!handled && index < valueStringList.length - 1) {
-        regExpString += `${regExpEscape(value)}.*`;
-        handled = true;
-      }
+type LoaderConstructor = new () => ILoader;
 
-      // ends with *? e.g. hell*
-      if (!handled && index === valueStringList.length - 1 && value === "") {
-        regExpString += `$`;
-        handled = true;
-      }
-
-      // not handled yet? e.g. a in *a
-      if (!handled) {
-        regExpString += `${regExpEscape(value)}`;
-      }
-    });
+class LoaderRepo {
+  private loaders: LoaderConstructor[] = [];
+  constructor(...loaders: LoaderConstructor[]) {
+    this.loaders = loaders;
   }
 
-  const regex = new RegExp(regExpString);
-  return (operand: T) => {
-    if (String(operand).match(regex)) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  printPaths() {
+    this.loaders.forEach((loader) => {
+      console.log((loader as any).path);
+    });
+  }
 }
 
-const predicate = like("hel*");
-if (predicate("hello")) {
-  console.log("fits");
-} else {
-  console.log("doesn't fit");
-}
-
-console.log("matches");
-console.log(like("hel*")("hello"));
-console.log(like("*lo")("hello"));
-console.log(like("he*o")("hello"));
-console.log(like("he*l*lo")("hello"));
-console.log(like("hello")("hello"));
-
-console.log("doesn't match");
-console.log(like("pel*")("hello"));
-console.log(like("*a")("hello"));
-console.log(like("pe*o")("hello"));
-console.log(like("he*p*lo")("hello"));
-console.log(like("hello2")("hello"));
-
-debugger;
+const loaderRepo = new LoaderRepo(FirstLoader, SecondLoader);
+loaderRepo.printPaths();

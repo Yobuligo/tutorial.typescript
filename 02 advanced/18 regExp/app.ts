@@ -62,6 +62,7 @@ if (predicate("hello")) {
 }
 
 console.log("matches");
+
 console.log(like("hel*")("hello"));
 console.log(like("*lo")("hello"));
 console.log(like("he*o")("hello"));
@@ -74,3 +75,10 @@ console.log(like("*a")("hello"));
 console.log(like("pe*o")("hello"));
 console.log(like("he*p*lo")("hello"));
 console.log(like("hello2")("hello"));
+
+console.log(`\n`);
+if ("Hello World".match(/World$/)) {
+  console.log("does match");
+} else {
+  console.log("doesn't match");
+}
