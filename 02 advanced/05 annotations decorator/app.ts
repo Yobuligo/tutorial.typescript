@@ -10,6 +10,7 @@
 import { println } from "../../GlobalFunctions";
 
 // Adds the property path to a class a sets the value of parameter {path}
+// !!!!!!!! Don't do this. We don't want to change the class (see example in "01 class decorator with property")
 const Path = <T>(path: string) => {
   return (target: T) => {
     (target as any).path = path;
