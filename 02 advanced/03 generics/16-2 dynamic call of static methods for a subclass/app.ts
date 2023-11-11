@@ -6,6 +6,8 @@
  * but anyway we can call static methods, but in a type safe way, as the method e.g. create is not called for Base but for the inherited class Project (Project.create).
  *
  * The magic is to define a type, which is like a constructor, but it is more, as it also contains static methods, which can be called.
+ * 
+ * Actually it is like having interfaces with static methods.
  */
 
 namespace DynamicCallOfStaticMethodsForASubClass {
