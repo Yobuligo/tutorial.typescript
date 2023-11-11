@@ -6,7 +6,7 @@
  * but anyway we can call static methods, but in a type safe way, as the method e.g. create is not called for Base but for the inherited class Project (Project.create).
  *
  * The magic is to define a type, which is like a constructor, but it is more, as it also contains static methods, which can be called.
- * 
+ *
  * Actually it is like having interfaces with static methods.
  */
 
@@ -49,7 +49,7 @@ namespace DynamicCallOfStaticMethodsForASubClass {
 
   // An know to the next level, to inject somewhere only the class type of Base and call the STATIC method create
   // This only works, if we define a new type, like normally the constructor. But this type can have more than only the new method for the constructor, but also additional static methods
-  type Constructor<T extends Base> = {
+  type ClassType<T extends Base> = {
     // The already known constructor method
     new (): T;
 
@@ -58,14 +58,11 @@ namespace DynamicCallOfStaticMethodsForASubClass {
     isInstanceOf<T>(this: new () => T, object: object): boolean;
   };
 
-  const createInstance = <T extends Base>(type: Constructor<T>): T => {
+  const createInstance = <T extends Base>(type: ClassType<T>): T => {
     return type.create();
   };
 
-  const isInstanceOf = <T extends Base>(
-    type: Constructor<T>,
-    object: object
-  ) => {
+  const isInstanceOf = <T extends Base>(type: ClassType<T>, object: object) => {
     return type.isInstanceOf(object);
   };
 
