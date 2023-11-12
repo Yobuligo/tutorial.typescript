@@ -10,7 +10,7 @@
  * Actually it is like having interfaces with static methods.
  */
 
-namespace DynamicCallOfStaticMethodsForASubClass {
+namespace PolymorphicCallOfStaticMethodForASubclassType {
   abstract class Base {
     /**
      * Static method to create an instance of this subclass
