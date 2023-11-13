@@ -39,21 +39,9 @@ namespace Playground {
 
   function caller<
     TDecorator extends (...args: any[]) => any,
-    T extends Parameters<TDecorator>
+    T extends Parameters<TDecorator>,
   >(func: TDecorator): T {
     return {} as T;
   }
 
-  const myTuple: [firstname: string, age: number] = ["Stacey", 28];
-
-  class Test {}
-
-  type T0 = string[];
-
-  type UnpackedArray<T> = T extends (infer U)[] ? U : T;
-  type U0 = UnpackedArray<T0>; // string
-
-  const test: UnpackedArray<["12", 12, 13]> = {} as UnpackedArray<
-    ["12", 12, 13]
-  >;
 }
