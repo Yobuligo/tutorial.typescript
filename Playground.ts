@@ -1,47 +1,52 @@
-import Test from "./01 easy/46 named export vs default export/app";
-
 namespace Playground {
-  enum AuthRole {
-    ADMIN,
-    DELIVERY,
-    SUPPORT,
+  interface IPerson {
+    firstname: string;
   }
 
-  type AuthRoles = AuthRole[];
-
-  type AuthConfig = { [key: string]: AuthRole[] };
-
-  function define<R extends AuthConfig>(config: R): R {
-    return config;
+  interface ITask {
+    title: string;
   }
 
-  const config = define({
-    canCreateObject: [AuthRole.ADMIN],
-    canDeleteObject: [AuthRole.ADMIN, AuthRole.SUPPORT],
-    canUpdateObject: [AuthRole.ADMIN, AuthRole.SUPPORT],
-    canReadObjects: [AuthRole.ADMIN, AuthRole.SUPPORT, AuthRole.DELIVERY],
-    canDo: [AuthRole.DELIVERY],
-  });
+  interface ITable<T> {
+    data: T;
+  }
 
-  type Config = typeof config;
+  interface IRelation<TSource, TTarget> {
+    source: TSource;
+    target: TTarget;
+  }
 
-  type Action<T extends Config> = { [P in keyof T]: () => boolean };
+  class Person implements ITable<IPerson> {
+    data: IPerson = {} as IPerson;
+  }
 
-  function createAuthCheckActions(config: Config): Action<Config> {
-    const authCheck = {} as Action<Config>;
-    for (const propName in config) {
-      (authCheck as any)[propName] = () => {
-        console.log(`${propName} has to be checked against roles`);
-        const authRoles = (config as any)[propName] as AuthRoles;
-        authRoles.forEach((role) => console.log(AuthRole[role]));
-      };
+  class Task implements ITable<ITask> {
+    data: ITask = {} as ITask;
+  }
+
+  const oneToOne = <TSource, TTarget>(
+    // source: new () => ITable<TSource>,
+    target: new () => ITable<TTarget>
+  ): IRelation<TSource, TTarget> => {
+    throw new Error();
+  };
+
+  type IConfig<TSource> = { [key: string]: IRelation<TSource, any> };
+
+  const configure = <TSource, TConfig extends IConfig<TSource>>(
+    config: TConfig
+  ): TConfig => {
+    throw new Error();
+  };
+
+  class Builder<TSource> {
+    configure<TConfig extends IConfig<TSource>>(config: TConfig): TConfig {
+      throw new Error();
     }
-    return authCheck;
   }
 
-  const authCheck = createAuthCheckActions(config);
-  authCheck.canCreateObject();
-  authCheck.canDeleteObject();
-  authCheck.canDo();
-  authCheck.canReadObjects();
+  const builder = new Builder<IPerson>();
+  const relations = builder.configure({
+    relation: oneToOne(Task),
+  });
 }

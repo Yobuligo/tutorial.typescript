@@ -104,4 +104,5 @@ namespace IndexedPropertiesMapToType {
   authCheck.canAdd();
   authCheck.canDelete();
   authCheck.canUpdate();
+
 }
