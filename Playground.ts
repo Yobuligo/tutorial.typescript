@@ -144,9 +144,9 @@ namespace Playground3 {
     }
   
     class Builder<TSource> {
-      configure<TRelationConfig extends IRelationConfig<TSource>>(
-        config: TRelationConfig
-      ): TRelationConfig {
+      configure<TConfig extends IConfig<TSource>>(
+        config: TConfig
+      ): TConfig {
         throw new Error();
       }
     }
@@ -158,7 +158,12 @@ namespace Playground3 {
     const TaskType = new Task();
   
     const result = define<IPerson>().configure({
-      tasks: oneToOne(TaskType)
+      relations: {
+        tasks: oneToOne(TaskType)
+      }
     });
+
+    result.relations.tasks.source
+
   }
   
