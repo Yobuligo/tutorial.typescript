@@ -1,5 +1,3 @@
-import { } from * asfs;
-} from 'fs';
 namespace Playground {
   interface IPerson {
     firstname: string;
@@ -9,8 +7,8 @@ namespace Playground {
     title: string;
   }
 
-  interface ITable<T> {
-    data: T;
+  interface ICar {
+    brand: string;
   }
 
   interface IRelation<TSource, TTarget> {
@@ -18,152 +16,123 @@ namespace Playground {
     target: TTarget;
   }
 
-  class Person implements ITable<IPerson> {
-    data: IPerson = {} as IPerson;
+  interface IOneToOne<TSource, TTarget> extends IRelation<TSource, TTarget> {
+    select(): TTarget[];
   }
 
-  class Task implements ITable<ITask> {
-    data: ITask = {} as ITask;
+  class TableRepositoryDefault {
+    private readonly tables: Map<new () => Table<any>, Table<any>> = new Map();
+
+    fetch<TTarget>(type: new () => Table<TTarget>): Table<TTarget> {
+      return this.tables.get(type) ?? this.create(type);
+    }
+
+    private create<TTarget>(type: new () => Table<TTarget>): Table<TTarget> {
+      const table = new type();
+      this.tables.set(type, table);
+      return table;
+    }
   }
 
-  const oneToOne = <TSource, TTarget>(
-    target: new () => ITable<TTarget>
-  ): IRelation<TSource, TTarget> => {
-    throw new Error();
-  };
+  const TableRepository = new TableRepositoryDefault();
 
-  type IConfig<TSource> = { [key: string]: IRelation<TSource, any> };
+  class OneToOne<TSource, TTarget> implements IOneToOne<TSource, TTarget> {
+    constructor(private readonly type: new () => Table<TTarget>) {}
 
-  const configure = <TSource, TConfig extends IConfig<TSource>>(
-    config: TConfig
-  ): TConfig => {
-    throw new Error();
-  };
+    select(): TTarget[] {
+      const table = TableRepository.fetch(this.type);
+      return table.select();
+    }
 
-  class Builder<TSource> {
-    configure<TConfig extends IConfig<TSource>>(config: TConfig): TConfig {
+    source: TSource = {} as TSource;
+    target: TTarget = {} as TTarget;
+  }
+
+  abstract class Table<T> {
+    constructor(private readonly data: T[]) {}
+
+    oneToOne<TTarget>(type: new () => Table<TTarget>): IOneToOne<T, TTarget> {
+      return new OneToOne(type);
+    }
+
+    belongsTo<TTarget>(type: new () => Table<TTarget>): IRelation<T, TTarget> {
+      throw new Error();
+    }
+
+    select(): T[] {
+      throw new Error();
+    }
+
+    insert(): T[] {
       throw new Error();
     }
   }
 
-  const builder = new Builder<IPerson>();
-  const relations = builder.configure({
-    relation: oneToOne(Task),
-  });
+  class TaskTable extends Table<ITask> {
+    constructor() {
+      super([{ title: "First Task" }]);
+    }
+    readonly persons = this.belongsTo(PersonTable);
+  }
+
+  class PersonTable extends Table<IPerson> {
+    constructor() {
+      super([{ firstname: "Stacey" }]);
+    }
+    readonly tasks = this.oneToOne(TaskTable);
+  }
+
+  const Task = new TaskTable();
+  const Person = new PersonTable();
+
+  const tasks = Person.tasks.select();
+
+  // const Car = db.define<ICar>("cars").build();
+  // const Task = db.define<ITask>("tasks");
+
+  // const Person = db
+  //   .define<IPerson>("persons")
+  //   .relation({
+  //     tasks: oneToOne(Task),
+  //     car: oneToMany(CarBuilder),
+  //   })
+  //   .build();
+
+  // class Person extends Table{
+  //   cars = oneToMany(Car)
+  // }
+
+  // class Car extends Table{
+
+  // }
+
+  // const PersonBuilder = db
+  //   .define<IPerson>("persons")
+  //   .oneToOne(PersonBuilder)
+  //   .belongsTo()
+  //   .build();
+
+  // class Builder<T> {
+  //   addRelation<R>(builder: Builder<R>): Builder<T & R> {
+  //     throw new Error();
+  //   }
+
+  //   addOneToOne<R>(builder: Builder<R>): Builder<T & R> {
+  //     throw new Error();
+  //   }
+
+  //   build(): T {
+  //     throw new Error();
+  //   }
+  // }
+
+  // const carBuilder = new Builder<ICar>();
+
+  // const personBuilder = new Builder<IPerson>();
+  // const personBuilder2 = personBuilder.addRelation(carBuilder);
+  // const Person = personBuilder2.build();
+
+  // const Car = carBuilder.addRelation(personBuilder).build();
+
+  // const taskBuilder = new Builder<ITask>();
 }
-
-namespace Playground2 {
-  interface IPerson {
-    firstname: string;
-  }
-
-  interface ITask {
-    title: string;
-  }
-
-  interface ITable<T> {
-    data: T;
-  }
-
-  interface IRelation<TSource, TTarget> {
-    source: TSource;
-    target: TTarget;
-  }
-
-  type IRelationConfig<TSource> = { [key: string]: IRelation<TSource, any> };
-
-  const oneToOne = <TSource, TTarget>(
-    target: ITable<TTarget>
-  ): IRelation<TSource, TTarget> => {
-    throw new Error();
-  };
-
-  class Person implements ITable<IPerson> {
-    data: IPerson = {} as IPerson;
-  }
-
-  class Task implements ITable<ITask> {
-    data: ITask = {} as ITask;
-  }
-
-  class Builder<TSource> {
-    configure<TRelationConfig extends IRelationConfig<TSource>>(
-      config: TRelationConfig
-    ): TRelationConfig {
-      throw new Error();
-    }
-  }
-
-  const define = <T>(): Builder<T> => {
-    throw new Error();
-  };
-
-  const TaskType = new Task();
-
-  const result = define<IPerson>().configure({
-    tasks: oneToOne(TaskType)
-  });
-}
-
-namespace Playground3 {
-    interface IPerson {
-      firstname: string;
-    }
-  
-    interface ITask {
-      title: string;
-    }
-  
-    interface ITable<T> {
-      data: T;
-    }
-  
-    interface IRelation<TSource, TTarget> {
-      source: TSource;
-      target: TTarget;
-    }
-  
-    type IRelationConfig<TSource> = { [key: string]: IRelation<TSource, any> };
-
-    type IConfig<TSource> = {
-        relations: IRelationConfig<TSource>
-    }
-  
-    const oneToOne = <TSource, TTarget>(
-      target: ITable<TTarget>
-    ): IRelation<TSource, TTarget> => {
-      throw new Error();
-    };
-  
-    class Person implements ITable<IPerson> {
-      data: IPerson = {} as IPerson;
-    }
-  
-    class Task implements ITable<ITask> {
-      data: ITask = {} as ITask;
-    }
-  
-    class Builder<TSource> {
-      configure<TConfig extends IConfig<TSource>>(
-        config: TConfig
-      ): TConfig {
-        throw new Error();
-      }
-    }
-  
-    const define = <T>(): Builder<T> => {
-      throw new Error();
-    };
-  
-    const TaskType = new Task();
-  
-    const result = define<IPerson>().configure({
-      relations: {
-        tasks: oneToOne(TaskType)
-      }
-    });
-
-    result.relations.tasks.source
-
-  }
-  
