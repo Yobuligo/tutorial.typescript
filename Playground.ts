@@ -1,5 +1,11 @@
 namespace Playground {
-  interface IPerson {
+  type IdType = string | number;
+
+  interface IRecord<TIdType extends IdType> {
+    id: TIdType;
+  }
+
+  interface IPerson extends IRecord<number> {
     firstname: string;
   }
 
@@ -20,17 +26,29 @@ namespace Playground {
     select(): TTarget[];
   }
 
-  class TableRepositoryDefault {
-    private readonly tables: Map<new () => Table<any>, Table<any>> = new Map();
+  type TableConstructor<
+    TRecord,
+    TTable extends Table<TRecord>
+  > = new () => TTable;
 
-    fetch<TTarget>(type: new () => Table<TTarget>): Table<TTarget> {
-      return this.tables.get(type) ?? this.create(type);
+  class TableRepositoryDefault {
+    private readonly tables: Map<
+      TableConstructor<any, Table<any>>,
+      Table<any>
+    > = new Map();
+
+    fetch<TTarget extends Table<any>>(
+      type: TableConstructor<any, TTarget>
+    ): TTarget {
+      return (this.tables.get(type) as unknown as TTarget) ?? this.create(type);
     }
 
-    private create<TTarget>(type: new () => Table<TTarget>): Table<TTarget> {
+    private create<TTarget extends new () => Table<any>>(
+      type: TTarget
+    ): TTarget {
       const table = new type();
       this.tables.set(type, table);
-      return table;
+      return table as unknown as TTarget;
     }
   }
 
@@ -49,13 +67,17 @@ namespace Playground {
   }
 
   abstract class Table<T> {
-    constructor(private readonly data: T[]) {}
+    constructor(private readonly db: Database) {}
 
-    oneToOne<TTarget>(type: new () => Table<TTarget>): IOneToOne<T, TTarget> {
+    protected oneToOne<TTarget>(
+      type: new () => Table<TTarget>
+    ): IOneToOne<T, TTarget> {
       return new OneToOne(type);
     }
 
-    belongsTo<TTarget>(type: new () => Table<TTarget>): IRelation<T, TTarget> {
+    protected belongsTo<TTarget>(
+      type: new () => Table<TTarget>
+    ): IRelation<T, TTarget> {
       throw new Error();
     }
 
@@ -69,23 +91,26 @@ namespace Playground {
   }
 
   class TaskTable extends Table<ITask> {
-    constructor() {
-      super([{ title: "First Task" }]);
-    }
-    readonly persons = this.belongsTo(PersonTable);
+    readonly persons = this.oneToOne(PersonTable);
   }
 
   class PersonTable extends Table<IPerson> {
-    constructor() {
-      super([{ firstname: "Stacey" }]);
-    }
     readonly tasks = this.oneToOne(TaskTable);
   }
 
-  const Task = new TaskTable();
-  const Person = new PersonTable();
+  class Database {
+    define<TTarget extends Table<any>>(
+      type: new (db: Database) => TTarget
+    ): TTarget {
+      return new type(this);
+    }
+  }
+
+  const db = new Database();
+  const Task = db.define(TaskTable);
 
   const tasks = Person.tasks.select();
+  debugger;
 
   // const Car = db.define<ICar>("cars").build();
   // const Task = db.define<ITask>("tasks");
@@ -135,4 +160,20 @@ namespace Playground {
   // const Car = carBuilder.addRelation(personBuilder).build();
 
   // const taskBuilder = new Builder<ITask>();
+}
+
+namespace Playground2 {
+  type IdType = string | number;
+
+  interface IRecord<TId extends IdType> {
+    id: TId;
+  }
+
+  interface ITable<TRecord extends IRecord<any>> {
+    select(): TRecord[];
+  }
+
+  interface ITableRepository {
+    fetch<TTable extends ITable<any>>(type: new () => TTable): TTable;
+  }
 }
