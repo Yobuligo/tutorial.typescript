@@ -15,7 +15,7 @@
 
 namespace TypeAwaited {
   /**
-   * This function send a {@link request}. The awaited result is then provided to a given {@link responseHandler}.
+   * This function sends a {@link request}. The awaited result is then provided to a given {@link responseHandler}.
    */
   const sendRequest = async <T>(
     request: () => T,
