@@ -1,14 +1,21 @@
 namespace Playground {
-  // const inputText = "text {{first}} with some more {{first}} and {{second}}";
-  // const regex = /({{.*?}})/;
-  
-  // const result = inputText.split(regex).filter(Boolean);
-  // console.log(result);
+  interface JSXElement {
+    firstname: string;
+  }
 
+  type TranslationResult = string | JSXElement;
 
-  const text = "text {{first}} with some more {{first}} and {{second}}";
-  const texts = text.split(/({{.*?}})/);
-  console.log(texts);
+  const translate = <T extends object>(
+    text: string,
+    placeholder: T
+  ): T extends { [key: string]: infer U } ? U extends JSXElement
+      ? JSXElement
+      : string
+    : string => {
+    throw new Error();
+  };
+
+  const text = translate("hello world", { jsxElement: {firstname: "Stacey"} });
 
   // type IdType = string | number;
 
