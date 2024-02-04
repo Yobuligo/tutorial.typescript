@@ -1,116 +1,127 @@
 namespace Playground {
-  type IdType = string | number;
+  // const inputText = "text {{first}} with some more {{first}} and {{second}}";
+  // const regex = /({{.*?}})/;
+  
+  // const result = inputText.split(regex).filter(Boolean);
+  // console.log(result);
 
-  interface IRecord<TIdType extends IdType> {
-    id: TIdType;
-  }
 
-  interface IPerson extends IRecord<number> {
-    firstname: string;
-  }
+  const text = "text {{first}} with some more {{first}} and {{second}}";
+  const texts = text.split(/({{.*?}})/);
+  console.log(texts);
 
-  interface ITask {
-    title: string;
-  }
+  // type IdType = string | number;
 
-  interface ICar {
-    brand: string;
-  }
+  // interface IRecord<TIdType extends IdType> {
+  //   id: TIdType;
+  // }
 
-  interface IRelation<TSource, TTarget> {
-    source: TSource;
-    target: TTarget;
-  }
+  // interface IPerson extends IRecord<number> {
+  //   firstname: string;
+  // }
 
-  interface IOneToOne<TSource, TTarget> extends IRelation<TSource, TTarget> {
-    select(): TTarget[];
-  }
+  // interface ITask {
+  //   title: string;
+  // }
 
-  type TableConstructor<
-    TRecord,
-    TTable extends Table<TRecord>
-  > = new () => TTable;
+  // interface ICar {
+  //   brand: string;
+  // }
 
-  class TableRepositoryDefault {
-    private readonly tables: Map<
-      TableConstructor<any, Table<any>>,
-      Table<any>
-    > = new Map();
+  // interface IRelation<TSource, TTarget> {
+  //   source: TSource;
+  //   target: TTarget;
+  // }
 
-    fetch<TTarget extends Table<any>>(
-      type: TableConstructor<any, TTarget>
-    ): TTarget {
-      return (this.tables.get(type) as unknown as TTarget) ?? this.create(type);
-    }
+  // interface IOneToOne<TSource, TTarget> extends IRelation<TSource, TTarget> {
+  //   select(): TTarget[];
+  // }
 
-    private create<TTarget extends new () => Table<any>>(
-      type: TTarget
-    ): TTarget {
-      const table = new type();
-      this.tables.set(type, table);
-      return table as unknown as TTarget;
-    }
-  }
+  // type TableConstructor<
+  //   TRecord,
+  //   TTable extends Table<TRecord>
+  // > = new () => TTable;
 
-  const TableRepository = new TableRepositoryDefault();
+  // class TableRepositoryDefault {
+  //   private readonly tables: Map<
+  //     TableConstructor<any, Table<any>>,
+  //     Table<any>
+  //   > = new Map();
 
-  class OneToOne<TSource, TTarget> implements IOneToOne<TSource, TTarget> {
-    constructor(private readonly type: new () => Table<TTarget>) {}
+  //   fetch<TTarget extends Table<any>>(
+  //     type: TableConstructor<any, TTarget>
+  //   ): TTarget {
+  //     return (this.tables.get(type) as unknown as TTarget) ?? this.create(type);
+  //   }
 
-    select(): TTarget[] {
-      const table = TableRepository.fetch(this.type);
-      return table.select();
-    }
+  //   private create<TTarget extends new () => Table<any>>(
+  //     type: TTarget
+  //   ): TTarget {
+  //     const table = new type();
+  //     this.tables.set(type, table);
+  //     return table as unknown as TTarget;
+  //   }
+  // }
 
-    source: TSource = {} as TSource;
-    target: TTarget = {} as TTarget;
-  }
+  // const TableRepository = new TableRepositoryDefault();
 
-  abstract class Table<T> {
-    constructor(private readonly db: Database) {}
+  // class OneToOne<TSource, TTarget> implements IOneToOne<TSource, TTarget> {
+  //   constructor(private readonly type: new () => Table<TTarget>) {}
 
-    protected oneToOne<TTarget>(
-      type: new () => Table<TTarget>
-    ): IOneToOne<T, TTarget> {
-      return new OneToOne(type);
-    }
+  //   select(): TTarget[] {
+  //     const table = TableRepository.fetch(this.type);
+  //     return table.select();
+  //   }
 
-    protected belongsTo<TTarget>(
-      type: new () => Table<TTarget>
-    ): IRelation<T, TTarget> {
-      throw new Error();
-    }
+  //   source: TSource = {} as TSource;
+  //   target: TTarget = {} as TTarget;
+  // }
 
-    select(): T[] {
-      throw new Error();
-    }
+  // abstract class Table<T> {
+  //   constructor(private readonly db: Database) {}
 
-    insert(): T[] {
-      throw new Error();
-    }
-  }
+  //   protected oneToOne<TTarget>(
+  //     type: new () => Table<TTarget>
+  //   ): IOneToOne<T, TTarget> {
+  //     return new OneToOne(type);
+  //   }
 
-  class TaskTable extends Table<ITask> {
-    readonly persons = this.oneToOne(PersonTable);
-  }
+  //   protected belongsTo<TTarget>(
+  //     type: new () => Table<TTarget>
+  //   ): IRelation<T, TTarget> {
+  //     throw new Error();
+  //   }
 
-  class PersonTable extends Table<IPerson> {
-    readonly tasks = this.oneToOne(TaskTable);
-  }
+  //   select(): T[] {
+  //     throw new Error();
+  //   }
 
-  class Database {
-    define<TTarget extends Table<any>>(
-      type: new (db: Database) => TTarget
-    ): TTarget {
-      return new type(this);
-    }
-  }
+  //   insert(): T[] {
+  //     throw new Error();
+  //   }
+  // }
 
-  const db = new Database();
-  const Task = db.define(TaskTable);
+  // class TaskTable extends Table<ITask> {
+  //   readonly persons = this.oneToOne(PersonTable);
+  // }
 
-  const tasks = Person.tasks.select();
-  debugger;
+  // class PersonTable extends Table<IPerson> {
+  //   readonly tasks = this.oneToOne(TaskTable);
+  // }
+
+  // class Database {
+  //   define<TTarget extends Table<any>>(
+  //     type: new (db: Database) => TTarget
+  //   ): TTarget {
+  //     return new type(this);
+  //   }
+  // }
+
+  // const db = new Database();
+  // const Task = db.define(TaskTable);
+
+  // const tasks = Person.tasks.select();
+  // debugger;
 
   // const Car = db.define<ICar>("cars").build();
   // const Task = db.define<ITask>("tasks");
@@ -163,17 +174,14 @@ namespace Playground {
 }
 
 namespace Playground2 {
-  type IdType = string | number;
-
-  interface IRecord<TId extends IdType> {
-    id: TId;
-  }
-
-  interface ITable<TRecord extends IRecord<any>> {
-    select(): TRecord[];
-  }
-
-  interface ITableRepository {
-    fetch<TTable extends ITable<any>>(type: new () => TTable): TTable;
-  }
+  // type IdType = string | number;
+  // interface IRecord<TId extends IdType> {
+  //   id: TId;
+  // }
+  // interface ITable<TRecord extends IRecord<any>> {
+  //   select(): TRecord[];
+  // }
+  // interface ITableRepository {
+  //   fetch<TTable extends ITable<any>>(type: new () => TTable): TTable;
+  // }
 }
