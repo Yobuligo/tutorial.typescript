@@ -11,7 +11,7 @@
  * 
  * And here comes some code 
  * ```
- * This is some test code
+ * // This is some test code
  * function test(){
  *      return "value"
  * }
