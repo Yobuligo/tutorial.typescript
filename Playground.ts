@@ -169,11 +169,39 @@ namespace Playground2 {
     id: TId;
   }
 
-  interface ITable<TRecord extends IRecord<any>> {
+  interface ITable<TRecord extends IRecord<IdType>> {
     select(): TRecord[];
   }
 
+  type TableConstructor<TTable extends ITable<any>> = new () => TTable;
+
   interface ITableRepository {
-    fetch<TTable extends ITable<any>>(type: new () => TTable): TTable;
+    fetch<TTable extends ITable<any>>(type: TableConstructor<TTable>): TTable;
   }
+
+  abstract class Table<TRecord extends IRecord<IdType>>
+    implements ITable<TRecord>
+  {
+    protected oneToOne() {}
+
+    protected oneToMany() {}
+    
+    protected manyToMany() {}
+
+    select(): TRecord[] {
+      throw new Error("Method not implemented.");
+    }
+  }
+
+  interface IPerson extends IRecord<number> {
+    firstname: string;
+  }
+
+  interface ITask extends IRecord<number> {
+    title: string;
+  }
+
+  class Person extends Table<IPerson> {}
+
+  class Task extends Table<ITask> {}
 }
