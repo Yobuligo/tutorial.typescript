@@ -1,21 +1,35 @@
 namespace Playground {
-  interface JSXElement {
-    firstname: string;
+  interface IValidator {
+    validate(): void;
   }
 
-  type TranslationResult = string | JSXElement;
-
-  const translate = <T extends object>(
-    text: string,
-    placeholder: T
-  ): T extends { [key: string]: infer U } ? U extends JSXElement
-      ? JSXElement
-      : string
-    : string => {
+  const validatorProvider = (): IValidator => {
     throw new Error();
   };
 
-  const text = translate("hello world", { jsxElement: {firstname: "Stacey"} });
+  const validatorConsumer = ()=>{
+    
+  }
+
+
+  type ValidatorRequest = (validator: IValidator) => void;
+  const requestValidator = (validator: ValidatorRequest) => {};
+
+
+  requestValidator()
+
+
+
+
+
+
+
+
+
+
+  // const now = new Date("2024-2-7")
+
+  // console.log(now.toLocaleDateString())
 
   // type IdType = string | number;
 
