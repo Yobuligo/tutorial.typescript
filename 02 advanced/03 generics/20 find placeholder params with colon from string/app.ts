@@ -45,27 +45,27 @@ namespace FindPlaceholderParamsWithColonFromString {
   /**
    * Now we can define several routes. Therefore we provide a configure method to get the Route type safe.
    */
-  type RoutesType = { [key: string]: string };
-  type RouteConfig<T> = {[P in keyof T]: number}  
-
-  // type RouteConfig<T extends RouteDefinition> = { [P in keyof T]: Route<T[P]> };
-
-  export const configure = <TRouteConfig extends RoutesType>(
+  type RoutesConfig = { [key: string]: Route<any> };
+  export const configure = <TRouteConfig extends RoutesConfig>(
     config: TRouteConfig
-  ): RouteConfig<TRouteConfig> => {
+  ): TRouteConfig => {
     return config;
   };
 
   /**
-   * Next we can provide our Routes by our configure function
+   * Next we can provide our Routes by our configure function.
+   * It would even be nicer if we only had to provide the path and the configure function returns an object with converts the path to objects of type Route.
+   * I tested it out, but here we lose the string itself, which means we are not able to get the parameter back
    */
   const Routes = configure({
-    home: "/",
-    persons: "/persons/:id",
-    personImage: "/persons/:id/image",
+    home: new Route("/"),
+    persons: new Route("/persons/:id"),
+    personImage: new Route("/persons/:id/image"),
   });
 
-  // type RouteDefinitionType = typeof RoutesDefinition;
-
-  // const Routes: RouteConfig<RouteDefinitionType> = { home: new Route("") };
+  /**
+   * And finally we can either access the origin path or we can convert it to a new path which contains the placeholder values
+   */
+  Routes.persons.toPath({ id: "Peter" });
+  Routes.persons.origin;
 }
