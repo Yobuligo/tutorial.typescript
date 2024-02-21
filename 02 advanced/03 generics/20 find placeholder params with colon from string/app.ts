@@ -45,26 +45,27 @@ namespace FindPlaceholderParamsWithColonFromString {
   /**
    * Now we can define several routes. Therefore we provide a configure method to get the Route type safe.
    */
-  type RouteDefinition = { [key: string]: string };
+  type RoutesType = { [key: string]: string };
+  type RouteConfig<T> = {[P in keyof T]: number}  
 
-  type RouteConfig<T extends RouteDefinition> = { [P in keyof T]: Route<T[P]> };
+  // type RouteConfig<T extends RouteDefinition> = { [P in keyof T]: Route<T[P]> };
 
-  export const configure = <TRouteDefinition extends RouteDefinition>(
-    config: TRouteDefinition
-  ): TRouteDefinition => {
+  export const configure = <TRouteConfig extends RoutesType>(
+    config: TRouteConfig
+  ): RouteConfig<TRouteConfig> => {
     return config;
   };
 
   /**
    * Next we can provide our Routes by our configure function
    */
-  const RoutesDefinition = configure({
+  const Routes = configure({
     home: "/",
     persons: "/persons/:id",
     personImage: "/persons/:id/image",
   });
 
-  type RouteDefinitionType = typeof RoutesDefinition;
+  // type RouteDefinitionType = typeof RoutesDefinition;
 
-  const Routes: RouteConfig<RouteDefinitionType> = { home: new Route("") };
+  // const Routes: RouteConfig<RouteDefinitionType> = { home: new Route("") };
 }
