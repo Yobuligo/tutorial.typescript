@@ -4,47 +4,47 @@
 
 export type IPredicate<T> = (value: T) => boolean;
 
-function regExpEscape(value: string) {
+function regExEscape(value: string) {
   return value.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
 }
 
 export function like<T>(value: T): IPredicate<T> {
   const valueString = String(value);
-  let regExpString = "";
+  let regExString = "";
 
   const valueStringList = valueString.split("*");
   if (valueStringList.length === 1) {
-    regExpString = regExpEscape(valueString);
+    regExString = regExEscape(valueString);
   } else {
     valueStringList.forEach((value, index) => {
       let handled = false;
 
       // starts with *? e.g. *ello
       if (index === 0 && value === "") {
-        regExpString += `^`;
+        regExString += `^`;
         handled = true;
       }
 
       // if it is not first and not last element e.g. l in h*l*o
       if (!handled && index < valueStringList.length - 1) {
-        regExpString += `${regExpEscape(value)}.*`;
+        regExString += `${regExEscape(value)}.*`;
         handled = true;
       }
 
       // ends with *? e.g. hell*
       if (!handled && index === valueStringList.length - 1 && value === "") {
-        regExpString += `$`;
+        regExString += `$`;
         handled = true;
       }
 
       // not handled yet? e.g. a in *a
       if (!handled) {
-        regExpString += `${regExpEscape(value)}`;
+        regExString += `${regExEscape(value)}`;
       }
     });
   }
 
-  const regex = new RegExp(regExpString);
+  const regex = new RegExp(regExString);
   return (operand: T) => {
     if (String(operand).match(regex)) {
       return true;

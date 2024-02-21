@@ -18,8 +18,10 @@ namespace ServiceProvider {
    * Therefore for each service a separate class has to be provided which is inherited from @class {Service}. The parameter @param {T} contains the general service type.
    */
   abstract class Service<T> {
-    instance: T = {} as T;
+    instance: T | undefined;
   }
+
+  type ServiceType<T> = new () => Service<T>;
 
   /**
    * An implementation of this interface is responsible for providing all information of a service definition.
@@ -29,7 +31,7 @@ namespace ServiceProvider {
    * The @property {service} represents a single instance which is either created by the @property {concreteServiceType} or was set via method put at the @interface {IServiceProvider}
    */
   interface IServiceDefinition<T> {
-    abstractServiceType: new () => Service<T>;
+    abstractServiceType: ServiceType<T>;
     concreteServiceType?: new () => T;
     serviceInstanceType: ServiceInstanceType;
     service?: T;
@@ -39,13 +41,13 @@ namespace ServiceProvider {
    * An implementation of this interface represents a service provider.
    */
   interface IServiceProvider {
-    contains<T>(abstractServiceType: new () => Service<T>): boolean;
-    fetch<T>(abstractServiceType: new () => Service<T>): T;
-    fetchOrNull<T>(abstractServiceType: new () => Service<T>): T | undefined;
-    put<T>(abstractServiceType: new () => Service<T>, service: T): void;
-    remove<T>(abstractServiceType: new () => Service<T>): void;
+    contains<T>(abstractServiceType: ServiceType<T>): boolean;
+    fetch<T>(abstractServiceType: ServiceType<T>): T;
+    fetchOrNull<T>(abstractServiceType: ServiceType<T>): T | undefined;
+    put<T>(abstractServiceType: ServiceType<T>, service: T): void;
+    remove<T>(abstractServiceType: ServiceType<T>): void;
     register<T>(
-      abstractServiceType: new () => Service<T>,
+      abstractServiceType: ServiceType<T>,
       concreteServiceType: new () => T,
       serviceInstanceType: ServiceInstanceType
     ): void;
@@ -54,11 +56,11 @@ namespace ServiceProvider {
   class ServiceProvider implements IServiceProvider {
     private serviceDefinitions: IServiceDefinition<unknown>[] = [];
 
-    contains<T>(abstractServiceType: new () => Service<T>): boolean {
+    contains<T>(abstractServiceType: ServiceType<T>): boolean {
       return this.findServiceDefinition(abstractServiceType) !== undefined;
     }
 
-    fetch<T>(abstractServiceType: new () => Service<T>): T {
+    fetch<T>(abstractServiceType: ServiceType<T>): T {
       const service = this.fetchOrNull(abstractServiceType);
       if (service !== undefined) {
         return service as T;
@@ -69,7 +71,7 @@ namespace ServiceProvider {
       );
     }
 
-    fetchOrNull<T>(abstractServiceType: new () => Service<T>): T | undefined {
+    fetchOrNull<T>(abstractServiceType: ServiceType<T>): T | undefined {
       const serviceDefinition = this.findServiceDefinition(abstractServiceType);
       if (serviceDefinition === undefined) {
         return;
@@ -90,7 +92,7 @@ namespace ServiceProvider {
       }
     }
 
-    put<T>(abstractServiceType: new () => Service<T>, service: T): void {
+    put<T>(abstractServiceType: ServiceType<T>, service: T): void {
       this.findServiceDefinition(abstractServiceType);
       const serviceDefinition: IServiceDefinition<T> = {
         abstractServiceType: abstractServiceType,
@@ -100,7 +102,7 @@ namespace ServiceProvider {
       this.addServiceDefinition(serviceDefinition);
     }
 
-    remove<T>(abstractServiceType: new () => Service<T>): void {
+    remove<T>(abstractServiceType: ServiceType<T>): void {
       const index = this.serviceDefinitions.findIndex((serviceDefinition) => {
         return serviceDefinition.abstractServiceType === abstractServiceType;
       });
@@ -113,7 +115,7 @@ namespace ServiceProvider {
     }
 
     register<T>(
-      abstractServiceType: new () => Service<T>,
+      abstractServiceType: ServiceType<T>,
       concreteServiceType: new () => T,
       serviceInstanceType: ServiceInstanceType
     ): void {
@@ -126,7 +128,7 @@ namespace ServiceProvider {
     }
 
     private findServiceDefinition<T>(
-      abstractServiceType: new () => Service<T>
+      abstractServiceType: ServiceType<T>
     ): IServiceDefinition<T> | undefined {
       return this.serviceDefinitions.find((serviceDefinition) => {
         return serviceDefinition.abstractServiceType === abstractServiceType;
