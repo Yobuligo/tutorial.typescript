@@ -18,30 +18,90 @@ namespace FindPlaceholderParamsWithColonFromString {
   type FilteredParts<Path> = Path extends `${infer PartA}/${infer PartB}`
     ? IsParameter<PartA> | FilteredParts<PartB>
     : IsParameter<Path>;
-  type Params<Path> = { [P in FilteredParts<Path>]: string };
+  type RouteParams<Path> = { [P in FilteredParts<Path>]: string };
 
   /**
-   * Now we define a class, that represents a route
+   * Here we have a general interface that represents any route, which has a origin path.
    */
-  class Route<TRoutePath extends string> {
-    constructor(readonly origin: TRoutePath) {}
+  interface IRoute<TPath extends string> {
+    readonly origin: TPath;
+  }
+
+  /**
+   * And here we have a static route, which means it has no parameters. It extends {@link IRoute}.
+   * It has a method toPath, which doesn't need any parameters
+   */
+  interface IStaticRoute<TPath extends string> extends IRoute<TPath> {
+    /**
+     * Returns the path
+     */
+    toPath(): string;
+  }
+
+  /**
+   * And here we have the specific route, which has parameters, which must be filled. It extends {@link IRoute}.
+   */
+  interface IParamRoute<TPath extends string> extends IRoute<TPath> {
+    /**
+     * Returns the path filled by the given {@link params}.
+     */
+    toPath<TParams extends RouteParams<TPath>>(params: TParams): string;
+  }
+
+  /**
+   * Now we need a class for each type of Route
+   * The static route directly return the origin path
+   */
+  class StaticRoute<TPath extends string> implements IStaticRoute<TPath> {
+    constructor(readonly origin: TPath) {}
+
+    toPath(): string {
+      return this.origin;
+    }
+  }
+
+  /**
+   * And here comes the implementation for the Route with parameters
+   */
+  class ParamRoute<TPath extends string> implements IParamRoute<TPath> {
+    constructor(readonly origin: TPath) {}
 
     /**
      * This methods converts the origin path by filling placeholders, which starts with a colon
      */
-    toPath<TRouteParams extends Params<TRoutePath>>(params: TRouteParams): string {
-      let path = this.origin;
+    toPath<TParams extends RouteParams<TPath>>(params: TParams): string {
+      let path: string = this.origin;
       for (const propName in params) {
-        path.replaceAll(`:${propName}`, params[propName]);
+        path = path.replaceAll(`:${propName}`, params[propName]);
       }
       return path;
     }
   }
 
   /**
+   * This type represents any route type, static or with parameters
+   */
+  type RouteType<TPath extends string> =
+    TPath extends `${infer _Prefix}:${infer _Param}${infer _Suffix}`
+      ? IParamRoute<TPath>
+      : IStaticRoute<TPath>;
+
+  /**
+   * To create routes we provide a function that returns the correct route type depending on the given path.
+   * It decides from the path, if the path is a static one or a path with parameters.
+   */
+  const route = <TPath extends string>(path: TPath): RouteType<TPath> => {
+    if (path.includes(":")) {
+      return new ParamRoute(path) as RouteType<TPath>;
+    } else {
+      return new StaticRoute(path) as RouteType<TPath>;
+    }
+  };
+
+  /**
    * Now we can define several routes. Therefore we provide a configure method to get the Route type safe.
    */
-  type RoutesConfig = { [key: string]: Route<any> };
+  type RoutesConfig = { [key: string]: IRoute<any> };
   export const configure = <TRouteConfig extends RoutesConfig>(
     config: TRouteConfig
   ): TRouteConfig => {
@@ -54,14 +114,17 @@ namespace FindPlaceholderParamsWithColonFromString {
    * I tested it out, but here we lose the string itself, which means we are not able to get the parameter back
    */
   const Routes = configure({
-    home: new Route("/"),
-    persons: new Route("/persons/:id"),
-    personImage: new Route("/persons/:id/image"),
+    home: route("/"),
+    persons: route("/persons/:id"),
+    personImage: route("/persons/:id/image"),
   });
 
   /**
    * And finally we can either access the origin path or we can convert it to a new path which contains the placeholder values
    */
-  Routes.persons.toPath({ id: "1234567" });
+  Routes.home.origin;
+  Routes.home.toPath();
   Routes.persons.origin;
+  Routes.persons.toPath({ id: "1234567" });
+  Routes.personImage.toPath({ id: "" });
 }
