@@ -18,11 +18,7 @@ namespace FindPlaceholderParamsWithColonFromString {
   type FilteredParts<Path> = Path extends `${infer PartA}/${infer PartB}`
     ? IsParameter<PartA> | FilteredParts<PartB>
     : IsParameter<Path>;
-  type ParamValue<Key> = Key extends `...${infer Anything}` ? string[] : any;
-  type RemovePrefixDots<Key> = Key extends `...${infer Name}` ? Name : Key;
-  type Params<Path> = {
-    [Key in FilteredParts<Path> as RemovePrefixDots<Key>]: ParamValue<Key>;
-  };
+  type Params<Path> = { [P in FilteredParts<Path>]: string };
 
   /**
    * Now we define a class, that represents a route
@@ -66,6 +62,6 @@ namespace FindPlaceholderParamsWithColonFromString {
   /**
    * And finally we can either access the origin path or we can convert it to a new path which contains the placeholder values
    */
-  Routes.persons.toPath({ id: "Peter" });
+  Routes.persons.toPath({ id: "1234567" });
   Routes.persons.origin;
 }
