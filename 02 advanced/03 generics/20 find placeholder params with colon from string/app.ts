@@ -23,13 +23,13 @@ namespace FindPlaceholderParamsWithColonFromString {
   /**
    * Now we define a class, that represents a route
    */
-  class Route<TPath extends string> {
-    constructor(readonly origin: TPath) {}
+  class Route<TRoutePath extends string> {
+    constructor(readonly origin: TRoutePath) {}
 
     /**
      * This methods converts the origin path by filling placeholders, which starts with a colon
      */
-    toPath<TParams extends Params<TPath>>(params: TParams): string {
+    toPath<TRouteParams extends Params<TRoutePath>>(params: TRouteParams): string {
       let path = this.origin;
       for (const propName in params) {
         path.replaceAll(`:${propName}`, params[propName]);
