@@ -31,7 +31,7 @@ namespace FindPlaceholderParamsWithColonFromString {
     constructor(readonly origin: TParams) {}
 
     /**
-     * This methods converts the origin path by filling placeholders
+     * This methods converts the origin path by filling placeholders, which starts with a colon
      */
     toPath(params: Params<TParams>): string {
       let path = this.origin;
