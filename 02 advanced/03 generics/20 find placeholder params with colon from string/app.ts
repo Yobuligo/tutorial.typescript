@@ -15,10 +15,10 @@ namespace FindPlaceholderParamsWithColonFromString {
   type IsParameter<Part> = Part extends `:${infer ParamName}`
     ? ParamName
     : never;
-  type FilteredParts<Path> = Path extends `${infer PartA}/${infer PartB}`
-    ? IsParameter<PartA> | FilteredParts<PartB>
-    : IsParameter<Path>;
-  type Params<Path> = { [P in FilteredParts<Path>]: string };
+  type FilteredParts<TPath> = TPath extends `${infer TPartA}/${infer TPartB}`
+    ? IsParameter<TPartA> | FilteredParts<TPartB>
+    : IsParameter<TPath>;
+  type Params<TPath> = { [P in FilteredParts<TPath>]: string };
 
   /**
    * Now we define a class, that represents a route
