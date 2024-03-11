@@ -52,9 +52,16 @@ namespace InferFunctionParameterTypes {
    * 4. When notifying the handlers, the notify method has to be called with the required params
    */
   type OnTickHandler = (tick: number) => void;
-  const event = new Event<OnTickHandler>();
-  event.addHandler((tick) => {
+  const tickEvent = new Event<OnTickHandler>();
+  tickEvent.addHandler((tick) => {
     console.log(`here is my tick`);
   });
-  event.notify(12);
+  tickEvent.notify(12);
+
+  type OnFinishHandler = () => void;
+  const finishEvent = new Event<OnFinishHandler>();
+  finishEvent.addHandler(() => {
+    console.log(`here is my on finish event`);
+  });
+  finishEvent.notify();
 }
