@@ -2,6 +2,13 @@ import { println } from "../../GlobalFunctions";
 
 // Also see examples on https://plusreturn.com/blog/6-awesome-tricks-with-the-spread-and-rest-operators-in-typescript-and-javascript-objects/
 
+/**
+ * Spread operator vs rest operator
+ * Spread syntax looks exactly like rest syntax. In a way, spread syntax is the opposite of rest syntax.
+ * Spread syntax "expands" an array into its elements,
+ * while rest syntax collects multiple elements and "condenses" them into a single element.
+ */
+
 // Copy all values from one array in another
 let values = ["one", "two", "three"];
 let values2 = [...values];

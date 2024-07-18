@@ -12,13 +12,13 @@ namespace FindPlaceholderParamsWithColonFromString {
   /**
    * What we need is a complex typing, which get the placeholders from a string
    */
-  type IsParameter<Part> = Part extends `:${infer ParamName}`
+  type IsParameter<TPart> = TPart extends `:${infer ParamName}`
     ? ParamName
     : never;
-  type FilteredParts<Path> = Path extends `${infer PartA}/${infer PartB}`
-    ? IsParameter<PartA> | FilteredParts<PartB>
-    : IsParameter<Path>;
-  type RouteParams<Path> = { [P in FilteredParts<Path>]: string };
+  type FilteredParts<TPath> = TPath extends `${infer TPartA}/${infer TPartB}`
+    ? IsParameter<TPartA> | FilteredParts<TPartB>
+    : IsParameter<TPath>;
+  type RouteParams<TPath> = { [P in FilteredParts<TPath>]: string };
 
   /**
    * Here we have a general interface that represents any route, which has a origin path.
