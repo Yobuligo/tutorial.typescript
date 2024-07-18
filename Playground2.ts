@@ -1,55 +1,44 @@
 namespace Playground2 {
-  type IsParameter<Part> = Part extends `:${infer ParamName}`
-    ? ParamName
-    : never;
-
-  type FilteredParts<Path> = Path extends `${infer PartA}/${infer PartB}`
-    ? IsParameter<PartA> | FilteredParts<PartB>
-    : IsParameter<Path>;
-
-  /**
-   * This type represents RouteParams, depending on the corresponding {@link Path}.
-   */
-  type RouteParams<Path> = { [P in FilteredParts<Path>]: string };
-
-  interface IRoute<TPath extends string> {
-    readonly origin: TPath;
+  interface IPrintable {
+    print(): void;
   }
 
-  interface IStaticRoute<TPath extends string> extends IRoute<TPath> {
-    toPath(): string;
+  class Person implements IPrintable {
+    private age: number = 28;
+    private firstname: string = "Stacey";
+
+    print() {
+      console.log(`My name is ${this.firstname} and I am ${this.age} old`);
+    }
   }
 
-  interface IParamRoute<TPath extends string> extends IRoute<TPath> {
-    toPath<TParams extends RouteParams<TPath>>(params: TParams): string;
+  class Printer1 {
+    constructor(private printFunction: Function) {}
+
+    print() {
+      this.printFunction();
+    }
   }
 
-  //   class Route<TPath extends string> {
-  //     constructor(readonly origin: TPath) {}
+  class Printer2 implements IPrintable {
+    constructor(private printable: IPrintable) {}
 
-  //     toPath(params: RouteParams<TPath>): string {
-  //       return "";
-  //     }
-  //   }
+    print() {
+      this.printable.print();
+    }
+  }
 
-  //   class SimpleRoute<T extends string> {
-  //     constructor(readonly origin: T) {}
-  //     toPath(): string {
-  //       return "";
-  //     }
-  //   }
+  const person = new Person();
+  person.print();
 
-  const route = <T extends string>(
-    path: T
-  ): T extends `${infer _Prefix}:${infer _PathName}${infer _Suffix}`
-    ? IParamRoute<T>
-    : IStaticRoute<T> => {
-    throw new Error();
-  };
+  const printer1 = new Printer1(person.print);
+  printer1.print();
 
-  const contract = route("/contracts/:contractId");
-  contract.toPath({ contractId: "" });
+  const printer2 = new Printer1(() => {
+    person.print();
+  });
+  printer2.print();
 
-  const contracts = route("/contracts");
-  contracts.toPath();
+  const printer3 = new Printer2(person);
+  printer3.print();
 }
