@@ -3,7 +3,8 @@
  * To not always write the same code for singletons, we can introduce a class, that creates the instances for you.
  *
  * Or even we can create a normal factory method in addition
- * Keep in mind that you will lose your possibility to inherit by using that approach
+ * Keep in mind that you will lose your possibility to inherit by using that approach:
+ * for that find a solution at the end of this chapter
  */
 
 namespace GenericSingleton {
@@ -38,11 +39,11 @@ namespace GenericSingleton {
    * Our abstract class, which provides a generic getInstance method that creates an instance depending on the underlying class
    */
   abstract class Singleton {
-    static create<T>(this: new () => T): T {
+    static create<T>(this: Constructor<T>): T {
       return new this();
     }
 
-    static getInstance<T>(this: new () => T): T {
+    static getInstance<T>(this: Constructor<T>): T {
       return SingletonRepo.getInstance().fetch(this);
     }
   }
@@ -56,4 +57,34 @@ namespace GenericSingleton {
   FirstService.getInstance().sayHello();
   const firstService = FirstService.create();
   firstService.sayHello();
+
+  /**
+   * An here comes an approach to not lose your possibility to inherit
+   * Instead user the same possibility like for companion objects
+   * Provide a function that adds functionality and that takes another class to inherit from
+   */
+  function CompanionSingleton<TBase extends new (...args: any[]) => any>(
+    Base: TBase
+  ) {
+    return class Singleton extends Base {
+      static getInstance<T>(this: new () => T) {
+        return SingletonRepo.getInstance().fetch(this);
+      }
+    };
+  }
+
+  class SecondService {
+    sayHelloSecondService() {
+      console.log("Say hello second service");
+    }
+  }
+
+  class ThirdService extends CompanionSingleton(SecondService) {
+    sayHelloThirdService() {
+      console.log("Say hello third service");
+    }
+  }
+
+  ThirdService.getInstance().sayHelloSecondService();
+  ThirdService.getInstance().sayHelloThirdService();
 }
