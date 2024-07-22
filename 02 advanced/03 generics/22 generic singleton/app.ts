@@ -38,20 +38,22 @@ namespace GenericSingleton {
    * Our abstract class, which provides a generic getInstance method that creates an instance depending on the underlying class
    */
   abstract class Singleton {
+    static create<T>(this: new () => T): T {
+      return new this();
+    }
+
     static getInstance<T>(this: new () => T): T {
       return SingletonRepo.getInstance().fetch(this);
     }
   }
 
   class FirstService extends Singleton {
-    constructor() {
-      super();
-    }
-
     sayHello() {
       console.log("Hello");
     }
   }
 
   FirstService.getInstance().sayHello();
+  const firstService = FirstService.create();
+  firstService.sayHello();
 }
