@@ -35,7 +35,7 @@ dotenv.config({ path: path.resolve(process.cwd(), envFile) });
 
 /**
  * The AppConfig provides access to the environment variables
- * This is just syntactical sugar, for an easier access
+ * This is just syntactical sugar, for an easier accessT
  */
 const AppConfig = {
   dbHost: process.env.DB_HOST,
