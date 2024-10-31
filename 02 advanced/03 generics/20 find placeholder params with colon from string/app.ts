@@ -24,7 +24,7 @@ namespace FindPlaceholderParamsWithColonFromString {
     : IsParameter<TPath>;
 
   /**
-   * This type represents an object type, that contains all parameters of the given {@link TPath}.
+   * This type represents an object type, that contains properties for all parameters of the given {@link TPath}.
    */
   type RouteParams<TPath> = { [P in FilteredParts<TPath>]: string };
 
@@ -71,7 +71,7 @@ namespace FindPlaceholderParamsWithColonFromString {
   /**
    * And here comes the implementation for the Route with parameters
    */
-  class DynamicRoute<TPath extends string> implements IParamRoute<TPath> {
+  class ParamRoute<TPath extends string> implements IParamRoute<TPath> {
     constructor(readonly origin: TPath) {}
 
     /**
@@ -87,7 +87,7 @@ namespace FindPlaceholderParamsWithColonFromString {
   }
 
   /**
-   * This type represents any route type, static or with parameters
+   * This type represents any route type, which can be either static, if {@link TPath} contains no parameters, otherwise a param route.
    */
   type RouteType<TPath extends string> =
     TPath extends `${infer _Prefix}:${infer _Param}${infer _Suffix}`
@@ -100,7 +100,7 @@ namespace FindPlaceholderParamsWithColonFromString {
    */
   const route = <TPath extends string>(path: TPath): RouteType<TPath> => {
     if (path.includes(":")) {
-      return new DynamicRoute(path) as RouteType<TPath>;
+      return new ParamRoute(path) as RouteType<TPath>;
     } else {
       return new StaticRoute(path) as RouteType<TPath>;
     }
