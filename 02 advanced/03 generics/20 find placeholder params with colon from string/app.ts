@@ -10,14 +10,22 @@
 
 namespace FindPlaceholderParamsWithColonFromString {
   /**
-   * What we need is a complex typing, which get the placeholders from a string
+   * This type represents true, if {@link TPart} contains a parameter, otherwise false.
    */
   type IsParameter<TPart> = TPart extends `:${infer ParamName}`
     ? ParamName
     : never;
+
+  /**
+   * This type represents a union type which contains of all extracted parameters from the given type {@link TPath}.
+   */
   type FilteredParts<TPath> = TPath extends `${infer TPartA}/${infer TPartB}`
     ? IsParameter<TPartA> | FilteredParts<TPartB>
     : IsParameter<TPath>;
+
+  /**
+   * This type represents an object type, that contains all parameters of the given {@link TPath}.
+   */
   type RouteParams<TPath> = { [P in FilteredParts<TPath>]: string };
 
   /**
@@ -63,7 +71,7 @@ namespace FindPlaceholderParamsWithColonFromString {
   /**
    * And here comes the implementation for the Route with parameters
    */
-  class ParamRoute<TPath extends string> implements IParamRoute<TPath> {
+  class DynamicRoute<TPath extends string> implements IParamRoute<TPath> {
     constructor(readonly origin: TPath) {}
 
     /**
@@ -92,7 +100,7 @@ namespace FindPlaceholderParamsWithColonFromString {
    */
   const route = <TPath extends string>(path: TPath): RouteType<TPath> => {
     if (path.includes(":")) {
-      return new ParamRoute(path) as RouteType<TPath>;
+      return new DynamicRoute(path) as RouteType<TPath>;
     } else {
       return new StaticRoute(path) as RouteType<TPath>;
     }
