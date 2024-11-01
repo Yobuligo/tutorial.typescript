@@ -1,7 +1,7 @@
 namespace Playground {
   /**
    * This type returns true, if {@link TPart} contains a parameter, whose value can be injected during runtime, otherwise false.
-   * 
+   *
    * A parameter is identified by a starting colon like :id, otherwise it is identified as a common string.
    */
   type IsParameter<TPart extends string> = TPart extends `:${infer ParamName}`
@@ -10,7 +10,7 @@ namespace Playground {
 
   /**
    * This type represents a union type which contains all extracted parameter names from the given {@link TPath}.
-   * 
+   *
    * E.g.: /projects/:projectId/system/:systemId becomes "projectId" | "systemId".
    */
   type FilteredParts<TPath extends string> =
@@ -19,44 +19,57 @@ namespace Playground {
       : IsParameter<TPath>;
 
   /**
-   * This type represents an object type, that contains properties for each parameter of the given {@link TPath}.
-   * It is required for providing parameter values of type string for each parameter of {@link TPath}.
+   * This type represents an object type, that contains a property for each parameter of the given {@link TPath}.
+   * It is required for providing values of type string for the parameters of {@link TPath}.
+   *
+   * @example
+   * type MyType = RouteParams<"/projects/:projectId/system/:systemId">;
+   * type EqualTo = {
+   *   projectId: string,
+   *   systemId: string,
+   * };
    */
   type RouteParams<TPath extends string> = {
     [P in FilteredParts<TPath>]: string;
   };
 
   /**
-   * Here we have a general interface that represents any route, which has a origin path.
+   * An implementation of this interface represents any route. A route is expressed by a string like:
+   * - /project
+   * - /project/:projectId
    */
   interface IRoute<TPath extends string> {
+    /**
+     * Returns the original route including placeholders like :id.
+     */
     readonly origin: TPath;
   }
 
   /**
-   * And here we have a static route, which means it has no parameters. It extends {@link IRoute}.
-   * It has a method toPath, which doesn't need any parameters
+   * An implementation of this interface represents a static route for path {@link TPath}. A static route contains no parameters.
    */
   interface IStaticRoute<TPath extends string> extends IRoute<TPath> {
     /**
-     * Returns the path
+     * Returns the path {@link TPath} of this route, which means in this case {@link IRoute.origin}.
+     * This method is required for polymorphic calls.
      */
     toPath(): string;
   }
 
   /**
-   * And here we have the specific route, which has parameters, which must be filled. It extends {@link IRoute}.
+   * An implementation of this interface represents a route for path {@link TPath} that contains parameter(s) like:
+   * - /project/:projectId
+   * - /project/:projectId/system/:systemId
    */
   interface IParamRoute<TPath extends string> extends IRoute<TPath> {
     /**
-     * Returns the path filled by the given {@link params}.
+     * Returns the path {@link TPath} of this route, whose parameters are filled by the given {@link params} values.
      */
     toPath<TParams extends RouteParams<TPath>>(params: TParams): string;
   }
 
   /**
-   * Now we need a class for each type of Route
-   * The static route directly return the origin path
+   * This class represents a static route for path {@link TPath}.
    */
   class StaticRoute<TPath extends string> implements IStaticRoute<TPath> {
     constructor(readonly origin: TPath) {}
@@ -67,13 +80,13 @@ namespace Playground {
   }
 
   /**
-   * And here comes the implementation for the Route with parameters
+   * This class represents a route having parameter(s).
    */
-  class DynamicRoute<TPath extends string> implements IParamRoute<TPath> {
+  class ParamRoute<TPath extends string> implements IParamRoute<TPath> {
     constructor(readonly origin: TPath) {}
 
     /**
-     * This methods converts the origin path by filling placeholders, which starts with a colon
+     * This method converts the origin {@link TPath} to a path whose parameters are filled by {@link params} values and returns it.
      */
     toPath<TParams extends RouteParams<TPath>>(params: TParams): string {
       let path: string = this.origin;
@@ -98,7 +111,7 @@ namespace Playground {
    */
   const route = <TPath extends string>(path: TPath): RouteType<TPath> => {
     if (path.includes(":")) {
-      return new DynamicRoute(path) as RouteType<TPath>;
+      return new ParamRoute(path) as RouteType<TPath>;
     } else {
       return new StaticRoute(path) as RouteType<TPath>;
     }
