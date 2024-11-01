@@ -98,7 +98,8 @@ namespace Playground {
   }
 
   /**
-   * This type represents any route type, static or with parameters
+   * This type represents a {@link IStaticRoute} if the given {@link TPath} contains no parameters, 
+   * otherwise {@link IParamRoute} if {@link TPath} contains parameters.
    */
   type RouteType<TPath extends string> =
     TPath extends `${infer _Prefix}:${infer _Param}${infer _Suffix}`
@@ -106,8 +107,8 @@ namespace Playground {
       : IStaticRoute<TPath>;
 
   /**
-   * To create routes we provide a function that returns the correct route type depending on the given path.
-   * It decides from the path, if the path is a static one or a path with parameters.
+   * This function is responsible for creating instances if type {@link IRoute}.
+   * If the given {@link path} contains no parameters it creates a route of type {@link IStaticRoute}, otherwise {@link IParamRoute}.
    */
   const route = <TPath extends string>(path: TPath): RouteType<TPath> => {
     if (path.includes(":")) {
@@ -118,9 +119,16 @@ namespace Playground {
   };
 
   /**
-   * Now we can define several routes. Therefore we provide a configure method to get the Route type safe.
+   * This type represents an object type that can contain of routes of type {@link IRoute}.
+   * It is used to define routes in a typesafe way.
    */
   type RoutesConfig = { [key: string]: IRoute<any> };
+
+  /**
+   * This function is required to create an object that contains routes of type {@link IRoute} by the given {@link config}.
+   * This config can be used to access the routes in a typesafe way. 
+   * The goal is to have the route paths defined as literals only at one central point, this config.
+   */
   export const configure = <TRouteConfig extends RoutesConfig>(
     config: TRouteConfig
   ): TRouteConfig => {
