@@ -54,6 +54,9 @@ namespace FindPlaceholderParamsWithColonFromString {
 
   /**
    * An implementation of this interface represents a static route for path {@link TPath}. A static route contains no parameters.
+   *
+   * @example
+   * /persons
    */
   interface IStaticRoute<TPath extends string> extends IRoute<TPath> {
     /**
@@ -64,9 +67,11 @@ namespace FindPlaceholderParamsWithColonFromString {
   }
 
   /**
-   * An implementation of this interface represents a route for path {@link TPath} that contains parameter(s) like:
-   * - /project/:projectId
-   * - /project/:projectId/system/:systemId
+   * An implementation of this interface represents a route for path {@link TPath} that contains parameter(s)
+   *
+   * @example
+   * /project/:projectId
+   * /project/:projectId/system/:systemId
    */
   interface IParamRoute<TPath extends string> extends IRoute<TPath> {
     /**
@@ -105,7 +110,7 @@ namespace FindPlaceholderParamsWithColonFromString {
   }
 
   /**
-   * This type represents a route type, a {@link IStaticRoute} if the given {@link TPath} contains no parameters, 
+   * This type represents the route type {@link IStaticRoute} if the given {@link TPath} contains no parameters,
    * otherwise {@link IParamRoute} if {@link TPath} contains parameters.
    */
   type RouteType<TPath extends string> =
@@ -133,10 +138,10 @@ namespace FindPlaceholderParamsWithColonFromString {
 
   /**
    * This function is required to create an object using the given {@link config} which contains routes of type {@link IRoute}.
-   * This config can be used to access the routes in a typesafe way. 
+   * This config can be used to access the routes in a typesafe way.
    * The goal is to have the route paths defined as literals only at one central point, this config.
    */
-  export const configure = <TRouteConfig extends RoutesConfig>(
+  export const configureRoutes = <TRouteConfig extends RoutesConfig>(
     config: TRouteConfig
   ): TRouteConfig => {
     return config;
@@ -147,7 +152,7 @@ namespace FindPlaceholderParamsWithColonFromString {
    * It would even be nicer if we only had to provide the path and the configure function returns an object with converts the path to objects of type Route.
    * I tested it out, but here we lose the string itself, which means we are not able to get the parameter back
    */
-  const Routes = configure({
+  const Routes = configureRoutes({
     home: route("/"),
     persons: route("/persons/:id"),
     personImage: route("/persons/:id/image"),
