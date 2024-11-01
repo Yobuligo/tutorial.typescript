@@ -1,19 +1,30 @@
 namespace Playground {
   /**
-   * This type returns true, if {@link TPart} contains a parameter, otherwise false.
+   * This type returns true, if {@link TPart} contains a parameter, whose value can be injected during runtime, otherwise false.
+   * 
+   * A parameter is identified by a starting colon like :id, otherwise it is identified as a common string.
    */
-  type IsParameter<TPart> = TPart extends `:${infer ParamName}`
+  type IsParameter<TPart extends string> = TPart extends `:${infer ParamName}`
     ? ParamName
     : never;
 
   /**
-   * This type represents a union type which contains all extracted parameters from the given type {@link TPath}.
+   * This type represents a union type which contains all extracted parameter names from the given {@link TPath}.
+   * 
+   * E.g.: /projects/:projectId/system/:systemId becomes "projectId" | "systemId".
    */
-  type FilteredParts<TPath> = TPath extends `${infer TPartA}/${infer TPartB}`
-    ? IsParameter<TPartA> | FilteredParts<TPartB>
-    : IsParameter<TPath>;
+  type FilteredParts<TPath extends string> =
+    TPath extends `${infer TPartA}/${infer TPartB}`
+      ? IsParameter<TPartA> | FilteredParts<TPartB>
+      : IsParameter<TPath>;
 
-  type RouteParams<TPath> = { [P in FilteredParts<TPath>]: string };
+  /**
+   * This type represents an object type, that contains properties for each parameter of the given {@link TPath}.
+   * It is required for providing parameter values of type string for each parameter of {@link TPath}.
+   */
+  type RouteParams<TPath extends string> = {
+    [P in FilteredParts<TPath>]: string;
+  };
 
   /**
    * Here we have a general interface that represents any route, which has a origin path.
