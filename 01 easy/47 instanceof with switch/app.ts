@@ -13,6 +13,7 @@ namespace InstanceOfClassType {
 
   const object = new Firstname();
 
+
   switch (object.constructor) {
     case Firstname: {
       console.log(`Object is of type Firstname`);
