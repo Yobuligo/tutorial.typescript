@@ -10,47 +10,78 @@
 
 namespace FindPlaceholderParamsWithColonFromString {
   /**
-   * What we need is a complex typing, which get the placeholders from a string
+   * This type returns true, if {@link TPart} contains a parameter, whose value can be injected during runtime, otherwise false.
+   *
+   * A parameter is identified by a starting colon like :id, otherwise it is identified as a common string.
    */
   type IsParameter<TPart> = TPart extends `:${infer ParamName}`
     ? ParamName
     : never;
+
+  /**
+   * This type represents a union type which contains all extracted parameter names from the given {@link TPath}.
+   *
+   * E.g.: /projects/:projectId/system/:systemId becomes "projectId" | "systemId".
+   */
   type FilteredParts<TPath> = TPath extends `${infer TPartA}/${infer TPartB}`
     ? IsParameter<TPartA> | FilteredParts<TPartB>
     : IsParameter<TPath>;
+
+  /**
+   * This type represents an object type, that contains a property for each parameter of the given {@link TPath}.
+   * It is required for providing values of type string for the parameters of {@link TPath}.
+   *
+   * @example
+   * type MyType = RouteParams<"/projects/:projectId/system/:systemId">;
+   * type EqualTo = {
+   *   projectId: string,
+   *   systemId: string,
+   * };
+   */
   type RouteParams<TPath> = { [P in FilteredParts<TPath>]: string };
 
   /**
-   * Here we have a general interface that represents any route, which has a origin path.
+   * An implementation of this interface represents any route. A route is expressed by a string like:
+   * - /project
+   * - /project/:projectId
    */
   interface IRoute<TPath extends string> {
+    /**
+     * Returns the original route including placeholders like :id if available.
+     */
     readonly origin: TPath;
   }
 
   /**
-   * And here we have a static route, which means it has no parameters. It extends {@link IRoute}.
-   * It has a method toPath, which doesn't need any parameters
+   * An implementation of this interface represents a static route for path {@link TPath}. A static route contains no parameters.
+   *
+   * @example
+   * /persons
    */
   interface IStaticRoute<TPath extends string> extends IRoute<TPath> {
     /**
-     * Returns the path
+     * Returns the path {@link TPath} of this route, which means in this case {@link IRoute.origin}.
+     * This method is required for polymorphic calls.
      */
     toPath(): string;
   }
 
   /**
-   * And here we have the specific route, which has parameters, which must be filled. It extends {@link IRoute}.
+   * An implementation of this interface represents a route for path {@link TPath} that contains parameter(s)
+   *
+   * @example
+   * /project/:projectId
+   * /project/:projectId/system/:systemId
    */
   interface IParamRoute<TPath extends string> extends IRoute<TPath> {
     /**
-     * Returns the path filled by the given {@link params}.
+     * Returns the path {@link TPath} of this route, whose parameters are filled by the given {@link params} values.
      */
     toPath<TParams extends RouteParams<TPath>>(params: TParams): string;
   }
 
   /**
-   * Now we need a class for each type of Route
-   * The static route directly return the origin path
+   * This class represents a static route for path {@link TPath}.
    */
   class StaticRoute<TPath extends string> implements IStaticRoute<TPath> {
     constructor(readonly origin: TPath) {}
@@ -61,13 +92,13 @@ namespace FindPlaceholderParamsWithColonFromString {
   }
 
   /**
-   * And here comes the implementation for the Route with parameters
+   * This class represents a route having parameter(s).
    */
   class ParamRoute<TPath extends string> implements IParamRoute<TPath> {
     constructor(readonly origin: TPath) {}
 
     /**
-     * This methods converts the origin path by filling placeholders, which starts with a colon
+     * This method converts the origin {@link TPath} to a path whose parameters are filled by {@link params} values and returns it.
      */
     toPath<TParams extends RouteParams<TPath>>(params: TParams): string {
       let path: string = this.origin;
@@ -79,7 +110,8 @@ namespace FindPlaceholderParamsWithColonFromString {
   }
 
   /**
-   * This type represents any route type, static or with parameters
+   * This type represents the route type {@link IStaticRoute} if the given {@link TPath} contains no parameters,
+   * otherwise {@link IParamRoute} if {@link TPath} contains parameters.
    */
   type RouteType<TPath extends string> =
     TPath extends `${infer _Prefix}:${infer _Param}${infer _Suffix}`
@@ -87,8 +119,8 @@ namespace FindPlaceholderParamsWithColonFromString {
       : IStaticRoute<TPath>;
 
   /**
-   * To create routes we provide a function that returns the correct route type depending on the given path.
-   * It decides from the path, if the path is a static one or a path with parameters.
+   * This function is responsible for creating instances of type {@link IRoute}.
+   * If the given {@link path} contains no parameters it creates a route of type {@link IStaticRoute}, otherwise {@link IParamRoute}.
    */
   const route = <TPath extends string>(path: TPath): RouteType<TPath> => {
     if (path.includes(":")) {
@@ -99,10 +131,17 @@ namespace FindPlaceholderParamsWithColonFromString {
   };
 
   /**
-   * Now we can define several routes. Therefore we provide a configure method to get the Route type safe.
+   * This type represents an object type that can contain of routes of type {@link IRoute}.
+   * It is used to define routes in a typesafe way.
    */
   type RoutesConfig = { [key: string]: IRoute<any> };
-  export const configure = <TRouteConfig extends RoutesConfig>(
+
+  /**
+   * This function is required to create an object using the given {@link config} which contains routes of type {@link IRoute}.
+   * This config can be used to access the routes in a typesafe way.
+   * The goal is to have the route paths defined as literals only at one central point, this config.
+   */
+  export const configureRoutes = <TRouteConfig extends RoutesConfig>(
     config: TRouteConfig
   ): TRouteConfig => {
     return config;
@@ -113,7 +152,7 @@ namespace FindPlaceholderParamsWithColonFromString {
    * It would even be nicer if we only had to provide the path and the configure function returns an object with converts the path to objects of type Route.
    * I tested it out, but here we lose the string itself, which means we are not able to get the parameter back
    */
-  const Routes = configure({
+  const Routes = configureRoutes({
     home: route("/"),
     persons: route("/persons/:id"),
     personImage: route("/persons/:id/image"),

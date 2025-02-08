@@ -34,6 +34,7 @@ namespace Playground {
     }
   }
 
+<<<<<<< HEAD
   interface IIterator<T> {
     hasNext(): boolean;
     next(): T;
@@ -249,4 +250,49 @@ namespace Playground {
   if (isPerson(newPerson)) {
     console.log(newPerson.age);
   }
+=======
+  const SP: IServiceProvider = new ServiceProvider();
+
+  interface IMyService {
+    sayHello(): void;
+  }
+
+  let counter = 0;
+  const uuid = () => {
+    counter++;
+    return counter;
+  };
+
+  @Service()
+  class MyService implements IMyService {
+    private id = uuid();
+
+    sayHello() {
+      console.log(`Hallo, ich bin MyService mit der uuid ${this.id}`);
+    }
+
+    private print() {
+      console.log("Test");
+    }
+  }
+
+  //   class MyService2 {
+  //     private myService = SP.fetch(MyService);
+
+  //     test() {
+  //       this.myService.sayHello();
+  //     }
+  //   }
+
+  //   class MyMock implements IMyService {
+  //     sayHello(): void {
+  //       console.log("Hallo, ich bin MyMock");
+  //     }
+  //   }
+
+  repeat(5, () => {
+    const myService = SP.fetch(MyService);
+    myService.sayHello();
+  });
+>>>>>>> d9cc4737c8926f3a9da2341c48fefb4adf23462e
 }
