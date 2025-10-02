@@ -1,3 +1,4 @@
+import exp = require("constants");
 import { User } from "./data/User";
 import { UserRepo } from "./data/UserRepo";
 
@@ -24,6 +25,29 @@ describe("Mock method", () => {
     expect(mockCreate).toHaveBeenCalled();
     expect(mockCreate).toHaveBeenCalledTimes(1);
     expect(mockCreate).toHaveBeenCalledWith("Doris");
+  });
+
+  it("Returns mocked firstname", () => {
+    const user = new User();
+    const mockGetFirstname = jest
+      .spyOn(user, "getFirstname")
+      .mockReturnValue("Emil");
+
+    const firstname = user.getFirstname();
+    expect(firstname).toBe("Emil");
+    expect(mockGetFirstname).toHaveBeenCalled();
+  });
+
+  it("Returns mocked promise value", async () => {
+    const expectedUser = new User();
+    const userRepo = new UserRepo();
+    const mockFindById = jest
+      .spyOn(userRepo, "findById")
+      .mockResolvedValue(expectedUser);
+
+    const currentUser = await userRepo.findById("123");
+    expect(currentUser).toBe(expectedUser);
+    expect(mockFindById).toHaveBeenCalled();
   });
 
   it("Creates User", () => {

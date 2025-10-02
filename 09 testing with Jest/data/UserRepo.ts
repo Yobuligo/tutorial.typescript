@@ -10,4 +10,8 @@ export class UserRepo {
   create(firstname: string): User {
     return new User(firstname);
   }
+
+  async findById(id: string): Promise<User> {
+    return new User();
+  }
 }
